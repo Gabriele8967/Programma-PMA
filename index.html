@@ -15,11 +15,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Times New Roman', Times, serif;
+            background: #ffffff;
             min-height: 100vh;
-            color: #333;
-            line-height: 1.6;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20px;
         }
 
         .container {
@@ -29,28 +31,31 @@
         }
 
         .header {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+            padding: 30px;
+            border: 2px solid #2c3e50;
             margin-bottom: 30px;
             text-align: center;
+            border-radius: 0;
         }
 
         .logo {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #2c3e50;
         }
 
         .header h1 {
             color: #2c3e50;
-            font-size: 2.2em;
+            font-size: 1.8em;
             margin-bottom: 10px;
+            font-weight: bold;
         }
 
         .header p {
-            color: #7f8c8d;
-            font-size: 1.1em;
+            color: #2c3e50;
+            font-size: 1em;
+            font-style: italic;
         }
 
         .form-section {
@@ -584,141 +589,76 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-            .patient-info { page-break-inside: avoid; }
-            .section-header { page-break-after: avoid; }
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; min-height: 100vh; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; letter-spacing: 1px; }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #3498db; }
-        .section-header { background: #f8f9fa; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #3498db; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; position: relative; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .gdpr-section { background: #e8f4f8; border: 2px solid #17a2b8; border-radius: 12px; padding: 20px; margin: 20px 0; }
-        .rights-list { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .rights-item { padding: 8px 0; border-bottom: 1px solid #f8f9fa; display: flex; align-items: center; }
-        .rights-item::before { content: '✓'; color: #28a745; font-weight: bold; margin-right: 10px; width: 20px; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #3498db; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
+        @page { size: A4; margin: 1.5cm; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 9pt; line-height: 1.2; color: #000; background: #fff; margin: 0; padding: 0; }
+        .document-container { max-width: 100%; margin: 0; background: white; }
+        .header { border: 1px solid #000; padding: 10px; text-align: center; margin-bottom: 15px; }
+        .logo { font-weight: bold; font-size: 12pt; margin-bottom: 5px; }
+        .header-info { font-size: 8pt; margin-top: 5px; }
+        .title { font-weight: bold; font-size: 11pt; text-align: center; margin: 0 0 15px 0; text-decoration: underline; }
+        .section { margin-bottom: 10px; }
+        .section-title { font-weight: bold; font-size: 9pt; margin-bottom: 5px; text-decoration: underline; }
+        .patient-data { border: 1px solid #000; padding: 8px; margin: 8px 0; }
+        .data-row { margin-bottom: 3px; }
+        .label { font-weight: bold; display: inline-block; width: 100px; }
+        .value { border-bottom: 1px solid #000; display: inline-block; min-width: 200px; padding: 0 5px; }
+        .content-text { text-align: justify; margin: 5px 0; }
+        .signature-area { margin-top: 20px; display: table; width: 100%; }
+        .signature-cell { display: table-cell; width: 50%; text-align: center; padding: 10px; }
+        .signature-line { border-bottom: 1px solid #000; margin: 15px auto 5px; width: 150px; }
+        .footer { font-size: 7pt; text-align: center; margin-top: 15px; border-top: 1px solid #000; padding-top: 5px; }
     </style>
 </head>
 <body>
     <div class="document-container">
         <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+            <div class="logo">CENTRO BIOFERTILITY</div>
+            <div class="header-info">Via del Centro Medico, 123 - 00100 Roma | Tel: 06-1234567</div>
+        </div>
+
+        <div class="title">INFORMATIVA E CONSENSO AL TRATTAMENTO DEI DATI PERSONALI<br>(Art. 13-14 GDPR UE 2016/679)</div>
+
+        <div class="section">
+            <div class="section-title">DATI IDENTIFICATIVI</div>
+            <div class="patient-data">
+                <div class="data-row"><span class="label">Paziente:</span> <span class="value">[PAZIENTE_NOME]</span></div>
+                <div class="data-row"><span class="label">Nato/a a:</span> <span class="value">[PAZIENTE_LUOGO_NASCITA]</span> <span class="label">il:</span> <span class="value">[PAZIENTE_DATA_NASCITA]</span></div>
+                <div class="data-row"><span class="label">Codice Fiscale:</span> <span class="value">[PAZIENTE_CF]</span></div>
+                <div class="data-row"><span class="label">Residenza:</span> <span class="value">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span></div>
+            </div>
+            <div class="patient-data">
+                <div class="data-row"><span class="label">Partner:</span> <span class="value">[PARTNER_NOME]</span></div>
+                <div class="data-row"><span class="label">Nato/a a:</span> <span class="value">[PARTNER_LUOGO_NASCITA]</span> <span class="label">il:</span> <span class="value">[PARTNER_DATA_NASCITA]</span></div>
+                <div class="data-row"><span class="label">Codice Fiscale:</span> <span class="value">[PARTNER_CF]</span></div>
+                <div class="data-row"><span class="label">Residenza:</span> <span class="value">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span></div>
             </div>
         </div>
 
-        <div class="content-wrapper">
-            <div class="title">INFORMATIVA E CONSENSO AL TRATTAMENTO DEI DATI PERSONALI<br>
-            <span style="font-size: 12pt; font-weight: 500;">(Art. 13-14 GDPR UE 2016/679)</span></div>
+        <div class="section">
+            <div class="section-title">INFORMATIVA SUL TRATTAMENTO DEI DATI</div>
+            <div class="content-text"><strong>TITOLARE:</strong> Centro Biofertility S.r.l.</div>
+            <div class="content-text"><strong>FINALITÀ:</strong> Erogazione prestazioni sanitarie PMA, gestione cartella clinica, adempimenti di legge.</div>
+        </div>
 
-            <div class="section-header">📋 DATI IDENTIFICATIVI DEI PAZIENTI</div>
-            
-            <div class="patient-info">
-                <div style="font-weight: 700; margin-bottom: 15px; color: #3498db;">👩 PAZIENTE</div>
-                <div class="patient-row">
-                    <span class="patient-label">Nome completo:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Nato/a a:</span>
-                    <span class="patient-value underline">[PAZIENTE_LUOGO_NASCITA]</span>
-                    <span class="patient-label" style="margin-left: 20px;">il:</span>
-                    <span class="patient-value underline">[PAZIENTE_DATA_NASCITA]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Codice Fiscale:</span>
-                    <span class="patient-value underline">[PAZIENTE_CF]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Residenza:</span>
-                    <span class="patient-value underline">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span>
-                </div>
-                
-                <div style="font-weight: 700; margin: 20px 0 15px 0; color: #3498db;">👨 PARTNER</div>
-                <div class="patient-row">
-                    <span class="patient-label">Nome completo:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Nato/a a:</span>
-                    <span class="patient-value underline">[PARTNER_LUOGO_NASCITA]</span>
-                    <span class="patient-label" style="margin-left: 20px;">il:</span>
-                    <span class="patient-value underline">[PARTNER_DATA_NASCITA]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Codice Fiscale:</span>
-                    <span class="patient-value underline">[PARTNER_CF]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Residenza:</span>
-                    <span class="patient-value underline">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span>
-                </div>
+        <div class="section">
+            <div class="section-title">CONSENSO</div>
+            <div class="content-text">I sottoscritti <strong>ACCONSENTONO</strong> al trattamento dei propri dati personali per le finalità indicate.</div>
+        </div>
+
+        <div style="text-align: right; margin: 10px 0;"><strong>Roma, [DATA_ODIERNA]</strong></div>
+
+        <div class="signature-area">
+            <div class="signature-cell">
+                <div class="signature-line"></div>
+                <div><strong>[PAZIENTE_NOME]</strong></div>
             </div>
-
-            <div class="section-header">🔒 INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI</div>
-            
-            <div class="gdpr-section">
-                <div class="content">
-                    <span class="bold">TITOLARE DEL TRATTAMENTO:</span> Centro Biofertility S.r.l., Via del Centro Medico, 123 - 00100 Roma
-                </div>
-                
-                <div class="content">
-                    <span class="bold">FINALITÀ DEL TRATTAMENTO:</span> Erogazione prestazioni sanitarie PMA, gestione cartella clinica, adempimenti di legge.
-                </div>
-
-                <div class="rights-list">
-                    <div class="rights-item">Erogazione di prestazioni sanitarie di Procreazione Medicalmente Assistita</div>
-                    <div class="rights-item">Gestione della cartella clinica e documentazione sanitaria</div>
-                    <div class="rights-item">Adempimenti di legge (CNT, ISS, Regione)</div>
-                    <div class="rights-item">Gestione amministrativa e fatturazione</div>
-                </div>
-            </div>
-
-            <div class="section-header">✅ CONSENSO AL TRATTAMENTO</div>
-            
-            <div class="content">
-                I sottoscritti <span class="bold">ACCONSENTONO</span> al trattamento dei propri dati personali per le finalità indicate.
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                </div>
+            <div class="signature-cell">
+                <div class="signature-line"></div>
+                <div><strong>[PARTNER_NOME]</strong></div>
             </div>
         </div>
 
-        <div class="footer-info">
-            <div>📄 Documento generato automaticamente - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a GDPR UE 2016/679 e normativa italiana vigente</div>
-        </div>
+        <div class="footer">Documento generato automaticamente - Conforme a GDPR UE 2016/679</div>
     </div>
 </body>
 </html>`,
@@ -728,14 +668,12 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
+        @page { size: A4; margin: 2cm; }
         @media print { 
             body { -webkit-print-color-adjust: exact; }
             .document-container { page-break-inside: avoid; }
-            .patient-info { page-break-inside: avoid; }
-            .section-header { page-break-after: avoid; }
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; min-height: 100vh; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 10pt; line-height: 1.3; color: #000; background: #fff; margin: 0; padding: 0; }
         .document-container { max-width: 210mm; margin: 0 auto; background: white; }
         .header { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; padding: 25px 30px; text-align: center; }
         .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; letter-spacing: 1px; }
