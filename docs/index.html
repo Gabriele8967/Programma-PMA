@@ -589,24 +589,164 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 1.5cm; }
-        body { font-family: 'Times New Roman', Times, serif; font-size: 9pt; line-height: 1.2; color: #000; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 100%; margin: 0; background: white; }
-        .header { border: 1px solid #000; padding: 10px; text-align: center; margin-bottom: 15px; }
-        .logo { font-weight: bold; font-size: 12pt; margin-bottom: 5px; }
-        .header-info { font-size: 8pt; margin-top: 5px; }
-        .title { font-weight: bold; font-size: 11pt; text-align: center; margin: 0 0 15px 0; text-decoration: underline; }
-        .section { margin-bottom: 10px; }
-        .section-title { font-weight: bold; font-size: 9pt; margin-bottom: 5px; text-decoration: underline; }
-        .patient-data { border: 1px solid #000; padding: 8px; margin: 8px 0; }
-        .data-row { margin-bottom: 3px; }
-        .label { font-weight: bold; display: inline-block; width: 100px; }
-        .value { border-bottom: 1px solid #000; display: inline-block; min-width: 200px; padding: 0 5px; }
-        .content-text { text-align: justify; margin: 5px 0; }
-        .signature-area { margin-top: 20px; display: table; width: 100%; }
-        .signature-cell { display: table-cell; width: 50%; text-align: center; padding: 10px; }
-        .signature-line { border-bottom: 1px solid #000; margin: 15px auto 5px; width: 150px; }
-        .footer { font-size: 7pt; text-align: center; margin-top: 15px; border-top: 1px solid #000; padding-top: 5px; }
+        @page { 
+            size: A4; 
+            margin: 2cm; 
+        }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { 
+            font-size: 11pt; 
+            opacity: 0.95; 
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .title { 
+            font-weight: 700; 
+            font-size: 18pt; 
+            color: #2c3e50; 
+            text-align: center; 
+            margin: 30px 0; 
+            padding: 20px 0; 
+            border-bottom: 3px solid #3498db; 
+            position: relative;
+        }
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+        }
+        .section { 
+            margin-bottom: 25px; 
+            padding: 0 20px;
+        }
+        .section-title { 
+            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            color: #2c3e50;
+            font-weight: 700; 
+            font-size: 12pt; 
+            margin: 20px -20px 15px -20px; 
+            padding: 15px 20px;
+            border-left: 4px solid #3498db;
+            border-radius: 0 8px 8px 0;
+        }
+        .patient-data { 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6; 
+            border-radius: 12px;
+            padding: 25px; 
+            margin: 20px 0; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .data-row { 
+            display: flex;
+            margin-bottom: 15px; 
+            align-items: center;
+        }
+        .label { 
+            font-weight: 600; 
+            color: #495057;
+            min-width: 130px; 
+            margin-right: 15px;
+        }
+        .value { 
+            flex: 1;
+            padding: 10px 15px; 
+            background: white;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            font-weight: 500;
+            min-height: 20px;
+        }
+        .content-text { 
+            text-align: justify; 
+            margin: 15px 0; 
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .signature-area { 
+            margin-top: 40px; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .signature-cell { 
+            text-align: center; 
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px dashed #ced4da;
+        }
+        .signature-line { 
+            margin: 30px auto 15px; 
+            width: 200px; 
+            height: 3px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 2px;
+        }
+        .footer { 
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-size: 9pt; 
+            text-align: center; 
+            margin-top: 30px; 
+            padding: 20px 30px;
+            border-radius: 0 0 12px 12px;
+        }
     </style>
 </head>
 <body>
@@ -673,10 +813,47 @@
             body { -webkit-print-color-adjust: exact; }
             .document-container { page-break-inside: avoid; }
         }
-        body { font-family: 'Times New Roman', Times, serif; font-size: 10pt; line-height: 1.3; color: #000; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; letter-spacing: 1px; }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
         .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #27ae60; }
@@ -828,16 +1005,74 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
+        @page { size: A4; margin: 2cm; }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #e74c3c; }
-        .warning-box { background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 20px; margin: 20px 0; }
+        .section-header { background: #fdf2f2; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #e74c3c; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
+        .warning-box { 
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); 
+            border: 2px solid #ffc107; 
+            border-radius: 12px; 
+            padding: 25px; 
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
+        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
+        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
         .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
         .bold { font-weight: 700; color: #2c3e50; }
+        .underline { border-bottom: 2px solid #e74c3c; padding: 2px 6px; border-radius: 4px; }
+        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
+        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
+        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
         .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
     </style>
 </head>
@@ -845,22 +1080,68 @@
     <div class="document-container">
         <div class="header">
             <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
+            </div>
         </div>
+
         <div class="content-wrapper">
-            <div class="title">INFORMATIVA VIRUS ZIKA GENERALE</div>
+            <div class="title">INFORMATIVA VIRUS ZIKA GENERALE<br>
+            <span style="font-size: 12pt; font-weight: 500;">Prevenzione e Controllo Infezioni in PMA</span></div>
+
+            <div class="section-header">⚠️ INFORMAZIONI SUL VIRUS ZIKA</div>
+            
             <div class="warning-box">
-                <div class="bold" style="color: #856404; margin-bottom: 15px;">⚠️ ATTENZIONE - VIRUS ZIKA</div>
-                <div class="content">Il virus Zika può causare gravi malformazioni congenite. Informare il medico di eventuali viaggi in zone a rischio.</div>
+                <div class="bold" style="color: #856404; margin-bottom: 15px; font-size: 14pt;">🦟 ATTENZIONE - VIRUS ZIKA</div>
+                <div class="content">Il virus Zika può causare gravi malformazioni congenite (microcefalia e altre anomalie neurologiche). È fondamentale informare il medico di eventuali viaggi recenti in zone a rischio o sintomi compatibili.</div>
+                <div class="content"><span class="bold">Zone a rischio:</span> America Centrale e Meridionale, Caraibi, Sud-est asiatico, Isole del Pacifico</div>
             </div>
+
+            <div class="section-header">👥 DATI IDENTIFICATIVI</div>
+            
+            <div class="patient-info">
+                <div class="patient-row">
+                    <span class="patient-label">👩 Paziente:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">👨 Partner:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">📅 Data:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+            </div>
+
+            <div class="section-header">✅ DICHIARAZIONE DI PRESA VISIONE</div>
+            
             <div class="content">
-                <span class="bold">Paziente:</span> [PAZIENTE_NOME]<br>
-                <span class="bold">Partner:</span> [PARTNER_NOME]<br>
-                <span class="bold">Data:</span> [DATA_ODIERNA]
+                I sottoscritti dichiarano di aver ricevuto e compreso le informazioni relative al virus Zika e ai possibili rischi per la gravidanza.
+            </div>
+
+            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                </div>
             </div>
         </div>
-        <div class="footer-info">📄 Informativa Zika - Sistema PMA Centro Biofertility</div>
+
+        <div class="footer-info">
+            <div>📄 Informativa Virus Zika - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Conforme a normative sanitarie vigenti</div>
+        </div>
     </div>
 </body>
 </html>`,
@@ -1163,17 +1444,76 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
+        @page { size: A4; margin: 2cm; }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #dc3545; }
-        .warning-box { background: #f8d7da; border: 2px solid #dc3545; border-radius: 12px; padding: 20px; margin: 20px 0; }
+        .section-header { background: #f8d7da; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #dc3545; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
+        .warning-box { 
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); 
+            border: 2px solid #dc3545; 
+            border-radius: 12px; 
+            padding: 25px; 
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
+        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
+        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
+        .questionnaire-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
+        .question-item { padding: 12px 0; border-bottom: 1px solid #f8f9fa; }
         .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
         .bold { font-weight: 700; color: #2c3e50; }
         .underline { border-bottom: 2px solid #dc3545; padding: 2px 6px; border-radius: 4px; }
+        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
+        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
+        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
         .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
     </style>
 </head>
@@ -1181,22 +1521,85 @@
     <div class="document-container">
         <div class="header">
             <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
+            </div>
         </div>
+
         <div class="content-wrapper">
-            <div class="title">ZIKA COPPIA</div>
+            <div class="title">QUESTIONARIO VIRUS ZIKA - COPPIA<br>
+            <span style="font-size: 12pt; font-weight: 500;">Valutazione Rischio Esposizione</span></div>
+
+            <div class="section-header">🦟 INFORMAZIONI VIRUS ZIKA PER LA COPPIA</div>
+            
             <div class="warning-box">
-                <div class="bold" style="color: #721c24; margin-bottom: 15px;">🦟 VIRUS ZIKA - INFORMAZIONI PER LA COPPIA</div>
-                <div class="content">Questionario e informativa specifica per entrambi i partner riguardo l'esposizione al virus Zika.</div>
+                <div class="bold" style="color: #721c24; margin-bottom: 15px; font-size: 14pt;">⚠️ ATTENZIONE - VIRUS ZIKA</div>
+                <div class="content">Questionario e informativa specifica per entrambi i partner riguardo l'esposizione al virus Zika e le implicazioni per il trattamento PMA.</div>
+                <div class="content"><span class="bold">Importante:</span> Il virus può essere trasmesso sessualmente e causare malformazioni fetali</div>
             </div>
+
+            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
+            
+            <div class="patient-info">
+                <div class="patient-row">
+                    <span class="patient-label">👩 Paziente:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">👨 Partner:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">📅 Data compilazione:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+            </div>
+
+            <div class="section-header">📋 QUESTIONARIO ESPOSIZIONE</div>
+            
+            <div class="questionnaire-section">
+                <div class="question-item">
+                    <div class="bold">1. Avete viaggiato in zone a rischio Zika negli ultimi 6 mesi?</div>
+                    <div style="margin: 10px 0;">□ SÌ □ NO - Se sì, specificare: <span class="underline" style="display: inline-block; width: 200px;">[ZONA_VIAGGIO]</span></div>
+                </div>
+                <div class="question-item">
+                    <div class="bold">2. Avete manifestato sintomi compatibili con Zika?</div>
+                    <div style="margin: 10px 0;">□ SÌ □ NO - Se sì, quando: <span class="underline" style="display: inline-block; width: 150px;">[DATA_SINTOMI]</span></div>
+                </div>
+                <div class="question-item">
+                    <div class="bold">3. Avete effettuato test per Zika?</div>
+                    <div style="margin: 10px 0;">□ SÌ □ NO - Risultato: <span class="underline" style="display: inline-block; width: 150px;">[RISULTATO_TEST]</span></div>
+                </div>
+            </div>
+
+            <div class="section-header">✅ DICHIARAZIONE CONSENSO</div>
+            
             <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
+                I sottoscritti dichiarano di aver ricevuto informazioni complete sul virus Zika e di aver risposto veracemente al questionario.
+            </div>
+
+            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                </div>
             </div>
         </div>
-        <div class="footer-info">📄 Zika Coppia - Sistema PMA Centro Biofertility</div>
+
+        <div class="footer-info">
+            <div>📄 Questionario Zika Coppia - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Conforme a protocolli di sicurezza sanitaria</div>
+        </div>
     </div>
 </body>
 </html>`,
@@ -1207,16 +1610,75 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #6610f2 0%, #520dc2 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
+        @page { size: A4; margin: 2cm; }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #6610f2 0%, #520dc2 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #6610f2; }
+        .section-header { background: #f3e8ff; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #6610f2; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
+        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
+        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
+        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
+        .legal-notice { 
+            background: linear-gradient(135deg, #e8f0fe 0%, #f3e8ff 100%); 
+            border: 2px solid #6610f2; 
+            border-radius: 12px; 
+            padding: 25px; 
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
         .bold { font-weight: 700; color: #2c3e50; }
         .underline { border-bottom: 2px solid #6610f2; padding: 2px 6px; border-radius: 4px; }
+        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
+        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
+        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
+        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
         .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
     </style>
 </head>
@@ -1224,18 +1686,76 @@
     <div class="document-container">
         <div class="header">
             <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO PER PMA IN ASSENZA DI MARITO</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
             </div>
-            <div class="content">La sottoscritta <span class="bold">ACCONSENTE</span> al trattamento PMA in assenza del marito.</div>
         </div>
-        <div class="footer-info">📄 Consenso Integrativo PMA Senza Marito - Sistema PMA Centro Biofertility</div>
+
+        <div class="content-wrapper">
+            <div class="title">CONSENSO INTEGRATIVO PER PMA IN ASSENZA DI MARITO<br>
+            <span style="font-size: 12pt; font-weight: 500;">Consenso Specifico per Paziente Non Coniugata</span></div>
+
+            <div class="section-header">👩 DATI IDENTIFICATIVI PAZIENTE</div>
+            
+            <div class="patient-info">
+                <div class="patient-row">
+                    <span class="patient-label">👩 Paziente:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">📅 Data:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">🏆 Codice Fiscale:</span>
+                    <span class="patient-value underline">[PAZIENTE_CF]</span>
+                </div>
+            </div>
+
+            <div class="section-header">⚖️ RIFERIMENTI NORMATIVI</div>
+            
+            <div class="legal-notice">
+                <div class="bold" style="color: #6610f2; margin-bottom: 15px; font-size: 14pt;">📜 LEGGE 40/2004</div>
+                <div class="content">Secondo l'art. 5 della Legge 40/2004, possono accedere alle tecniche di PMA anche le coppie non sposate, purché maggiorenni, di sesso diverso, in età potenzialmente fertile e conviventi.</div>
+                <div class="content"><span class="bold">Nota:</span> Per le donne non coniugate è richiesto il presente consenso integrativo specifico.</div>
+            </div>
+
+            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
+            
+            <div class="consent-section">
+                <div class="content">
+                    La sottoscritta <span class="bold underline">[PAZIENTE_NOME]</span>, in qualità di donna maggiorenne non coniugata:
+                </div>
+                <div class="content">
+                    <div style="margin: 15px 0;">• È consapevole dei diritti e doveri derivanti dal trattamento PMA</div>
+                    <div style="margin: 15px 0;">• Ha ricevuto adeguata informazione sui rischi e benefici</div>
+                    <div style="margin: 15px 0;">• Dichiara di essere in età potenzialmente fertile</div>
+                    <div style="margin: 15px 0;">• Conferma la volontà di accedere al trattamento PMA</div>
+                </div>
+                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
+                    <span class="bold" style="color: #6610f2;">ACCONSENTE</span> al trattamento di Procreazione Medicalmente Assistita
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>📄 Consenso Integrativo PMA Senza Marito - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Conforme a Legge 40/2004 e normativa vigente</div>
+        </div>
     </div>
 </body>
 </html>`,
@@ -1246,16 +1766,75 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #20c997 0%, #1aa085 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
+        @page { size: A4; margin: 2cm; }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #20c997 0%, #1aa085 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #20c997; }
+        .section-header { background: #e8f8f5; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #20c997; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
+        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
+        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
+        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
+        .definition-box { 
+            background: linear-gradient(135deg, #e8f8f5 0%, #d1ecf1 100%); 
+            border: 2px solid #20c997; 
+            border-radius: 12px; 
+            padding: 25px; 
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
         .bold { font-weight: 700; color: #2c3e50; }
         .underline { border-bottom: 2px solid #20c997; padding: 2px 6px; border-radius: 4px; }
+        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
+        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
+        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
+        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
         .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
     </style>
 </head>
@@ -1263,19 +1842,86 @@
     <div class="document-container">
         <div class="header">
             <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO OMOLOGA</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
             </div>
-            <div class="content">I sottoscritti <span class="bold">ACCONSENTONO</span> al trattamento di fecondazione omologa.</div>
         </div>
-        <div class="footer-info">📄 Consenso Integrativo Omologa - Sistema PMA Centro Biofertility</div>
+
+        <div class="content-wrapper">
+            <div class="title">CONSENSO INTEGRATIVO FECONDAZIONE OMOLOGA<br>
+            <span style="font-size: 12pt; font-weight: 500;">Conferma Trattamento con Gameti della Coppia</span></div>
+
+            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
+            
+            <div class="patient-info">
+                <div class="patient-row">
+                    <span class="patient-label">👩 Paziente:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">👨 Partner:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">📅 Data:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+            </div>
+
+            <div class="section-header">🔬 DEFINIZIONE FECONDAZIONE OMOLOGA</div>
+            
+            <div class="definition-box">
+                <div class="bold" style="color: #20c997; margin-bottom: 15px; font-size: 14pt;">🧬 FECONDAZIONE OMOLOGA</div>
+                <div class="content">La fecondazione omologa utilizza i gameti (ovociti e spermatozoi) della coppia richiedente il trattamento, senza ricorso a donatori esterni.</div>
+                <div class="content"><span class="bold">Caratteristiche:</span></div>
+                <div style="margin-left: 20px;">
+                    <div>• Utilizzo esclusivo di ovociti della paziente</div>
+                    <div>• Utilizzo esclusivo di spermatozoi del partner</div>
+                    <div>• Mantenimento del patrimonio genetico della coppia</div>
+                </div>
+            </div>
+
+            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
+            
+            <div class="consent-section">
+                <div class="content">
+                    I sottoscritti, dopo aver ricevuto informazioni complete sui trattamenti di PMA omologa:
+                </div>
+                <div class="content">
+                    <div style="margin: 15px 0;">• Confermano la volontà di utilizzare esclusivamente i propri gameti</div>
+                    <div style="margin: 15px 0;">• Sono consapevoli delle procedure mediche necessarie</div>
+                    <div style="margin: 15px 0;">• Hanno compreso i rischi e i benefici del trattamento</div>
+                    <div style="margin: 15px 0;">• Escludono categoricamente il ricorso alla donazione di gameti</div>
+                </div>
+                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
+                    <span class="bold" style="color: #20c997;">ACCONSENTONO</span> al trattamento di fecondazione omologa
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma del Partner</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>📄 Consenso Integrativo Fecondazione Omologa - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Conforme a Legge 40/2004 e normativa vigente</div>
+        </div>
     </div>
 </body>
 </html>`,
@@ -1286,16 +1932,78 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
+        @page { size: A4; margin: 2cm; }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; }
+            .document-container { page-break-inside: avoid; }
+        }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .document-container { 
+            max-width: 210mm; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 24pt; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
         .content-wrapper { padding: 30px; }
         .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #ffc107; }
+        .section-header { background: #fff8e1; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #ffc107; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
+        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
+        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
+        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
+        .procedure-box { 
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); 
+            border: 2px solid #ffc107; 
+            border-radius: 12px; 
+            padding: 25px; 
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
         .bold { font-weight: 700; color: #2c3e50; }
         .underline { border-bottom: 2px solid #ffc107; padding: 2px 6px; border-radius: 4px; }
+        .protocol-list { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
+        .protocol-item { padding: 8px 0; border-bottom: 1px solid #f8f9fa; display: flex; align-items: center; }
+        .protocol-item::before { content: '•'; color: #ffc107; font-weight: bold; margin-right: 10px; width: 20px; font-size: 14pt; }
+        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
+        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
+        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
+        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
         .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
     </style>
 </head>
@@ -1303,19 +2011,99 @@
     <div class="document-container">
         <div class="header">
             <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO SOV</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
             </div>
-            <div class="content">I sottoscritti <span class="bold">ACCONSENTONO</span> al trattamento SOV (Stimolazione Ovarica).</div>
         </div>
-        <div class="footer-info">📄 Consenso Integrativo SOV - Sistema PMA Centro Biofertility</div>
+
+        <div class="content-wrapper">
+            <div class="title">CONSENSO INTEGRATIVO STIMOLAZIONE OVARICA (SOV)<br>
+            <span style="font-size: 12pt; font-weight: 500;">Protocollo di Stimolazione Ormonale Controllata</span></div>
+
+            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
+            
+            <div class="patient-info">
+                <div class="patient-row">
+                    <span class="patient-label">👩 Paziente:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">👨 Partner:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">📅 Data:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+            </div>
+
+            <div class="section-header">💊 DESCRIZIONE STIMOLAZIONE OVARICA</div>
+            
+            <div class="procedure-box">
+                <div class="bold" style="color: #e0a800; margin-bottom: 15px; font-size: 14pt;">🔬 STIMOLAZIONE OVARICA CONTROLLATA (SOV)</div>
+                <div class="content">La stimolazione ovarica controllata è un trattamento ormonale finalizzato ad aumentare il numero di ovociti maturi disponibili per la fecondazione, migliorando le possibilità di successo del trattamento PMA.</div>
+                <div class="content"><span class="bold">Obiettivo:</span> Ottenere multiple ovulazioni sincronizzate per massimizzare le probabilità di fecondazione</div>
+            </div>
+
+            <div class="section-header">📋 PROTOCOLLO DI STIMOLAZIONE</div>
+            
+            <div class="protocol-list">
+                <div class="protocol-item">Somministrazione di gonadotropine (FSH/LH)</div>
+                <div class="protocol-item">Monitoraggio ecografico seriale</div>
+                <div class="protocol-item">Controlli ormonali periodici (estradiolo, LH)</div>
+                <div class="protocol-item">Induzione dell'ovulazione con hCG</div>
+                <div class="protocol-item">Prelievo ovocitario ambulatoriale</div>
+            </div>
+
+            <div class="section-header">⚠️ RISCHI E COMPLICANZE</div>
+            
+            <div class="content">
+                <div style="margin: 10px 0;"><span class="bold">Sindrome da iperstimolazione ovarica (OHSS):</span> Rara ma possibile complicanza</div>
+                <div style="margin: 10px 0;"><span class="bold">Gravidanze multiple:</span> Aumentato rischio di gemelli</div>
+                <div style="margin: 10px 0;"><span class="bold">Effetti collaterali:</span> Gonfiore addominale, tensione mammaria, alterazioni dell'umore</div>
+            </div>
+
+            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
+            
+            <div class="consent-section">
+                <div class="content">
+                    I sottoscritti, dopo aver ricevuto informazioni complete sulla stimolazione ovarica controllata:
+                </div>
+                <div class="content">
+                    <div style="margin: 15px 0;">• Sono consapevoli delle modalità di somministrazione dei farmaci</div>
+                    <div style="margin: 15px 0;">• Comprendono la necessità dei controlli periodici</div>
+                    <div style="margin: 15px 0;">• Sono informati sui possibili rischi e complicanze</div>
+                    <div style="margin: 15px 0;">• Si impegnano a seguire scrupolosamente il protocollo prescritto</div>
+                </div>
+                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
+                    <span class="bold" style="color: #ffc107;">ACCONSENTONO</span> al trattamento di Stimolazione Ovarica Controllata
+                </div>
+            </div>
+
+            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma del Partner</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>📄 Consenso Integrativo Stimolazione Ovarica - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Conforme a protocolli clinici e normativa vigente</div>
+        </div>
     </div>
 </body>
 </html>`
