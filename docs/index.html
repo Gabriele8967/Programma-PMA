@@ -501,11 +501,21 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Medico responsabile</label>
-                        <input type="text" id="medico-nome" placeholder="Es: Dott. Rossi">
+                        <input type="text" id="medico-nome" placeholder="Es: Dott. Mario Rossi">
                     </div>
+                    <div class="form-group">
+                        <label>Numero iscrizione Ordine Medici</label>
+                        <input type="text" id="numero-ordine" placeholder="Es: 12345">
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
                         <label>Codice coppia</label>
                         <input type="text" id="codice-coppia" placeholder="Es: CP2024001">
+                    </div>
+                    <div class="form-group">
+                        <label>Documento identità paziente</label>
+                        <input type="text" id="paziente-documento" placeholder="Es: CI n. AB123456">
                     </div>
                 </div>
                 <div class="form-group">
@@ -667,59 +677,550 @@
     </div>
 
     <script>
-        // Template integrati per GitHub Pages - TUTTI I 14 DOCUMENTI
+        // Template integrati per GitHub Pages - STILE MODERNO E PROFESSIONALE
         const templates = {
             'doc-privacy': `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2cm; }
-        body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.4; color: #000; }
-        .header { text-align: center; margin-bottom: 30px; }
-        .logo { font-weight: bold; font-size: 14pt; margin-bottom: 10px; }
-        .title { font-weight: bold; font-size: 13pt; text-decoration: underline; margin: 20px 0; text-align: center; }
-        .content { text-align: justify; margin-bottom: 15px; }
-        .signature-section { margin-top: 40px; display: flex; justify-content: space-between; }
-        .signature-box { text-align: center; width: 45%; }
-        .date-section { margin-top: 30px; text-align: right; }
-        .bold { font-weight: bold; }
-        .underline { text-decoration: underline; }
-        .checkbox { display: inline-block; width: 12px; height: 12px; border: 1px solid #000; margin-right: 5px; }
+        @page { size: A4; margin: 2.5cm 2cm; }
+        @media print { body { -webkit-print-color-adjust: exact; } }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .document-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        }
+        
+        .logo { 
+            font-weight: 700; 
+            font-size: 20pt; 
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header-info {
+            font-size: 10pt;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+        
+        .content-wrapper {
+            padding: 30px;
+        }
+        
+        .title { 
+            font-weight: 700; 
+            font-size: 16pt; 
+            color: #2c3e50;
+            text-align: center; 
+            margin: 0 0 30px 0;
+            padding: 15px 0;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            margin: 25px -15px 15px -15px;
+            border-left: 4px solid #3498db;
+            font-weight: 600;
+            color: #2c3e50;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .patient-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .patient-info::before {
+            content: '👤';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #dee2e6;
+            font-size: 16pt;
+        }
+        
+        .patient-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        
+        .patient-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        
+        .patient-value {
+            flex: 1;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        .content { 
+            text-align: justify; 
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #495057;
+        }
+        
+        .privacy-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .privacy-box::before {
+            content: '🔒';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #ffc107;
+            font-size: 14pt;
+        }
+        
+        .gdpr-section {
+            background: #e8f4f8;
+            border: 2px solid #17a2b8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .rights-list {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        .rights-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            align-items: center;
+        }
+        
+        .rights-item::before {
+            content: '✓';
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .signature-section { 
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .signature-box { 
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #ced4da;
+            border-radius: 12px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .signature-box::before {
+            content: attr(data-role);
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #495057;
+            border: 2px solid #ced4da;
+            font-size: 9pt;
+        }
+        
+        .signature-line {
+            margin: 30px auto 10px;
+            width: 200px;
+            height: 2px;
+            background: #ced4da;
+            border-radius: 2px;
+        }
+        
+        .date-section { 
+            margin: 30px 0;
+            text-align: right;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .footer-info {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 9pt;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .medical-footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 3px solid #3498db;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .doctor-signature {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .bold { font-weight: 700; color: #2c3e50; }
+        .underline { 
+            border-bottom: 2px solid #3498db; 
+            padding-bottom: 2px;
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .checkbox { 
+            display: inline-block; 
+            width: 16px; 
+            height: 16px; 
+            border: 2px solid #3498db; 
+            margin-right: 8px;
+            border-radius: 3px;
+            position: relative;
+            vertical-align: middle;
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: #3498db;
+            font-weight: bold;
+            font-size: 12pt;
+        }
+        
+        .legal-reference {
+            font-size: 9pt;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #6c757d;
+        }
+        
+        @media print {
+            .document-container { box-shadow: none; border-radius: 0; }
+            .header::after { display: none; }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">CENTRO BIOFERTILITY</div>
-        <div>Via del Centro Medico, 123 - 00100 Roma</div>
-        <div>Tel. 06-1234567 - Email: info@biofertility.it</div>
+    <div class="document-container">
+        <div class="header">
+            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it | 🌐 www.biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Autorizzazione Regionale n. 12345 | Codice Struttura: RM001</div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="title">INFORMATIVA E CONSENSO AL TRATTAMENTO DEI DATI PERSONALI<br>
+            <span style="font-size: 12pt; font-weight: 500;">(Art. 13-14 GDPR UE 2016/679 - D.Lgs. 196/2003 e s.m.i.)</span></div>
+
+            <div class="section-header">📋 DATI IDENTIFICATIVI DEI PAZIENTI</div>
+            
+            <div class="patient-info">
+                <div style="font-weight: 700; margin-bottom: 15px; color: #3498db;">👩 PAZIENTE</div>
+                <div class="patient-row">
+                    <span class="patient-label">Nome completo:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Nato/a a:</span>
+                    <span class="patient-value underline">[PAZIENTE_LUOGO_NASCITA]</span>
+                    <span class="patient-label" style="margin-left: 20px;">il:</span>
+                    <span class="patient-value underline">[PAZIENTE_DATA_NASCITA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Codice Fiscale:</span>
+                    <span class="patient-value underline">[PAZIENTE_CF]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Residenza:</span>
+                    <span class="patient-value underline">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Telefono:</span>
+                    <span class="patient-value underline">[PAZIENTE_TELEFONO]</span>
+                    <span class="patient-label" style="margin-left: 20px;">Email:</span>
+                    <span class="patient-value underline">[PAZIENTE_EMAIL]</span>
+                </div>
+            </div>
+
+            <div class="patient-info">
+                <div style="font-weight: 700; margin-bottom: 15px; color: #3498db;">👨 PARTNER</div>
+                <div class="patient-row">
+                    <span class="patient-label">Nome completo:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Nato/a a:</span>
+                    <span class="patient-value underline">[PARTNER_LUOGO_NASCITA]</span>
+                    <span class="patient-label" style="margin-left: 20px;">il:</span>
+                    <span class="patient-value underline">[PARTNER_DATA_NASCITA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Codice Fiscale:</span>
+                    <span class="patient-value underline">[PARTNER_CF]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Residenza:</span>
+                    <span class="patient-value underline">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Telefono:</span>
+                    <span class="patient-value underline">[PARTNER_TELEFONO]</span>
+                    <span class="patient-label" style="margin-left: 20px;">Email:</span>
+                    <span class="patient-value underline">[PARTNER_EMAIL]</span>
+                </div>
+            </div>
+
+            <div class="section-header">🔒 INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI</div>
+            
+            <div class="gdpr-section">
+                <div class="content">
+                    <span class="bold">TITOLARE DEL TRATTAMENTO:</span> Centro Biofertility S.r.l., con sede in Via del Centro Medico, 123 - 00100 Roma, P.IVA 12345678901, nella persona del legale rappresentante pro tempore.
+                </div>
+                
+                <div class="content">
+                    <span class="bold">RESPONSABILE DELLA PROTEZIONE DEI DATI (DPO):</span> Dott.ssa Maria Rossi - Email: dpo@biofertility.it - Tel. 06-1234568
+                </div>
+
+                <div class="content">
+                    <span class="bold">FINALITÀ DEL TRATTAMENTO:</span> I dati personali e sanitari verranno trattati per le seguenti finalità:
+                </div>
+
+                <div class="rights-list">
+                    <div class="rights-item">Erogazione di prestazioni sanitarie di Procreazione Medicalmente Assistita (PMA)</div>
+                    <div class="rights-item">Gestione della cartella clinica e documentazione sanitaria</div>
+                    <div class="rights-item">Adempimenti di legge (comunicazioni al Centro Nazionale Trapianti, ISS, Regione)</div>
+                    <div class="rights-item">Gestione amministrativa e fatturazione</div>
+                    <div class="rights-item">Finalità statistiche e di ricerca scientifica (dati anonimizzati)</div>
+                    <div class="rights-item">Comunicazioni di servizio relative ai trattamenti</div>
+                </div>
+            </div>
+
+            <div class="privacy-box">
+                <div class="content">
+                    <span class="bold">BASE GIURIDICA:</span> Il trattamento è necessario per l'esecuzione di un compito di interesse pubblico (assistenza sanitaria) ex art. 6, par. 1, lett. e) e art. 9, par. 2, lett. h) del GDPR e art. 2-sexies del D.Lgs. 196/2003.
+                </div>
+                
+                <div class="content">
+                    <span class="bold">CATEGORIE DI DATI:</span> Verranno trattati dati anagrafici, di contatto, dati sanitari relativi alla fertilità, parametri clinici, esiti di esami diagnostici, terapie farmacologiche.
+                </div>
+            </div>
+
+            <div class="section-header">👥 DESTINATARI DEI DATI</div>
+            
+            <div class="content">
+                I dati potranno essere comunicati a:
+            </div>
+
+            <div class="rights-list">
+                <div class="rights-item">Ministero della Salute - Istituto Superiore di Sanità</div>
+                <div class="rights-item">Centro Nazionale Trapianti (CNT)</div>
+                <div class="rights-item">Regione Lazio - Assessorato alla Sanità</div>
+                <div class="rights-item">Laboratori di analisi convenzionati</div>
+                <div class="rights-item">Strutture sanitarie per consulenze specialistiche</div>
+                <div class="rights-item">Compagnie assicurative (solo per rimborsi, previa autorizzazione)</div>
+                <div class="rights-item">Autorità giudiziarie e forze dell'ordine (solo per obblighi di legge)</div>
+            </div>
+
+            <div class="section-header">⏰ CONSERVAZIONE DEI DATI</div>
+            
+            <div class="content">
+                I dati verranno conservati per i tempi stabiliti dalla normativa vigente:
+                <br><br>
+                • <span class="bold">Cartella clinica:</span> 40 anni (art. 7, D.P.R. 445/2000)<br>
+                • <span class="bold">Dati PMA:</span> secondo le disposizioni del Centro Nazionale Trapianti<br>
+                • <span class="bold">Dati amministrativi:</span> 10 anni dalla cessazione del rapporto
+            </div>
+
+            <div class="section-header">🔑 DIRITTI DELL'INTERESSATO</div>
+            
+            <div class="rights-list">
+                <div class="rights-item">Accesso ai propri dati personali (art. 15 GDPR)</div>
+                <div class="rights-item">Rettifica di dati inesatti (art. 16 GDPR)</div>
+                <div class="rights-item">Cancellazione nei casi previsti dalla legge (art. 17 GDPR)</div>
+                <div class="rights-item">Limitazione del trattamento (art. 18 GDPR)</div>
+                <div class="rights-item">Portabilità dei dati (art. 20 GDPR)</div>
+                <div class="rights-item">Opposizione al trattamento (art. 21 GDPR)</div>
+                <div class="rights-item">Reclamo al Garante Privacy (www.gpdp.it)</div>
+            </div>
+
+            <div class="legal-reference">
+                <strong>Riferimenti normativi:</strong> Regolamento UE 2016/679 (GDPR); D.Lgs. 196/2003 e s.m.i.; Linee guida del Garante Privacy; 
+                Legge 40/2004 (PMA); Decreto CNT; Codice Deontologico Medico; D.P.R. 445/2000.
+            </div>
+
+            <div class="section-header">✅ CONSENSO AL TRATTAMENTO</div>
+            
+            <div class="content">
+                I sottoscritti, letta e compresa l'informativa, consapevoli che il rifiuto di prestare il consenso comporta l'impossibilità di erogare le prestazioni richieste, <span class="bold highlight">ACCONSENTONO</span> espressamente al trattamento dei propri dati personali, inclusi quelli sanitari, per tutte le finalità sopra indicate.
+            </div>
+
+            <div style="margin: 25px 0;">
+                <div style="display: flex; align-items: center; margin: 10px 0;">
+                    <span class="checkbox">✓</span>
+                    <span>Consenso al trattamento per finalità di cura e assistenza sanitaria</span>
+                </div>
+                <div style="display: flex; align-items: center; margin: 10px 0;">
+                    <span class="checkbox">✓</span>
+                    <span>Consenso alle comunicazioni obbligatorie per legge (CNT, ISS, Regione)</span>
+                </div>
+                <div style="display: flex; align-items: center; margin: 10px 0;">
+                    <span class="checkbox"></span>
+                    <span>Consenso per finalità di ricerca scientifica (facoltativo)</span>
+                </div>
+                <div style="display: flex; align-items: center; margin: 10px 0;">
+                    <span class="checkbox"></span>
+                    <span>Consenso per comunicazioni commerciali e marketing (facoltativo)</span>
+                </div>
+            </div>
+
+            <div class="date-section">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box" data-role="PAZIENTE">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma per esteso e leggibile</div>
+                </div>
+                <div class="signature-box" data-role="PARTNER">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma per esteso e leggibile</div>
+                </div>
+            </div>
+
+            <div class="medical-footer">
+                <div style="font-weight: 600; margin-bottom: 15px;">TIMBRO E FIRMA DEL MEDICO RESPONSABILE</div>
+                <div class="doctor-signature">
+                    <div>
+                        <div style="margin-bottom: 10px;">Dott. <span class="underline">[MEDICO_NOME]</span></div>
+                        <div style="font-size: 9pt; color: #6c757d;">Specialista in Ginecologia e Ostetricia</div>
+                        <div style="font-size: 9pt; color: #6c757d;">Iscrizione Ordine dei Medici di Roma n. [NUMERO_ORDINE]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>📄 Documento generato automaticamente - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 10px;">🔒 Tutti i dati sono trattati nel rispetto della normativa sulla privacy | 🏥 Struttura autorizzata per PMA</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Rev. 2024.01 - Conforme a GDPR UE 2016/679 e normativa italiana vigente</div>
+        </div>
     </div>
-
-    <div class="title">CONSENSO AL TRATTAMENTO DEI DATI PERSONALI (ART. 7 D.LGS. 196/2003)</div>
-
-    <div class="content">
-        Il/La sottoscritto/a <span class="bold underline">[PAZIENTE_NOME]</span>, 
-        nato/a a <span class="underline">[PAZIENTE_LUOGO_NASCITA]</span> 
-        il <span class="underline">[PAZIENTE_DATA_NASCITA]</span>, 
-        C.F. <span class="underline">[PAZIENTE_CF]</span>, 
-        residente in <span class="underline">[PAZIENTE_RESIDENZA]</span>, 
-        <span class="underline">[PAZIENTE_CITTA]</span>, 
-        Tel. <span class="underline">[PAZIENTE_TELEFONO]</span>
-    </div>
-
-    <div class="content">
-        e il/la sottoscritto/a <span class="bold underline">[PARTNER_NOME]</span>, 
-        nato/a a <span class="underline">[PARTNER_LUOGO_NASCITA]</span> 
-        il <span class="underline">[PARTNER_DATA_NASCITA]</span>, 
-        C.F. <span class="underline">[PARTNER_CF]</span>, 
-        residente in <span class="underline">[PARTNER_RESIDENZA]</span>, 
-        <span class="underline">[PARTNER_CITTA]</span>, 
-        Tel. <span class="underline">[PARTNER_TELEFONO]</span>
-    </div>
-
-    <div class="content"><span class="bold">DICHIARANO</span></div>
-
-    <div class="content">
+</body>
+</html>`,
         di aver ricevuto ai sensi dell'art. 13 del D.Lgs. 196/2003 le informazioni relative al trattamento dei dati personali effettuato dal Centro Biofertility per le finalità connesse e strumentali alla prestazione sanitaria richiesta;
     </div>
 
@@ -765,76 +1266,517 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { size: A4; margin: 2cm; }
-        body { font-family: 'Times New Roman', serif; font-size: 11pt; line-height: 1.3; color: #000; }
-        .header { text-align: center; margin-bottom: 30px; }
-        .logo { font-weight: bold; font-size: 14pt; margin-bottom: 10px; }
-        .title { font-weight: bold; font-size: 13pt; text-align: center; margin: 20px 0; text-decoration: underline; }
-        .content { text-align: justify; margin-bottom: 12px; }
-        .patient-info { margin: 20px 0; border: 1px solid #000; padding: 15px; }
-        .signature-section { margin-top: 40px; display: flex; justify-content: space-between; }
-        .signature-box { text-align: center; width: 45%; }
-        .date-section { margin-top: 30px; text-align: right; }
-        .bold { font-weight: bold; }
-        .underline { text-decoration: underline; }
-        .list-item { margin: 8px 0 8px 20px; }
+        @page { size: A4; margin: 2.5cm 2cm; }
+        @media print { body { -webkit-print-color-adjust: exact; } }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5; 
+            color: #2c3e50; 
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .document-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo { 
+            font-weight: 700; 
+            font-size: 20pt; 
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header-info {
+            font-size: 10pt;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+        
+        .content-wrapper {
+            padding: 30px;
+        }
+        
+        .title { 
+            font-weight: 700; 
+            font-size: 16pt; 
+            color: #2c3e50;
+            text-align: center; 
+            margin: 0 0 30px 0;
+            padding: 15px 0;
+            border-bottom: 3px solid #27ae60;
+            position: relative;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+        }
+        
+        .section-header {
+            background: #e8f8f5;
+            padding: 12px 20px;
+            margin: 25px -15px 15px -15px;
+            border-left: 4px solid #27ae60;
+            font-weight: 600;
+            color: #2c3e50;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .patient-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .patient-info::before {
+            content: '👥';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #dee2e6;
+            font-size: 16pt;
+        }
+        
+        .patient-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        
+        .patient-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        
+        .patient-value {
+            flex: 1;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        .procedure-info {
+            background: linear-gradient(135deg, #d5f4e6 0%, #80e5a3 100%);
+            border: 2px solid #27ae60;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .procedure-info::before {
+            content: '🧬';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #27ae60;
+            font-size: 14pt;
+        }
+        
+        .content { 
+            text-align: justify; 
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #495057;
+        }
+        
+        .indication-list {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        .indication-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            align-items: center;
+        }
+        
+        .indication-item::before {
+            content: '•';
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 10px;
+            width: 20px;
+            font-size: 14pt;
+        }
+        
+        .risk-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .risk-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #ffc107;
+            font-size: 14pt;
+        }
+        
+        .success-rate {
+            background: #e8f4f8;
+            border: 2px solid #17a2b8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .signature-section { 
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .signature-box { 
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #ced4da;
+            border-radius: 12px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .signature-box::before {
+            content: attr(data-role);
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #495057;
+            border: 2px solid #ced4da;
+            font-size: 9pt;
+        }
+        
+        .signature-line {
+            margin: 30px auto 10px;
+            width: 200px;
+            height: 2px;
+            background: #ced4da;
+            border-radius: 2px;
+        }
+        
+        .date-section { 
+            margin: 30px 0;
+            text-align: right;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .medical-footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 3px solid #27ae60;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .doctor-signature {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #27ae60;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .bold { font-weight: 700; color: #2c3e50; }
+        .underline { 
+            border-bottom: 2px solid #27ae60; 
+            padding-bottom: 2px;
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .legal-reference {
+            font-size: 9pt;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #6c757d;
+        }
+        
+        .footer-info {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 9pt;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        @media print {
+            .document-container { box-shadow: none; border-radius: 0; }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">CENTRO BIOFERTILITY</div>
-        <div>Via del Centro Medico, 123 - 00100 Roma</div>
-        <div>Tel. 06-1234567 - Email: info@biofertility.it</div>
+    <div class="document-container">
+        <div class="header">
+            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
+            <div class="header-info">
+                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
+                <div>📞 06-1234567 | ✉️ info@biofertility.it | 🌐 www.biofertility.it</div>
+                <div style="margin-top: 8px; font-weight: 600;">Autorizzazione Regionale n. 12345 | Centro di I° Livello</div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="title">CONSENSO INFORMATO PER INSEMINAZIONE INTRAUTERINA (IUI)<br>
+            <span style="font-size: 12pt; font-weight: 500;">Tecnica di Procreazione Medicalmente Assistita di I° Livello</span></div>
+
+            <div class="section-header">👥 DATI IDENTIFICATIVI DEI PAZIENTI</div>
+            
+            <div class="patient-info">
+                <div style="font-weight: 700; margin-bottom: 15px; color: #27ae60;">👩 PAZIENTE</div>
+                <div class="patient-row">
+                    <span class="patient-label">Nome completo:</span>
+                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Nato/a a:</span>
+                    <span class="patient-value underline">[PAZIENTE_LUOGO_NASCITA]</span>
+                    <span class="patient-label" style="margin-left: 20px;">il:</span>
+                    <span class="patient-value underline">[PAZIENTE_DATA_NASCITA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Codice Fiscale:</span>
+                    <span class="patient-value underline">[PAZIENTE_CF]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Residenza:</span>
+                    <span class="patient-value underline">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span>
+                </div>
+                
+                <div style="font-weight: 700; margin: 20px 0 15px 0; color: #27ae60;">👨 PARTNER</div>
+                <div class="patient-row">
+                    <span class="patient-label">Nome completo:</span>
+                    <span class="patient-value underline">[PARTNER_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Nato/a a:</span>
+                    <span class="patient-value underline">[PARTNER_LUOGO_NASCITA]</span>
+                    <span class="patient-label" style="margin-left: 20px;">il:</span>
+                    <span class="patient-value underline">[PARTNER_DATA_NASCITA]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Codice Fiscale:</span>
+                    <span class="patient-value underline">[PARTNER_CF]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Residenza:</span>
+                    <span class="patient-value underline">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span>
+                </div>
+                
+                <div style="font-weight: 700; margin: 20px 0 15px 0; color: #27ae60;">👨‍⚕️ INFORMAZIONI CLINICHE</div>
+                <div class="patient-row">
+                    <span class="patient-label">Medico responsabile:</span>
+                    <span class="patient-value underline">Dott. [MEDICO_NOME]</span>
+                </div>
+                <div class="patient-row">
+                    <span class="patient-label">Codice coppia:</span>
+                    <span class="patient-value underline">[CODICE_COPPIA]</span>
+                    <span class="patient-label" style="margin-left: 20px;">Data:</span>
+                    <span class="patient-value underline">[DATA_ODIERNA]</span>
+                </div>
+            </div>
+
+            <div class="section-header">📋 DICHIARAZIONE DI CONSENSO INFORMATO</div>
+            
+            <div class="content">
+                I sottoscritti <span class="bold highlight">DICHIARANO</span> di essere stati informati esaurientemente dal Dott. <span class="underline">[MEDICO_NOME]</span> riguardo alla procedura di <span class="bold">Inseminazione Intrauterina (IUI)</span> e di aver compreso le seguenti informazioni:
+            </div>
+
+            <div class="procedure-info">
+                <div class="section-header" style="margin: 0 0 15px 0;">🎯 INDICAZIONI CLINICHE</div>
+                <div class="content">
+                    L'Inseminazione Intrauterina (IUI) è una tecnica di Procreazione Medicalmente Assistita di <span class="bold">I° Livello</span> indicata per:
+                </div>
+                
+                <div class="indication-list">
+                    <div class="indication-item">Infertilità inspiegata (dopo accertamenti completi)</div>
+                    <div class="indication-item">Alterazioni lievi-moderate dei parametri seminali</div>
+                    <div class="indication-item">Disturbi dell'ovulazione trattati con terapia</div>
+                    <div class="indication-item">Fattore cervicale (muco cervicale ostile)</div>
+                    <div class="indication-item">Endometriosi di grado lieve (stadio I-II)</div>
+                    <div class="indication-item">Infertilità immunologica</div>
+                    <div class="indication-item">Disfunzioni sessuali maschili</div>
+                </div>
+            </div>
+
+            <div class="section-header">🔬 DESCRIZIONE DELLA PROCEDURA</div>
+            
+            <div class="content">
+                La <span class="bold">IUI</span> consiste nell'introduzione del liquido seminale, opportunamente preparato e concentrato in laboratorio, direttamente nella cavità uterina mediante un sottile catetere sterile. La procedura viene eseguita in prossimità dell'ovulazione (periodo periovulatorio) per massimizzare le possibilità di fecondazione.
+            </div>
+
+            <div class="content">
+                <span class="bold">FASI DEL TRATTAMENTO:</span>
+            </div>
+            
+            <div class="indication-list">
+                <div class="indication-item">Monitoraggio follicolare ecografico e ormonale</div>
+                <div class="indication-item">Eventuale stimolazione ovarica controllata</div>
+                <div class="indication-item">Induzione dell'ovulazione (trigger)</div>
+                <div class="indication-item">Preparazione del liquido seminale (capacitazione)</div>
+                <div class="indication-item">Inseminazione intrauterina (procedura ambulatoriale)</div>
+                <div class="indication-item">Supporto della fase luteale</div>
+                <div class="indication-item">Test di gravidanza dopo 12-14 giorni</div>
+            </div>
+
+            <div class="success-rate">
+                <div class="bold" style="font-size: 14pt; margin-bottom: 10px;">📊 PERCENTUALI DI SUCCESSO</div>
+                <div>Le percentuali di gravidanza per ciclo di trattamento sono:</div>
+                <div style="margin-top: 10px; font-size: 12pt;">
+                    <span class="bold">15-20% per ciclo</span> (variabile in base all'età e alla diagnosi)
+                </div>
+                <div style="margin-top: 8px; font-size: 9pt; color: #6c757d;">
+                    I risultati dipendono da fattori quali età della donna, riserva ovarica, qualità seminale e diagnosi specifica.
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <div class="section-header" style="margin: 0 0 15px 0;">⚠️ RISCHI E COMPLICANZE</div>
+                
+                <div class="indication-list">
+                    <div class="indication-item">Gravidanze multiple (5-12% dei casi)</div>
+                    <div class="indication-item">Sindrome da iperstimolazione ovarica (rara, <2%)</div>
+                    <div class="indication-item">Infezioni pelviche (molto rare, <0.5%)</div>
+                    <div class="indication-item">Sanguinamento vaginale lieve (transitorio)</div>
+                    <div class="indication-item">Crampi addominali temporanei</div>
+                    <div class="indication-item">Aborto spontaneo (15-20%, come in gravidanze naturali)</div>
+                </div>
+            </div>
+
+            <div class="content">
+                <span class="bold">MOTIVO SPECIFICO DELLA PROCEDURA:</span>
+                <div style="margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #27ae60;">
+                    <span class="underline" style="font-size: 12pt; font-weight: 600;">[MOTIVO_FECONDAZIONE]</span>
+                </div>
+            </div>
+
+            <div class="legal-reference">
+                <strong>Base normativa:</strong> Legge 40/2004 "Norme in materia di procreazione medicalmente assistita"; 
+                Decreto del Ministero della Salute; Linee Guida della Società Italiana di Fertilità e Sterilità (SIFES-MR); 
+                Codice Deontologico Medico.
+            </div>
+
+            <div class="section-header">✅ CONSENSO AL TRATTAMENTO</div>
+            
+            <div class="content">
+                I sottoscritti, dopo aver ricevuto informazioni complete ed esaurienti sui rischi e benefici della procedura, 
+                aver avuto modo di porre domande e aver ricevuto risposte soddisfacenti, consapevoli che non esistono garanzie di successo, 
+                <span class="bold highlight">ACCONSENTONO</span> liberamente al trattamento di Inseminazione Intrauterina (IUI).
+            </div>
+
+            <div class="date-section">
+                Roma, <span class="underline">[DATA_ODIERNA]</span>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box" data-role="PAZIENTE">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma per esteso e leggibile</div>
+                </div>
+                <div class="signature-box" data-role="PARTNER">
+                    <div class="signature-line"></div>
+                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
+                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma per esteso e leggibile</div>
+                </div>
+            </div>
+
+            <div class="medical-footer">
+                <div style="font-weight: 600; margin-bottom: 15px;">TIMBRO E FIRMA DEL MEDICO RESPONSABILE</div>
+                <div class="doctor-signature">
+                    <div>
+                        <div style="margin-bottom: 10px;">Dott. <span class="underline">[MEDICO_NOME]</span></div>
+                        <div style="font-size: 9pt; color: #6c757d;">Specialista in Ginecologia e Ostetricia</div>
+                        <div style="font-size: 9pt; color: #6c757d;">Esperto in Medicina della Riproduzione</div>
+                        <div style="font-size: 9pt; color: #6c757d;">Iscrizione Ordine dei Medici di Roma n. [NUMERO_ORDINE]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>📄 Consenso Informato IUI - Sistema PMA Centro Biofertility</div>
+            <div style="margin-top: 10px;">🔒 Documento conforme alla normativa vigente | 🏥 Centro autorizzato per tecniche di I° Livello</div>
+            <div style="margin-top: 8px; font-size: 8pt;">Rev. 2024.01 - Conforme a Legge 40/2004 e Linee Guida Ministero della Salute</div>
+        </div>
     </div>
-
-    <div class="title">CONSENSO INFORMATO PER INSEMINAZIONE INTRAUTERINA (IUI)</div>
-
-    <div class="patient-info">
-        <div><span class="bold">PAZIENTE:</span> <span class="underline">[PAZIENTE_NOME]</span></div>
-        <div><span class="bold">Nata a:</span> <span class="underline">[PAZIENTE_LUOGO_NASCITA]</span> <span class="bold">il:</span> <span class="underline">[PAZIENTE_DATA_NASCITA]</span></div>
-        <div><span class="bold">C.F.:</span> <span class="underline">[PAZIENTE_CF]</span></div>
-        <div><span class="bold">Residente:</span> <span class="underline">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span></div>
-        <div style="margin-top: 15px;"><span class="bold">PARTNER:</span> <span class="underline">[PARTNER_NOME]</span></div>
-        <div><span class="bold">Nato a:</span> <span class="underline">[PARTNER_LUOGO_NASCITA]</span> <span class="bold">il:</span> <span class="underline">[PARTNER_DATA_NASCITA]</span></div>
-        <div><span class="bold">C.F.:</span> <span class="underline">[PARTNER_CF]</span></div>
-        <div><span class="bold">Residente:</span> <span class="underline">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span></div>
-        <div style="margin-top: 15px;"><span class="bold">Medico responsabile:</span> <span class="underline">[MEDICO_NOME]</span></div>
-        <div><span class="bold">Codice coppia:</span> <span class="underline">[CODICE_COPPIA]</span></div>
-    </div>
-
-    <div class="content"><span class="bold">DICHIARANO</span> di essere stati informati che:</div>
-
-    <div class="content">
-        <span class="bold">1. INDICAZIONI:</span> L'inseminazione intrauterina (IUI) è indicata nei casi di:
-        <div class="list-item">- Infertilità inspiegata</div>
-        <div class="list-item">- Lieve alterazione dei parametri seminali</div>
-        <div class="list-item">- Disturbi dell'ovulazione</div>
-        <div class="list-item">- Infertilità cervicale</div>
-        <div class="list-item">- Endometriosi lieve</div>
-    </div>
-
-    <div class="content">
-        <span class="bold">2. PROCEDURA:</span> La IUI consiste nell'introduzione del liquido seminale, opportunamente trattato e concentrato, direttamente nella cavità uterina mediante un sottile catetere, nel periodo periovulatorio.
-    </div>
-
-    <div class="content">
-        <span class="bold">3. RISULTATI:</span> Le percentuali di gravidanza per ciclo di trattamento sono circa del 15-20% per ciclo.
-    </div>
-
-    <div class="content">
-        <span class="bold">4. RISCHI E COMPLICANZE:</span>
-        <div class="list-item">- Gravidanze multiple (5-10%)</div>
-        <div class="list-item">- Sindrome da iperstimolazione ovarica</div>
-        <div class="list-item">- Possibili infezioni (rare)</div>
-    </div>
-
-    <div class="content">
-        <span class="bold">MOTIVO DELLA PROCEDURA:</span> <span class="underline">[MOTIVO_FECONDAZIONE]</span>
-    </div>
-
-    <div class="content">
-        Dopo aver ricevuto informazioni sui rischi e benefici della procedura, <span class="bold">ACCONSENTIAMO</span> liberamente al trattamento di IUI.
-    </div>
+</body>
+</html>`,
 
     <div class="date-section">Data: <span class="underline">[DATA_ODIERNA]</span></div>
 
@@ -2571,8 +3513,10 @@
                 },
                 procedura: {
                     medico: document.getElementById('medico-nome').value.trim(),
+                    numeroOrdine: document.getElementById('numero-ordine').value.trim(),
                     codiceCoppia: document.getElementById('codice-coppia').value.trim(),
-                    motivo: document.getElementById('motivo-fecondazione').value.trim()
+                    motivo: document.getElementById('motivo-fecondazione').value.trim(),
+                    documento: document.getElementById('paziente-documento').value.trim()
                 }
             };
 
@@ -2638,8 +3582,10 @@
 
             // Sostituzioni procedura
             contenutoCompilato = contenutoCompilato.replace(/\[MEDICO_NOME\]/g, data.procedura.medico);
+            contenutoCompilato = contenutoCompilato.replace(/\[NUMERO_ORDINE\]/g, data.procedura.numeroOrdine);
             contenutoCompilato = contenutoCompilato.replace(/\[CODICE_COPPIA\]/g, data.procedura.codiceCoppia);
             contenutoCompilato = contenutoCompilato.replace(/\[MOTIVO_FECONDAZIONE\]/g, data.procedura.motivo);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO\]/g, data.procedura.documento);
 
             // Sostituzioni data
             contenutoCompilato = contenutoCompilato.replace(/\[DATA_ODIERNA\]/g, data.dataOdierna);
