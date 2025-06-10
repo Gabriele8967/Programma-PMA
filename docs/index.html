@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro Biofertility - Compilazione Documenti PMA</title>
-    <!-- Librerie CDN per GitHub Pages -->
+    <!-- Librerie per generazione PDF e lettura DOCX -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -15,13 +16,11 @@
         }
 
         body {
-            font-family: 'Times New Roman', Times, serif;
-            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            color: #2c3e50;
-            line-height: 1.4;
-            margin: 0;
-            padding: 20px;
+            color: #333;
+            line-height: 1.6;
         }
 
         .container {
@@ -31,31 +30,56 @@
         }
 
         .header {
-            background: #f8f9fa;
-            padding: 30px;
-            border: 2px solid #2c3e50;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
             text-align: center;
-            border-radius: 0;
         }
 
         .logo {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            font-size: 3em;
+            margin-bottom: 10px;
         }
 
         .header h1 {
             color: #2c3e50;
-            font-size: 1.8em;
+            font-size: 2.2em;
             margin-bottom: 10px;
-            font-weight: bold;
         }
 
         .header p {
-            color: #2c3e50;
-            font-size: 1em;
-            font-style: italic;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .welcome-section {
+            background: #e8f4f8;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        .welcome-section h2 {
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .welcome-section p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section ul {
+            margin-left: 25px;
+            color: #555;
+        }
+
+        .welcome-section li {
+            margin-bottom: 8px;
         }
 
         .form-section {
@@ -147,9 +171,9 @@
 
         .documents-section h2 {
             color: #2c3e50;
-            text-align: center;
             margin-bottom: 25px;
-            font-size: 1.8em;
+            font-size: 1.6em;
+            text-align: center;
         }
 
         .document-list {
@@ -195,8 +219,8 @@
         }
 
         .document-code {
-            font-weight: bold;
-            color: #3498db;
+            font-weight: 700;
+            color: #2196f3;
             font-size: 1.1em;
             margin-bottom: 5px;
         }
@@ -206,49 +230,135 @@
             font-size: 0.95em;
         }
 
-        .actions {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: all 0.3s;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-secondary {
-            background: #95a5a6;
-            color: white;
-        }
-
         .required {
             color: #e74c3c;
         }
 
+        .optional-tag {
+            display: inline-block;
+            background: #95a5a6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-left: 5px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #bdc3c7;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
         .message {
-            padding: 15px;
+            padding: 15px 25px;
             border-radius: 10px;
             margin: 20px 0;
-            font-weight: 600;
             text-align: center;
+            font-weight: 600;
             display: none;
         }
 
@@ -264,57 +374,65 @@
             border: 1px solid #f5c6cb;
         }
 
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loading-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
+        .privacy-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .privacy-notice h3 {
+            color: #856404;
+            margin-bottom: 10px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .privacy-notice p {
+            color: #856404;
+            font-size: 0.95em;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
-            margin: 20px 0;
-            overflow: hidden;
+        .select-all-container {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            width: 0%;
-            transition: width 0.3s ease;
+        .instructions {
+            background: #e8f5e8;
+            border: 1px solid #c3e6c3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #155724;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            color: #155724;
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-section, .documents-section, .welcome-section {
+            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
@@ -323,7 +441,32 @@
         <div class="header">
             <div class="logo">🏥</div>
             <h1>Centro Biofertility</h1>
-            <p>Sistema Web di Compilazione Documenti PMA</p>
+            <p>Sistema di Compilazione Documenti PMA</p>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Istruzioni per l'uso</h3>
+            <ol>
+                <li><strong>Preparazione:</strong> Assicuratevi che la cartella "templates" con i file DOCX sia nella stessa directory di questo file</li>
+                <li><strong>Compilazione:</strong> Inserite tutti i dati richiesti nei campi sottostanti</li>
+                <li><strong>Selezione:</strong> Scegliete i documenti necessari per la vostra procedura</li>
+                <li><strong>Generazione:</strong> Cliccate su "Genera Documenti" per creare i PDF compilati</li>
+                <li><strong>Download:</strong> I documenti verranno scaricati automaticamente nella cartella Download</li>
+            </ol>
+        </div>
+
+        <div class="welcome-section">
+            <h2>Benvenuti nel sistema di compilazione documenti</h2>
+            <p><strong>Gentili pazienti,</strong></p>
+            <p>Questo sistema vi permetterà di compilare automaticamente tutti i documenti necessari per il vostro percorso di PMA utilizzando i template DOCX originali del centro.</p>
+            <p><strong>Come funziona:</strong></p>
+            <ul>
+                <li>Inserite i vostri dati una sola volta</li>
+                <li>Selezionate i documenti necessari per la vostra procedura</li>
+                <li>Il sistema leggerà i template DOCX dalla cartella "templates"</li>
+                <li>Genererà automaticamente i PDF compilati e li scaricherà</li>
+            </ul>
+            <p><strong>Tempo stimato:</strong> 10-15 minuti</p>
         </div>
 
         <div class="form-section">
@@ -347,6 +490,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label>Professione <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="paziente-professione" placeholder="Es: Impiegata">
+                    </div>
+                    <div class="form-group">
                         <label>Indirizzo di residenza <span class="required">*</span></label>
                         <input type="text" id="paziente-residenza" placeholder="Es: Via Roma 1" required>
                     </div>
@@ -355,16 +502,26 @@
                         <input type="text" id="paziente-citta" placeholder="Es: Roma 00100" required>
                     </div>
                     <div class="form-group">
-                        <label>Codice Fiscale</label>
+                        <label>Codice Fiscale <span class="optional-tag">Opzionale</span></label>
                         <input type="text" id="paziente-cf" placeholder="Es: RSSMRA80A01H501X" maxlength="16" style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Documento d'identità</label>
+                            <input type="text" id="paziente-documento" placeholder="Es: CI123456">
+                        </div>
+                        <div class="form-group">
+                            <label>Scadenza</label>
+                            <input type="date" id="paziente-documento-scadenza">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Telefono <span class="required">*</span></label>
                         <input type="tel" id="paziente-telefono" placeholder="Es: 333 1234567" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="paziente-email" placeholder="Es: maria@email.it">
+                        <label>Email <span class="optional-tag">Opzionale</span></label>
+                        <input type="email" id="paziente-email" placeholder="Es: maria.rossi@email.com">
                     </div>
                 </div>
 
@@ -372,7 +529,7 @@
                     <h3><span class="icon">👨</span>Dati del Partner</h3>
                     <div class="form-group">
                         <label>Nome e Cognome <span class="required">*</span></label>
-                        <input type="text" id="partner-nome" placeholder="Es: Giuseppe Rossi" required>
+                        <input type="text" id="partner-nome" placeholder="Es: Mario Bianchi" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -385,24 +542,38 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label>Professione <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="partner-professione" placeholder="Es: Ingegnere">
+                    </div>
+                    <div class="form-group">
                         <label>Indirizzo di residenza <span class="required">*</span></label>
                         <input type="text" id="partner-residenza" placeholder="Es: Via Milano 2" required>
                     </div>
                     <div class="form-group">
                         <label>Città e CAP <span class="required">*</span></label>
-                        <input type="text" id="partner-citta" placeholder="Es: Milano 20100" required>
+                        <input type="text" id="partner-citta" placeholder="Es: Roma 00100" required>
                     </div>
                     <div class="form-group">
-                        <label>Codice Fiscale</label>
-                        <input type="text" id="partner-cf" placeholder="Es: RSSGSF75B02F205Z" maxlength="16" style="text-transform: uppercase;">
+                        <label>Codice Fiscale <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="partner-cf" placeholder="Es: BNCMRO80A01F205X" maxlength="16" style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Documento d'identità</label>
+                            <input type="text" id="partner-documento" placeholder="Es: CI789012">
+                        </div>
+                        <div class="form-group">
+                            <label>Scadenza</label>
+                            <input type="date" id="partner-documento-scadenza">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Telefono <span class="required">*</span></label>
-                        <input type="tel" id="partner-telefono" placeholder="Es: 333 7654321" required>
+                        <label>Telefono <span class="optional-tag">Opzionale</span></label>
+                        <input type="tel" id="partner-telefono" placeholder="Es: 333 7654321">
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="partner-email" placeholder="Es: giuseppe@email.it">
+                        <label>Email <span class="optional-tag">Opzionale</span></label>
+                        <input type="email" id="partner-email" placeholder="Es: mario.bianchi@email.com">
                     </div>
                 </div>
             </div>
@@ -412,25 +583,15 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Medico responsabile</label>
-                        <input type="text" id="medico-nome" placeholder="Es: Dott. Mario Rossi">
+                        <input type="text" id="medico-nome" placeholder="Es: Dott. Rossi">
                     </div>
                     <div class="form-group">
-                        <label>Numero iscrizione Ordine Medici</label>
-                        <input type="text" id="numero-ordine" placeholder="Es: 12345">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Codice coppia</label>
+                        <label>Codice coppia <span style="cursor: help;" title="Se non lo conoscete, lasciate vuoto">ℹ️</span></label>
                         <input type="text" id="codice-coppia" placeholder="Es: CP2024001">
-                    </div>
-                    <div class="form-group">
-                        <label>Documento identità paziente</label>
-                        <input type="text" id="paziente-documento" placeholder="Es: CI n. AB123456">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Motivo della procedura/Causa infertilità</label>
+                    <label>Motivo della procedura/Causa infertilità <span class="optional-tag">Opzionale</span></label>
                     <textarea id="motivo-fecondazione" rows="2" placeholder="Es: Infertilità primaria"></textarea>
                 </div>
             </div>
@@ -439,8 +600,14 @@
         <div class="documents-section">
             <h2>📄 Seleziona i Documenti da Compilare</h2>
             <p style="text-align: center; color: #7f8c8d; margin-bottom: 25px;">
-                Template integrati - Nessun file esterno richiesto
+                Selezionate solo i documenti richiesti per la vostra procedura
             </p>
+            
+            <div class="select-all-container">
+                <button class="btn btn-secondary" onclick="toggleAllDocuments()">
+                    Seleziona/Deseleziona Tutti
+                </button>
+            </div>
 
             <div class="document-list">
                 <div class="document-item" onclick="toggleDocument(this)">
@@ -452,10 +619,10 @@
                 </div>
 
                 <div class="document-item" onclick="toggleDocument(this)">
-                    <input type="checkbox" id="doc-zika">
+                    <input type="checkbox" id="doc-zika" checked>
                     <label for="doc-zika">
                         <div class="document-code">MOD_03</div>
-                        <div class="document-name">Informativa Virus Zika Generale</div>
+                        <div class="document-name">Dichiarazione Virus Zika</div>
                     </label>
                 </div>
 
@@ -476,10 +643,34 @@
                 </div>
 
                 <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-scongelamento">
+                    <label for="doc-scongelamento">
+                        <div class="document-code">MOD_06</div>
+                        <div class="document-name">Consenso Scongelamento Ovociti</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-crioconservazione-ls">
+                    <label for="doc-crioconservazione-ls">
+                        <div class="document-code">MOD_07</div>
+                        <div class="document-name">Crioconservazione Liquido Seminale</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
                     <input type="checkbox" id="doc-crioconservazione-ovo">
                     <label for="doc-crioconservazione-ovo">
                         <div class="document-code">MOD_08</div>
-                        <div class="document-name">Consenso Crioconservazione Ovocitaria</div>
+                        <div class="document-name">Crioconservazione Ovocitaria</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-scheda-bio">
+                    <label for="doc-scheda-bio">
+                        <div class="document-code">MOD_13</div>
+                        <div class="document-name">Scheda Biologica IUI</div>
                     </label>
                 </div>
 
@@ -511,7 +702,7 @@
                     <input type="checkbox" id="doc-info-scongelamento">
                     <label for="doc-info-scongelamento">
                         <div class="document-code">MOD_34</div>
-                        <div class="document-name">Informativa Scongelamento Ovocitario e ICSI</div>
+                        <div class="document-name">Informativa Scongelamento</div>
                     </label>
                 </div>
 
@@ -522,39 +713,13 @@
                         <div class="document-name">Informativa IUI</div>
                     </label>
                 </div>
-
-                <div class="document-item" onclick="toggleDocument(this)">
-                    <input type="checkbox" id="doc-zika-coppia">
-                    <label for="doc-zika-coppia">
-                        <div class="document-code">MOD_43</div>
-                        <div class="document-name">Zika Coppia</div>
-                    </label>
-                </div>
-
-                <div class="document-item" onclick="toggleDocument(this)">
-                    <input type="checkbox" id="doc-consenso-integrativo-assenza">
-                    <label for="doc-consenso-integrativo-assenza">
-                        <div class="document-code">MOD_44</div>
-                        <div class="document-name">Consenso Integrativo PMA Senza Marito</div>
-                    </label>
-                </div>
-
-                <div class="document-item" onclick="toggleDocument(this)">
-                    <input type="checkbox" id="doc-consenso-integrativo-omologa">
-                    <label for="doc-consenso-integrativo-omologa">
-                        <div class="document-code">MOD_46</div>
-                        <div class="document-name">Consenso Integrativo Omologa</div>
-                    </label>
-                </div>
-
-                <div class="document-item" onclick="toggleDocument(this)">
-                    <input type="checkbox" id="doc-consenso-integrativo-sov">
-                    <label for="doc-consenso-integrativo-sov">
-                        <div class="document-code">MOD_47</div>
-                        <div class="document-name">Consenso Integrativo SOV</div>
-                    </label>
-                </div>
             </div>
+        </div>
+
+        <div class="privacy-notice">
+            <h3>🔒 Privacy e Sicurezza</h3>
+            <p>I vostri dati vengono elaborati solo sul vostro computer e non vengono inviati a nessun server esterno.<br>
+            Tutti i documenti generati rimangono sul vostro dispositivo e vengono scaricati automaticamente.</p>
         </div>
 
         <div class="actions">
@@ -577,1539 +742,30 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <p style="margin-top: 20px; color: #7f8c8d;">Attendere prego, elaborazione in corso</p>
+            <p style="margin-top: 20px; color: #7f8c8d;">Attendere prego, non chiudere questa finestra</p>
         </div>
     </div>
 
     <script>
-        // Template integrati per GitHub Pages - VERSIONE CORRETTA
-        const templates = {
-            'doc-privacy': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { 
-            size: A4; 
-            margin: 2cm; 
-        }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { 
-            font-size: 11pt; 
-            opacity: 0.95; 
-            margin-top: 12px;
-            position: relative;
-            z-index: 1;
-        }
-        .title { 
-            font-weight: 700; 
-            font-size: 18pt; 
-            color: #2c3e50; 
-            text-align: center; 
-            margin: 30px 0; 
-            padding: 20px 0; 
-            border-bottom: 3px solid #3498db; 
-            position: relative;
-        }
-        .title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: #e74c3c;
-        }
-        .section { 
-            margin-bottom: 25px; 
-            padding: 0 20px;
-        }
-        .section-title { 
-            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
-            color: #2c3e50;
-            font-weight: 700; 
-            font-size: 12pt; 
-            margin: 20px -20px 15px -20px; 
-            padding: 15px 20px;
-            border-left: 4px solid #3498db;
-            border-radius: 0 8px 8px 0;
-        }
-        .patient-data { 
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #dee2e6; 
-            border-radius: 12px;
-            padding: 25px; 
-            margin: 20px 0; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .data-row { 
-            display: flex;
-            margin-bottom: 15px; 
-            align-items: center;
-        }
-        .label { 
-            font-weight: 600; 
-            color: #495057;
-            min-width: 130px; 
-            margin-right: 15px;
-        }
-        .value { 
-            flex: 1;
-            padding: 10px 15px; 
-            background: white;
-            border: 2px solid #ced4da;
-            border-radius: 8px;
-            font-weight: 500;
-            min-height: 20px;
-        }
-        .content-text { 
-            text-align: justify; 
-            margin: 15px 0; 
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-        }
-        .signature-area { 
-            margin-top: 40px; 
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-        }
-        .signature-cell { 
-            text-align: center; 
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 2px dashed #ced4da;
-        }
-        .signature-line { 
-            margin: 30px auto 15px; 
-            width: 200px; 
-            height: 3px;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            border-radius: 2px;
-        }
-        .footer { 
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            font-size: 9pt; 
-            text-align: center; 
-            margin-top: 30px; 
-            padding: 20px 30px;
-            border-radius: 0 0 12px 12px;
-        }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">CENTRO BIOFERTILITY</div>
-            <div class="header-info">Via del Centro Medico, 123 - 00100 Roma | Tel: 06-1234567</div>
-        </div>
-
-        <div class="title">INFORMATIVA E CONSENSO AL TRATTAMENTO DEI DATI PERSONALI<br>(Art. 13-14 GDPR UE 2016/679)</div>
-
-        <div class="section">
-            <div class="section-title">DATI IDENTIFICATIVI</div>
-            <div class="patient-data">
-                <div class="data-row"><span class="label">Paziente:</span> <span class="value">[PAZIENTE_NOME]</span></div>
-                <div class="data-row"><span class="label">Nato/a a:</span> <span class="value">[PAZIENTE_LUOGO_NASCITA]</span> <span class="label">il:</span> <span class="value">[PAZIENTE_DATA_NASCITA]</span></div>
-                <div class="data-row"><span class="label">Codice Fiscale:</span> <span class="value">[PAZIENTE_CF]</span></div>
-                <div class="data-row"><span class="label">Residenza:</span> <span class="value">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span></div>
-            </div>
-            <div class="patient-data">
-                <div class="data-row"><span class="label">Partner:</span> <span class="value">[PARTNER_NOME]</span></div>
-                <div class="data-row"><span class="label">Nato/a a:</span> <span class="value">[PARTNER_LUOGO_NASCITA]</span> <span class="label">il:</span> <span class="value">[PARTNER_DATA_NASCITA]</span></div>
-                <div class="data-row"><span class="label">Codice Fiscale:</span> <span class="value">[PARTNER_CF]</span></div>
-                <div class="data-row"><span class="label">Residenza:</span> <span class="value">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span></div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">INFORMATIVA SUL TRATTAMENTO DEI DATI</div>
-            <div class="content-text"><strong>TITOLARE:</strong> Centro Biofertility S.r.l.</div>
-            <div class="content-text"><strong>FINALITÀ:</strong> Erogazione prestazioni sanitarie PMA, gestione cartella clinica, adempimenti di legge.</div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">CONSENSO</div>
-            <div class="content-text">I sottoscritti <strong>ACCONSENTONO</strong> al trattamento dei propri dati personali per le finalità indicate.</div>
-        </div>
-
-        <div style="text-align: right; margin: 10px 0;"><strong>Roma, [DATA_ODIERNA]</strong></div>
-
-        <div class="signature-area">
-            <div class="signature-cell">
-                <div class="signature-line"></div>
-                <div><strong>[PAZIENTE_NOME]</strong></div>
-            </div>
-            <div class="signature-cell">
-                <div class="signature-line"></div>
-                <div><strong>[PARTNER_NOME]</strong></div>
-            </div>
-        </div>
-
-        <div class="footer">Documento generato automaticamente - Conforme a GDPR UE 2016/679</div>
-    </div>
-</body>
-</html>`,
-
-            'doc-iui': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #27ae60; }
-        .section-header { background: #e8f8f5; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #27ae60; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .indication-list { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .indication-item { padding: 8px 0; border-bottom: 1px solid #f8f9fa; display: flex; align-items: center; }
-        .indication-item::before { content: '•'; color: #27ae60; font-weight: bold; margin-right: 10px; width: 20px; font-size: 14pt; }
-        .success-rate { background: #e8f4f8; border: 2px solid #17a2b8; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #27ae60; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INFORMATO PER INSEMINAZIONE INTRAUTERINA (IUI)<br>
-            <span style="font-size: 12pt; font-weight: 500;">Tecnica di Procreazione Medicalmente Assistita di I° Livello</span></div>
-
-            <div class="section-header">👥 DATI IDENTIFICATIVI DEI PAZIENTI</div>
-            
-            <div class="patient-info">
-                <div style="font-weight: 700; margin-bottom: 15px; color: #27ae60;">👩 PAZIENTE</div>
-                <div class="patient-row">
-                    <span class="patient-label">Nome completo:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Nato/a a:</span>
-                    <span class="patient-value underline">[PAZIENTE_LUOGO_NASCITA]</span>
-                    <span class="patient-label" style="margin-left: 20px;">il:</span>
-                    <span class="patient-value underline">[PAZIENTE_DATA_NASCITA]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Residenza:</span>
-                    <span class="patient-value underline">[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</span>
-                </div>
-                
-                <div style="font-weight: 700; margin: 20px 0 15px 0; color: #27ae60;">👨 PARTNER</div>
-                <div class="patient-row">
-                    <span class="patient-label">Nome completo:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Nato/a a:</span>
-                    <span class="patient-value underline">[PARTNER_LUOGO_NASCITA]</span>
-                    <span class="patient-label" style="margin-left: 20px;">il:</span>
-                    <span class="patient-value underline">[PARTNER_DATA_NASCITA]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Residenza:</span>
-                    <span class="patient-value underline">[PARTNER_RESIDENZA], [PARTNER_CITTA]</span>
-                </div>
-                
-                <div style="font-weight: 700; margin: 20px 0 15px 0; color: #27ae60;">👨‍⚕️ INFORMAZIONI CLINICHE</div>
-                <div class="patient-row">
-                    <span class="patient-label">Medico responsabile:</span>
-                    <span class="patient-value underline">Dott. [MEDICO_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">Codice coppia:</span>
-                    <span class="patient-value underline">[CODICE_COPPIA]</span>
-                </div>
-            </div>
-
-            <div class="section-header">🎯 INDICAZIONI CLINICHE</div>
-            
-            <div class="content">
-                L'Inseminazione Intrauterina (IUI) è indicata per:
-            </div>
-            
-            <div class="indication-list">
-                <div class="indication-item">Infertilità inspiegata</div>
-                <div class="indication-item">Alterazioni lievi dei parametri seminali</div>
-                <div class="indication-item">Disturbi dell'ovulazione</div>
-                <div class="indication-item">Fattore cervicale</div>
-                <div class="indication-item">Endometriosi lieve</div>
-            </div>
-
-            <div class="section-header">🔬 DESCRIZIONE DELLA PROCEDURA</div>
-            
-            <div class="content">
-                La IUI consiste nell'introduzione del liquido seminale, preparato in laboratorio, direttamente nella cavità uterina mediante catetere sterile nel periodo periovulatorio.
-            </div>
-
-            <div class="success-rate">
-                <div class="bold" style="font-size: 14pt; margin-bottom: 10px;">📊 PERCENTUALI DI SUCCESSO</div>
-                <div>Gravidanza per ciclo: <span class="bold">15-20%</span></div>
-                <div style="font-size: 9pt; color: #6c757d; margin-top: 8px;">Variabile in base all'età e alla diagnosi</div>
-            </div>
-
-            <div class="content">
-                <span class="bold">MOTIVO SPECIFICO:</span>
-                <div style="margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #27ae60;">
-                    <span class="underline">[MOTIVO_FECONDAZIONE]</span>
-                </div>
-            </div>
-
-            <div class="section-header">✅ CONSENSO AL TRATTAMENTO</div>
-            
-            <div class="content">
-                I sottoscritti, dopo aver ricevuto informazioni complete, <span class="bold">ACCONSENTONO</span> al trattamento di IUI.
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Consenso Informato IUI - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a Legge 40/2004 e normativa vigente</div>
-        </div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_03 - Informativa Virus Zika Generale
-            'doc-zika': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #e74c3c; }
-        .section-header { background: #fdf2f2; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #e74c3c; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .warning-box { 
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); 
-            border: 2px solid #ffc107; 
-            border-radius: 12px; 
-            padding: 25px; 
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #e74c3c; padding: 2px 6px; border-radius: 4px; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">INFORMATIVA VIRUS ZIKA GENERALE<br>
-            <span style="font-size: 12pt; font-weight: 500;">Prevenzione e Controllo Infezioni in PMA</span></div>
-
-            <div class="section-header">⚠️ INFORMAZIONI SUL VIRUS ZIKA</div>
-            
-            <div class="warning-box">
-                <div class="bold" style="color: #856404; margin-bottom: 15px; font-size: 14pt;">🦟 ATTENZIONE - VIRUS ZIKA</div>
-                <div class="content">Il virus Zika può causare gravi malformazioni congenite (microcefalia e altre anomalie neurologiche). È fondamentale informare il medico di eventuali viaggi recenti in zone a rischio o sintomi compatibili.</div>
-                <div class="content"><span class="bold">Zone a rischio:</span> America Centrale e Meridionale, Caraibi, Sud-est asiatico, Isole del Pacifico</div>
-            </div>
-
-            <div class="section-header">👥 DATI IDENTIFICATIVI</div>
-            
-            <div class="patient-info">
-                <div class="patient-row">
-                    <span class="patient-label">👩 Paziente:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">👨 Partner:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">📅 Data:</span>
-                    <span class="patient-value underline">[DATA_ODIERNA]</span>
-                </div>
-            </div>
-
-            <div class="section-header">✅ DICHIARAZIONE DI PRESA VISIONE</div>
-            
-            <div class="content">
-                I sottoscritti dichiarano di aver ricevuto e compreso le informazioni relative al virus Zika e ai possibili rischi per la gravidanza.
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Informativa Virus Zika - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a normative sanitarie vigenti</div>
-        </div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_05 - Consenso ICSI
-            'doc-icsi': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #9b59b6; }
-        .patient-info { background: #f8f9fa; border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #9b59b6; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-            <div style="margin-top: 8px; font-weight: 600;">Centro di II° Livello PMA</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INFORMATO ICSI<br><span style="font-size: 12pt;">Iniezione Intracitoplasmatica di Spermatozoo</span></div>
-            <div class="patient-info">
-                <div class="content">
-                    <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                    <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                    <span class="bold">👨‍⚕️ Medico responsabile:</span> <span class="underline">Dott. [MEDICO_NOME]</span><br>
-                    <span class="bold">🔢 Codice coppia:</span> <span class="underline">[CODICE_COPPIA]</span>
-                </div>
-            </div>
-            <div class="content">
-                <span class="bold">MOTIVO SPECIFICO:</span><br>
-                <span class="underline">[MOTIVO_FECONDAZIONE]</span>
-            </div>
-            <div class="content">I sottoscritti <span class="bold">ACCONSENTONO</span> al trattamento ICSI.</div>
-            <div style="margin: 30px 0; text-align: right;">Roma, <span class="underline">[DATA_ODIERNA]</span></div>
-        </div>
-        <div class="footer-info">📄 Consenso Informato ICSI - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_08 - Consenso Crioconservazione Ovocitaria
-            'doc-crioconservazione-ovo': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #17a2b8; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #17a2b8; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">CONSENSO CRIOCONSERVAZIONE OVOCITARIA</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-            <div class="content">La sottoscritta <span class="bold">ACCONSENTE</span> alla crioconservazione degli ovociti.</div>
-        </div>
-        <div class="footer-info">📄 Consenso Crioconservazione Ovocitaria - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_14 - Scheda Biologica ICSI
-            'doc-scheda-icsi': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #fd7e14; }
-        .form-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        .form-table th, .form-table td { border: 1px solid #dee2e6; padding: 10px; text-align: left; }
-        .form-table th { background: #f8f9fa; font-weight: 600; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #fd7e14; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">SCHEDA BIOLOGICA ICSI</div>
-            <table class="form-table">
-                <tr><th>Paziente</th><td>[PAZIENTE_NOME]</td></tr>
-                <tr><th>Partner</th><td>[PARTNER_NOME]</td></tr>
-                <tr><th>Codice Coppia</th><td>[CODICE_COPPIA]</td></tr>
-                <tr><th>Medico</th><td>Dott. [MEDICO_NOME]</td></tr>
-                <tr><th>Data</th><td>[DATA_ODIERNA]</td></tr>
-            </table>
-        </div>
-        <div class="footer-info">📄 Scheda Biologica ICSI - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_16 - Accettazione Liquido Seminale  
-            'doc-accettazione': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #6f42c1; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #6f42c1; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">ACCETTAZIONE LIQUIDO SEMINALE</div>
-            <div class="content">
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">📄 Documento:</span> <span class="underline">[PAZIENTE_DOCUMENTO]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-            <div class="content">Il sottoscritto <span class="bold">ACCETTA</span> le procedure per la raccolta e l'analisi del liquido seminale.</div>
-        </div>
-        <div class="footer-info">📄 Accettazione Liquido Seminale - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_26 - Informativa ICSI
-            'doc-info-icsi': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #28a745; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #28a745; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">INFORMATIVA ICSI</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-            <div class="content">Informativa completa sulla procedura ICSI (Iniezione Intracitoplasmatica di Spermatozoo).</div>
-        </div>
-        <div class="footer-info">📄 Informativa ICSI - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_34 - Informativa Scongelamento Ovocitario e ICSI
-            'doc-info-scongelamento': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #007bff; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #007bff; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">INFORMATIVA SCONGELAMENTO OVOCITARIO E ICSI</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-            <div class="content">Informativa completa sulla procedura di scongelamento ovocitario e successiva ICSI.</div>
-        </div>
-        <div class="footer-info">📄 Informativa Scongelamento Ovocitario e ICSI - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_36 - Informativa IUI
-            'doc-info-iui': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2.5cm 2cm; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11pt; line-height: 1.5; color: #2c3e50; background: #fff; margin: 0; padding: 0; }
-        .document-container { max-width: 210mm; margin: 0 auto; background: white; }
-        .header { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); color: white; padding: 25px 30px; text-align: center; }
-        .logo { font-weight: 700; font-size: 20pt; margin-bottom: 8px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #6c757d; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #6c757d; padding: 2px 6px; border-radius: 4px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-            <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-        </div>
-        <div class="content-wrapper">
-            <div class="title">INFORMATIVA IUI</div>
-            <div class="content">
-                <span class="bold">👩 Paziente:</span> <span class="underline">[PAZIENTE_NOME]</span><br>
-                <span class="bold">👨 Partner:</span> <span class="underline">[PARTNER_NOME]</span><br>
-                <span class="bold">Data:</span> <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-            <div class="content">Informativa completa sulla procedura IUI (Inseminazione Intrauterina).</div>
-        </div>
-        <div class="footer-info">📄 Informativa IUI - Sistema PMA Centro Biofertility</div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_43 - Zika Coppia
-            'doc-zika-coppia': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #dc3545; }
-        .section-header { background: #f8d7da; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #dc3545; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .warning-box { 
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); 
-            border: 2px solid #dc3545; 
-            border-radius: 12px; 
-            padding: 25px; 
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .questionnaire-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .question-item { padding: 12px 0; border-bottom: 1px solid #f8f9fa; }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #dc3545; padding: 2px 6px; border-radius: 4px; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">QUESTIONARIO VIRUS ZIKA - COPPIA<br>
-            <span style="font-size: 12pt; font-weight: 500;">Valutazione Rischio Esposizione</span></div>
-
-            <div class="section-header">🦟 INFORMAZIONI VIRUS ZIKA PER LA COPPIA</div>
-            
-            <div class="warning-box">
-                <div class="bold" style="color: #721c24; margin-bottom: 15px; font-size: 14pt;">⚠️ ATTENZIONE - VIRUS ZIKA</div>
-                <div class="content">Questionario e informativa specifica per entrambi i partner riguardo l'esposizione al virus Zika e le implicazioni per il trattamento PMA.</div>
-                <div class="content"><span class="bold">Importante:</span> Il virus può essere trasmesso sessualmente e causare malformazioni fetali</div>
-            </div>
-
-            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
-            
-            <div class="patient-info">
-                <div class="patient-row">
-                    <span class="patient-label">👩 Paziente:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">👨 Partner:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">📅 Data compilazione:</span>
-                    <span class="patient-value underline">[DATA_ODIERNA]</span>
-                </div>
-            </div>
-
-            <div class="section-header">📋 QUESTIONARIO ESPOSIZIONE</div>
-            
-            <div class="questionnaire-section">
-                <div class="question-item">
-                    <div class="bold">1. Avete viaggiato in zone a rischio Zika negli ultimi 6 mesi?</div>
-                    <div style="margin: 10px 0;">□ SÌ □ NO - Se sì, specificare: <span class="underline" style="display: inline-block; width: 200px;">[ZONA_VIAGGIO]</span></div>
-                </div>
-                <div class="question-item">
-                    <div class="bold">2. Avete manifestato sintomi compatibili con Zika?</div>
-                    <div style="margin: 10px 0;">□ SÌ □ NO - Se sì, quando: <span class="underline" style="display: inline-block; width: 150px;">[DATA_SINTOMI]</span></div>
-                </div>
-                <div class="question-item">
-                    <div class="bold">3. Avete effettuato test per Zika?</div>
-                    <div style="margin: 10px 0;">□ SÌ □ NO - Risultato: <span class="underline" style="display: inline-block; width: 150px;">[RISULTATO_TEST]</span></div>
-                </div>
-            </div>
-
-            <div class="section-header">✅ DICHIARAZIONE CONSENSO</div>
-            
-            <div class="content">
-                I sottoscritti dichiarano di aver ricevuto informazioni complete sul virus Zika e di aver risposto veracemente al questionario.
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Questionario Zika Coppia - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a protocolli di sicurezza sanitaria</div>
-        </div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_44 - Consenso Integrativo PMA Senza Marito
-            'doc-consenso-integrativo-assenza': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #6610f2 0%, #520dc2 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #6610f2; }
-        .section-header { background: #f3e8ff; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #6610f2; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .legal-notice { 
-            background: linear-gradient(135deg, #e8f0fe 0%, #f3e8ff 100%); 
-            border: 2px solid #6610f2; 
-            border-radius: 12px; 
-            padding: 25px; 
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #6610f2; padding: 2px 6px; border-radius: 4px; }
-        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO PER PMA IN ASSENZA DI MARITO<br>
-            <span style="font-size: 12pt; font-weight: 500;">Consenso Specifico per Paziente Non Coniugata</span></div>
-
-            <div class="section-header">👩 DATI IDENTIFICATIVI PAZIENTE</div>
-            
-            <div class="patient-info">
-                <div class="patient-row">
-                    <span class="patient-label">👩 Paziente:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">📅 Data:</span>
-                    <span class="patient-value underline">[DATA_ODIERNA]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">🏆 Codice Fiscale:</span>
-                    <span class="patient-value underline">[PAZIENTE_CF]</span>
-                </div>
-            </div>
-
-            <div class="section-header">⚖️ RIFERIMENTI NORMATIVI</div>
-            
-            <div class="legal-notice">
-                <div class="bold" style="color: #6610f2; margin-bottom: 15px; font-size: 14pt;">📜 LEGGE 40/2004</div>
-                <div class="content">Secondo l'art. 5 della Legge 40/2004, possono accedere alle tecniche di PMA anche le coppie non sposate, purché maggiorenni, di sesso diverso, in età potenzialmente fertile e conviventi.</div>
-                <div class="content"><span class="bold">Nota:</span> Per le donne non coniugate è richiesto il presente consenso integrativo specifico.</div>
-            </div>
-
-            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
-            
-            <div class="consent-section">
-                <div class="content">
-                    La sottoscritta <span class="bold underline">[PAZIENTE_NOME]</span>, in qualità di donna maggiorenne non coniugata:
-                </div>
-                <div class="content">
-                    <div style="margin: 15px 0;">• È consapevole dei diritti e doveri derivanti dal trattamento PMA</div>
-                    <div style="margin: 15px 0;">• Ha ricevuto adeguata informazione sui rischi e benefici</div>
-                    <div style="margin: 15px 0;">• Dichiara di essere in età potenzialmente fertile</div>
-                    <div style="margin: 15px 0;">• Conferma la volontà di accedere al trattamento PMA</div>
-                </div>
-                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
-                    <span class="bold" style="color: #6610f2;">ACCONSENTE</span> al trattamento di Procreazione Medicalmente Assistita
-                </div>
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Consenso Integrativo PMA Senza Marito - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a Legge 40/2004 e normativa vigente</div>
-        </div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_46 - Consenso Integrativo Omologa
-            'doc-consenso-integrativo-omologa': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #20c997 0%, #1aa085 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #20c997; }
-        .section-header { background: #e8f8f5; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #20c997; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .definition-box { 
-            background: linear-gradient(135deg, #e8f8f5 0%, #d1ecf1 100%); 
-            border: 2px solid #20c997; 
-            border-radius: 12px; 
-            padding: 25px; 
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #20c997; padding: 2px 6px; border-radius: 4px; }
-        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO FECONDAZIONE OMOLOGA<br>
-            <span style="font-size: 12pt; font-weight: 500;">Conferma Trattamento con Gameti della Coppia</span></div>
-
-            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
-            
-            <div class="patient-info">
-                <div class="patient-row">
-                    <span class="patient-label">👩 Paziente:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">👨 Partner:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">📅 Data:</span>
-                    <span class="patient-value underline">[DATA_ODIERNA]</span>
-                </div>
-            </div>
-
-            <div class="section-header">🔬 DEFINIZIONE FECONDAZIONE OMOLOGA</div>
-            
-            <div class="definition-box">
-                <div class="bold" style="color: #20c997; margin-bottom: 15px; font-size: 14pt;">🧬 FECONDAZIONE OMOLOGA</div>
-                <div class="content">La fecondazione omologa utilizza i gameti (ovociti e spermatozoi) della coppia richiedente il trattamento, senza ricorso a donatori esterni.</div>
-                <div class="content"><span class="bold">Caratteristiche:</span></div>
-                <div style="margin-left: 20px;">
-                    <div>• Utilizzo esclusivo di ovociti della paziente</div>
-                    <div>• Utilizzo esclusivo di spermatozoi del partner</div>
-                    <div>• Mantenimento del patrimonio genetico della coppia</div>
-                </div>
-            </div>
-
-            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
-            
-            <div class="consent-section">
-                <div class="content">
-                    I sottoscritti, dopo aver ricevuto informazioni complete sui trattamenti di PMA omologa:
-                </div>
-                <div class="content">
-                    <div style="margin: 15px 0;">• Confermano la volontà di utilizzare esclusivamente i propri gameti</div>
-                    <div style="margin: 15px 0;">• Sono consapevoli delle procedure mediche necessarie</div>
-                    <div style="margin: 15px 0;">• Hanno compreso i rischi e i benefici del trattamento</div>
-                    <div style="margin: 15px 0;">• Escludono categoricamente il ricorso alla donazione di gameti</div>
-                </div>
-                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
-                    <span class="bold" style="color: #20c997;">ACCONSENTONO</span> al trattamento di fecondazione omologa
-                </div>
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma del Partner</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Consenso Integrativo Fecondazione Omologa - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a Legge 40/2004 e normativa vigente</div>
-        </div>
-    </div>
-</body>
-</html>`,
-
-            // MOD_47 - Consenso Integrativo SOV
-            'doc-consenso-integrativo-sov': `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page { size: A4; margin: 2cm; }
-        @media print { 
-            body { -webkit-print-color-adjust: exact; }
-            .document-container { page-break-inside: avoid; }
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: #2c3e50; 
-            background: #fff; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .document-container { 
-            max-width: 210mm; 
-            margin: 0 auto; 
-            background: white; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .header { 
-            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); 
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.3;
-        }
-        .logo { 
-            font-weight: 700; 
-            font-size: 24pt; 
-            margin-bottom: 10px; 
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info { font-size: 10pt; opacity: 0.95; margin-top: 10px; }
-        .content-wrapper { padding: 30px; }
-        .title { font-weight: 700; font-size: 16pt; color: #2c3e50; text-align: center; margin: 0 0 30px 0; padding: 15px 0; border-bottom: 3px solid #ffc107; }
-        .section-header { background: #fff8e1; padding: 12px 20px; margin: 25px -15px 15px -15px; border-left: 4px solid #ffc107; font-weight: 600; color: #2c3e50; border-radius: 0 8px 8px 0; }
-        .patient-info { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 2px solid #dee2e6; border-radius: 12px; padding: 25px; margin: 20px 0; }
-        .patient-row { display: flex; margin-bottom: 12px; align-items: center; }
-        .patient-label { font-weight: 600; color: #495057; min-width: 120px; margin-right: 15px; }
-        .patient-value { flex: 1; padding: 8px 12px; background: white; border: 1px solid #ced4da; border-radius: 6px; font-weight: 500; }
-        .procedure-box { 
-            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); 
-            border: 2px solid #ffc107; 
-            border-radius: 12px; 
-            padding: 25px; 
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .content { text-align: justify; margin-bottom: 18px; line-height: 1.6; color: #495057; }
-        .bold { font-weight: 700; color: #2c3e50; }
-        .underline { border-bottom: 2px solid #ffc107; padding: 2px 6px; border-radius: 4px; }
-        .protocol-list { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .protocol-item { padding: 8px 0; border-bottom: 1px solid #f8f9fa; display: flex; align-items: center; }
-        .protocol-item::before { content: '•'; color: #ffc107; font-weight: bold; margin-right: 10px; width: 20px; font-size: 14pt; }
-        .consent-section { background: white; border-radius: 8px; padding: 20px; margin: 15px 0; border: 1px solid #dee2e6; }
-        .signature-section { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 30px; border-top: 2px solid #dee2e6; }
-        .signature-box { text-align: center; padding: 20px; border: 2px dashed #ced4da; border-radius: 12px; background: #f8f9fa; }
-        .signature-line { margin: 30px auto 10px; width: 200px; height: 2px; background: #ced4da; border-radius: 2px; }
-        .footer-info { background: #2c3e50; color: white; padding: 20px 30px; font-size: 9pt; text-align: center; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="header">
-            <div class="logo">🏥 CENTRO BIOFERTILITY</div>
-            <div class="header-info">
-                <div>📍 Via del Centro Medico, 123 - 00100 Roma</div>
-                <div>📞 06-1234567 | ✉️ info@biofertility.it</div>
-                <div style="margin-top: 8px; font-weight: 600;">Centro di I° Livello PMA</div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="title">CONSENSO INTEGRATIVO STIMOLAZIONE OVARICA (SOV)<br>
-            <span style="font-size: 12pt; font-weight: 500;">Protocollo di Stimolazione Ormonale Controllata</span></div>
-
-            <div class="section-header">👥 DATI IDENTIFICATIVI COPPIA</div>
-            
-            <div class="patient-info">
-                <div class="patient-row">
-                    <span class="patient-label">👩 Paziente:</span>
-                    <span class="patient-value underline">[PAZIENTE_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">👨 Partner:</span>
-                    <span class="patient-value underline">[PARTNER_NOME]</span>
-                </div>
-                <div class="patient-row">
-                    <span class="patient-label">📅 Data:</span>
-                    <span class="patient-value underline">[DATA_ODIERNA]</span>
-                </div>
-            </div>
-
-            <div class="section-header">💊 DESCRIZIONE STIMOLAZIONE OVARICA</div>
-            
-            <div class="procedure-box">
-                <div class="bold" style="color: #e0a800; margin-bottom: 15px; font-size: 14pt;">🔬 STIMOLAZIONE OVARICA CONTROLLATA (SOV)</div>
-                <div class="content">La stimolazione ovarica controllata è un trattamento ormonale finalizzato ad aumentare il numero di ovociti maturi disponibili per la fecondazione, migliorando le possibilità di successo del trattamento PMA.</div>
-                <div class="content"><span class="bold">Obiettivo:</span> Ottenere multiple ovulazioni sincronizzate per massimizzare le probabilità di fecondazione</div>
-            </div>
-
-            <div class="section-header">📋 PROTOCOLLO DI STIMOLAZIONE</div>
-            
-            <div class="protocol-list">
-                <div class="protocol-item">Somministrazione di gonadotropine (FSH/LH)</div>
-                <div class="protocol-item">Monitoraggio ecografico seriale</div>
-                <div class="protocol-item">Controlli ormonali periodici (estradiolo, LH)</div>
-                <div class="protocol-item">Induzione dell'ovulazione con hCG</div>
-                <div class="protocol-item">Prelievo ovocitario ambulatoriale</div>
-            </div>
-
-            <div class="section-header">⚠️ RISCHI E COMPLICANZE</div>
-            
-            <div class="content">
-                <div style="margin: 10px 0;"><span class="bold">Sindrome da iperstimolazione ovarica (OHSS):</span> Rara ma possibile complicanza</div>
-                <div style="margin: 10px 0;"><span class="bold">Gravidanze multiple:</span> Aumentato rischio di gemelli</div>
-                <div style="margin: 10px 0;"><span class="bold">Effetti collaterali:</span> Gonfiore addominale, tensione mammaria, alterazioni dell'umore</div>
-            </div>
-
-            <div class="section-header">✅ DICHIARAZIONE DI CONSENSO</div>
-            
-            <div class="consent-section">
-                <div class="content">
-                    I sottoscritti, dopo aver ricevuto informazioni complete sulla stimolazione ovarica controllata:
-                </div>
-                <div class="content">
-                    <div style="margin: 15px 0;">• Sono consapevoli delle modalità di somministrazione dei farmaci</div>
-                    <div style="margin: 15px 0;">• Comprendono la necessità dei controlli periodici</div>
-                    <div style="margin: 15px 0;">• Sono informati sui possibili rischi e complicanze</div>
-                    <div style="margin: 15px 0;">• Si impegnano a seguire scrupolosamente il protocollo prescritto</div>
-                </div>
-                <div class="content" style="margin-top: 25px; text-align: center; font-size: 14pt;">
-                    <span class="bold" style="color: #ffc107;">ACCONSENTONO</span> al trattamento di Stimolazione Ovarica Controllata
-                </div>
-            </div>
-
-            <div style="margin: 30px 0; text-align: right; font-weight: 600;">
-                Roma, <span class="underline">[DATA_ODIERNA]</span>
-            </div>
-
-            <div class="signature-section">
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PAZIENTE_NOME]</div>
-                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma della Paziente</div>
-                </div>
-                <div class="signature-box">
-                    <div class="signature-line"></div>
-                    <div style="font-weight: 600; margin-top: 10px;">[PARTNER_NOME]</div>
-                    <div style="font-size: 9pt; color: #6c757d; margin-top: 5px;">Firma del Partner</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-info">
-            <div>📄 Consenso Integrativo Stimolazione Ovarica - Sistema PMA Centro Biofertility</div>
-            <div style="margin-top: 8px; font-size: 8pt;">Conforme a protocolli clinici e normativa vigente</div>
-        </div>
-    </div>
-</body>
-</html>`
+        // Mappa dei documenti disponibili (tutti i 14 template HTML compilabili)
+        const documentMap = {
+            'doc-privacy': 'MOD_01_PRIVACY.html',
+            'doc-zika': 'MOD_03_ZIKA.html',
+            'doc-iui': 'MOD_04_IUI.html',
+            'doc-icsi': 'MOD_05_ICSI.html',
+            'doc-crioconservazione-ovo': 'MOD_08_CRIOCONSERVAZIONE_OVO.html',
+            'doc-scheda-icsi': 'MOD_14_SCHEDA_ICSI.html',
+            'doc-accettazione': 'MOD_16_ACCETTAZIONE.html',
+            'doc-info-icsi': 'MOD_26_INFO_ICSI.html',
+            'doc-info-scongelamento': 'MOD_34_INFO_SCONGELAMENTO.html',
+            'doc-info-iui': 'MOD_36_INFO_IUI.html',
+            'doc-zika-coppia': 'MOD_43_ZIKA_COPPIA.html',
+            'doc-consenso-integrativo-assenza': 'MOD_44_CONSENSO_ASSENZA.html',
+            'doc-consenso-integrativo-omologa': 'MOD_46_CONSENSO_OMOLOGA.html',
+            'doc-consenso-integrativo-sov': 'MOD_47_CONSENSO_SOV.html'
         };
 
-        // Funzioni del sistema
+        // Funzione per alternare selezione documenti
         function toggleDocument(element) {
             const checkbox = element.querySelector('input[type="checkbox"]');
             checkbox.checked = !checkbox.checked;
@@ -2121,15 +777,37 @@
             }
         }
 
+        // Funzione per selezionare/deselezionare tutti i documenti
+        function toggleAllDocuments() {
+            const checkboxes = document.querySelectorAll('.document-item input[type="checkbox"]');
+            const documentItems = document.querySelectorAll('.document-item');
+            
+            // Controlla se tutti sono selezionati
+            const allSelected = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = !allSelected;
+                if (checkbox.checked) {
+                    documentItems[index].classList.add('selected');
+                } else {
+                    documentItems[index].classList.remove('selected');
+                }
+            });
+        }
+
+        // Funzione per raccogliere i dati del form
         function raccogliDati() {
             const data = {
                 paziente: {
                     nome: document.getElementById('paziente-nome').value.trim(),
                     luogoNascita: document.getElementById('paziente-luogo-nascita').value.trim(),
                     dataNascita: document.getElementById('paziente-data-nascita').value,
+                    professione: document.getElementById('paziente-professione').value.trim(),
                     residenza: document.getElementById('paziente-residenza').value.trim(),
                     citta: document.getElementById('paziente-citta').value.trim(),
                     codiceFiscale: document.getElementById('paziente-cf').value.trim().toUpperCase(),
+                    documento: document.getElementById('paziente-documento').value.trim(),
+                    documentoScadenza: document.getElementById('paziente-documento-scadenza').value,
                     telefono: document.getElementById('paziente-telefono').value.trim(),
                     email: document.getElementById('paziente-email').value.trim()
                 },
@@ -2137,21 +815,23 @@
                     nome: document.getElementById('partner-nome').value.trim(),
                     luogoNascita: document.getElementById('partner-luogo-nascita').value.trim(),
                     dataNascita: document.getElementById('partner-data-nascita').value,
+                    professione: document.getElementById('partner-professione').value.trim(),
                     residenza: document.getElementById('partner-residenza').value.trim(),
                     citta: document.getElementById('partner-citta').value.trim(),
                     codiceFiscale: document.getElementById('partner-cf').value.trim().toUpperCase(),
+                    documento: document.getElementById('partner-documento').value.trim(),
+                    documentoScadenza: document.getElementById('partner-documento-scadenza').value,
                     telefono: document.getElementById('partner-telefono').value.trim(),
                     email: document.getElementById('partner-email').value.trim()
                 },
                 procedura: {
                     medico: document.getElementById('medico-nome').value.trim(),
-                    numeroOrdine: document.getElementById('numero-ordine').value.trim(),
                     codiceCoppia: document.getElementById('codice-coppia').value.trim(),
-                    motivo: document.getElementById('motivo-fecondazione').value.trim(),
-                    documento: document.getElementById('paziente-documento').value.trim()
+                    motivo: document.getElementById('motivo-fecondazione').value.trim()
                 }
             };
 
+            // Aggiungi data odierna formattata
             const oggi = new Date();
             data.dataOdierna = oggi.toLocaleDateString('it-IT');
             data.annoOdierno = oggi.getFullYear().toString();
@@ -2159,9 +839,9 @@
             return data;
         }
 
-        function validaDati(data, documentiSelezionati) {
-            // Campi sempre obbligatori per tutti i documenti
-            const campiBase = [
+        // Funzione per validare i dati obbligatori
+        function validaDati(data) {
+            const campiObbligatori = [
                 { campo: data.paziente.nome, nome: 'Nome paziente' },
                 { campo: data.paziente.luogoNascita, nome: 'Luogo nascita paziente' },
                 { campo: data.paziente.dataNascita, nome: 'Data nascita paziente' },
@@ -2175,45 +855,21 @@
                 { campo: data.partner.citta, nome: 'Città partner' }
             ];
 
-            // Campi obbligatori specifici per documento
-            const campiSpecificiPerDocumento = {
-                'doc-iui': [
-                    { campo: data.procedura.medico, nome: 'Medico responsabile' },
-                    { campo: data.procedura.codiceCoppia, nome: 'Codice coppia' }
-                ],
-                'doc-icsi': [
-                    { campo: data.procedura.medico, nome: 'Medico responsabile' },
-                    { campo: data.procedura.codiceCoppia, nome: 'Codice coppia' },
-                    { campo: data.procedura.motivo, nome: 'Motivo della procedura' }
-                ],
-                'doc-accettazione': [
-                    { campo: data.procedura.documento, nome: 'Documento identità paziente' }
-                ]
-            };
-
-            let campiObbligatori = [...campiBase];
-
-            // Aggiungi campi specifici in base ai documenti selezionati
-            documentiSelezionati.forEach(doc => {
-                const campiSpecifici = campiSpecificiPerDocumento[doc.id];
-                if (campiSpecifici) {
-                    campiObbligatori = campiObbligatori.concat(campiSpecifici);
-                }
-            });
-
-            const campiMancanti = campiObbligatori.filter(item => !item.campo || item.campo.trim() === '').map(item => item.nome);
+            const campiMancanti = campiObbligatori.filter(item => !item.campo).map(item => item.nome);
 
             if (campiMancanti.length > 0) {
-                throw new Error(`I seguenti campi sono obbligatori per i documenti selezionati: ${campiMancanti.join(', ')}`);
+                throw new Error(`I seguenti campi sono obbligatori: ${campiMancanti.join(', ')}`);
             }
         }
 
+        // Funzione per formattare le date
         function formattaData(dataString) {
             if (!dataString) return '';
             const data = new Date(dataString);
             return data.toLocaleDateString('it-IT');
         }
 
+        // Funzione per sostituire i placeholder nel template
         function compilaTemplate(template, data) {
             let contenutoCompilato = template;
 
@@ -2221,9 +877,12 @@
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_NOME\]/g, data.paziente.nome);
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_LUOGO_NASCITA\]/g, data.paziente.luogoNascita);
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DATA_NASCITA\]/g, formattaData(data.paziente.dataNascita));
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_PROFESSIONE\]/g, data.paziente.professione || '');
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_RESIDENZA\]/g, data.paziente.residenza);
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_CITTA\]/g, data.paziente.citta);
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_CF\]/g, data.paziente.codiceFiscale);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO\]/g, data.paziente.documento);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO_SCADENZA\]/g, formattaData(data.paziente.documentoScadenza));
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_TELEFONO\]/g, data.paziente.telefono);
             contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_EMAIL\]/g, data.paziente.email);
 
@@ -2231,115 +890,186 @@
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_NOME\]/g, data.partner.nome);
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_LUOGO_NASCITA\]/g, data.partner.luogoNascita);
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DATA_NASCITA\]/g, formattaData(data.partner.dataNascita));
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_PROFESSIONE\]/g, data.partner.professione || '');
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_RESIDENZA\]/g, data.partner.residenza);
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_CITTA\]/g, data.partner.citta);
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_CF\]/g, data.partner.codiceFiscale);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DOCUMENTO\]/g, data.partner.documento);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DOCUMENTO_SCADENZA\]/g, formattaData(data.partner.documentoScadenza));
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_TELEFONO\]/g, data.partner.telefono);
             contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_EMAIL\]/g, data.partner.email);
 
             // Sostituzioni procedura
             contenutoCompilato = contenutoCompilato.replace(/\[MEDICO_NOME\]/g, data.procedura.medico);
-            contenutoCompilato = contenutoCompilato.replace(/\[NUMERO_ORDINE\]/g, data.procedura.numeroOrdine);
             contenutoCompilato = contenutoCompilato.replace(/\[CODICE_COPPIA\]/g, data.procedura.codiceCoppia);
             contenutoCompilato = contenutoCompilato.replace(/\[MOTIVO_FECONDAZIONE\]/g, data.procedura.motivo);
-            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO\]/g, data.procedura.documento);
 
             // Sostituzioni data
             contenutoCompilato = contenutoCompilato.replace(/\[DATA_ODIERNA\]/g, data.dataOdierna);
             contenutoCompilato = contenutoCompilato.replace(/\[ANNO_ODIERNO\]/g, data.annoOdierno);
 
+            // Sostituzioni aggiuntive per informazioni del centro
+            contenutoCompilato = contenutoCompilato.replace(/\[INDIRIZZO_CENTRO\]/g, 'Via Example 123, Roma');
+            contenutoCompilato = contenutoCompilato.replace(/\[TELEFONO_CENTRO\]/g, '+39 06 123456');
+            contenutoCompilato = contenutoCompilato.replace(/\[EMAIL_CENTRO\]/g, 'info@biofertility.it');
+
             return contenutoCompilato;
         }
 
-        async function generaPDFDaHTML(htmlContent, nomeFile) {
+        // Funzione per leggere file template HTML compilabili
+        async function leggiTemplateHtml(nomeFile) {
             try {
-                // Creiamo un div temporaneo invece di iframe per migliore compatibilità
-                const tempContainer = document.createElement('div');
-                tempContainer.style.position = 'absolute';
-                tempContainer.style.left = '-9999px';
-                tempContainer.style.top = '0px';
-                tempContainer.style.width = '210mm';
-                tempContainer.style.backgroundColor = '#ffffff';
-                tempContainer.style.padding = '0';
-                tempContainer.style.margin = '0';
-                tempContainer.innerHTML = htmlContent;
-                
-                document.body.appendChild(tempContainer);
-
-                // Aspettiamo che tutto sia renderizzato
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                
-                const pageHeight = 297; // A4 height in mm
-                const pageWidth = 210;  // A4 width in mm
-                
-                // Otteniamo l'altezza totale del contenuto
-                const totalHeight = tempContainer.scrollHeight;
-                
-                // Calcoliamo quante pagine servono
-                const pxToMm = 0.264583; // conversione pixel to mm
-                const contentHeightMm = totalHeight * pxToMm;
-                const totalPages = Math.ceil(contentHeightMm / pageHeight);
-                
-                console.log(`Contenuto alto ${totalHeight}px (${contentHeightMm}mm), servono ${totalPages} pagine`);
-
-                // Generiamo le pagine una alla volta
-                for (let pageNum = 0; pageNum < totalPages; pageNum++) {
-                    const yOffset = -(pageNum * pageHeight / pxToMm);
-                    
-                    const canvas = await html2canvas(tempContainer, {
-                        scale: 3, // Scala più alta per qualità migliore
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: '#ffffff',
-                        width: tempContainer.offsetWidth,
-                        height: pageHeight / pxToMm, // Altezza di una pagina in pixel
-                        x: 0,
-                        y: pageNum * (pageHeight / pxToMm),
-                        scrollX: 0,
-                        scrollY: 0,
-                        windowWidth: tempContainer.offsetWidth,
-                        windowHeight: pageHeight / pxToMm
-                    });
-
-                    const imgData = canvas.toDataURL('image/png', 1.0);
-                    
-                    if (pageNum > 0) {
-                        pdf.addPage();
-                    }
-                    
-                    // Calcoliamo le dimensioni per mantenere le proporzioni
-                    const imgWidth = pageWidth;
-                    const imgHeight = (canvas.height * pageWidth) / canvas.width;
-                    
-                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
-                    
-                    console.log(`Pagina ${pageNum + 1}/${totalPages} aggiunta`);
+                const response = await fetch(`templates-html/${nomeFile}`);
+                if (!response.ok) {
+                    throw new Error(`Template ${nomeFile} non trovato nella cartella templates-html/`);
                 }
-
-                // Pulizia e salvataggio
-                document.body.removeChild(tempContainer);
-                pdf.save(nomeFile);
-                console.log(`PDF "${nomeFile}" generato con successo con ${totalPages} pagine`);
                 
+                const htmlContent = await response.text();
+                
+                if (!htmlContent || htmlContent.trim().length === 0) {
+                    throw new Error(`Template ${nomeFile} è vuoto o non valido`);
+                }
+                
+                return htmlContent;
             } catch (error) {
-                console.error('Errore dettagliato nella generazione PDF:', error);
-                // Pulizia in caso di errore
-                const tempContainer = document.querySelector('div[style*="position: absolute"][style*="left: -9999px"]');
-                if (tempContainer) {
-                    document.body.removeChild(tempContainer);
-                }
-                throw new Error(`Errore nella generazione del PDF: ${error.message}`);
+                throw new Error(`Errore nel caricamento del template ${nomeFile}: ${error.message}`);
             }
         }
 
+        // Funzione per generare PDF da contenuto HTML con formattazione preservata
+        async function generaPDF(contenutoHTML, nomeFile) {
+            try {
+                // Crea un elemento temporaneo per renderizzare l'HTML
+                const contenitoreTemp = document.createElement('div');
+                contenitoreTemp.innerHTML = contenutoHTML;
+                contenitoreTemp.style.cssText = `
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                    width: 794px;
+                    padding: 40px;
+                    font-family: 'Times New Roman', serif;
+                    font-size: 12px;
+                    line-height: 1.4;
+                    color: #000;
+                    background: white;
+                `;
+                
+                // Applica stili per elementi specifici
+                const style = document.createElement('style');
+                style.textContent = `
+                    .temp-pdf-content h1 { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; text-align: center; }
+                    .temp-pdf-content h2 { font-size: 14px; font-weight: bold; margin: 15px 0 8px 0; }
+                    .temp-pdf-content p { margin: 8px 0; text-align: justify; }
+                    .temp-pdf-content strong { font-weight: bold; }
+                    .temp-pdf-content em { font-style: italic; }
+                    .temp-pdf-content ul, .temp-pdf-content ol { margin: 10px 0; padding-left: 20px; }
+                    .temp-pdf-content li { margin: 4px 0; }
+                    .temp-pdf-content table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    .temp-pdf-content td, .temp-pdf-content th { border: 1px solid #000; padding: 5px; text-align: left; }
+                    .temp-pdf-content .signature-line { border-bottom: 1px solid #000; margin: 20px 0; min-height: 40px; }
+                `;
+                
+                contenitoreTemp.className = 'temp-pdf-content';
+                document.head.appendChild(style);
+                document.body.appendChild(contenitoreTemp);
+                
+                // Genera canvas usando html2canvas
+                const canvas = await html2canvas(contenitoreTemp, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    width: 794,
+                    height: contenitoreTemp.scrollHeight
+                });
+                
+                // Pulisci elementi temporanei
+                document.body.removeChild(contenitoreTemp);
+                document.head.removeChild(style);
+                
+                // Crea PDF
+                const { jsPDF } = window.jspdf;
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                let position = 0;
+                
+                // Aggiungi pagine se necessario
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Scarica il PDF
+                pdf.save(nomeFile);
+                
+            } catch (error) {
+                console.error('Errore nella generazione PDF:', error);
+                // Fallback alla generazione testo semplice
+                await generaPDFTesto(contenutoHTML.replace(/<[^>]*>/g, ''), nomeFile);
+            }
+        }
+        
+        // Funzione fallback per generare PDF da testo semplice
+        async function generaPDFTesto(contenuto, nomeFile) {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(11);
+            
+            const margineX = 20;
+            const margineY = 20;
+            const larghezzaPagina = 170;
+            const altezzaPagina = 250;
+            
+            const righe = contenuto.split('\n');
+            let y = margineY;
+            
+            for (let i = 0; i < righe.length; i++) {
+                const riga = righe[i];
+                
+                if (y > altezzaPagina) {
+                    pdf.addPage();
+                    y = margineY;
+                }
+                
+                if (riga.trim() === '') {
+                    y += 5;
+                    continue;
+                }
+                
+                const righeWrapped = pdf.splitTextToSize(riga, larghezzaPagina);
+                
+                for (let j = 0; j < righeWrapped.length; j++) {
+                    if (y > altezzaPagina) {
+                        pdf.addPage();
+                        y = margineY;
+                    }
+                    
+                    pdf.text(righeWrapped[j], margineX, y);
+                    y += 6;
+                }
+            }
+            
+            pdf.save(nomeFile);
+        }
+
+        // Funzione per aggiornare la barra di progresso
         function aggiornaProgresso(percentuale) {
             const progressFill = document.getElementById('progressFill');
             progressFill.style.width = percentuale + '%';
         }
 
+        // Funzione per mostrare messaggio
         function mostraMessaggio(testo, tipo = 'success') {
             const messageDiv = document.getElementById('message');
             messageDiv.className = `message ${tipo}`;
@@ -2351,27 +1081,32 @@
             }, 5000);
         }
 
+        // Funzione principale per generare i documenti
         async function generaDocumenti() {
             const loadingOverlay = document.getElementById('loadingOverlay');
             const generateBtn = document.getElementById('generateBtn');
             
             try {
+                // Disabilita il pulsante e mostra loading
                 generateBtn.disabled = true;
                 loadingOverlay.style.display = 'flex';
                 aggiornaProgresso(0);
 
+                // Raccogli i dati dal form
                 const data = raccogliDati();
+                validaDati(data);
 
+                // Ottieni i documenti selezionati
                 const documentiSelezionati = [];
                 const checkboxes = document.querySelectorAll('.document-item input[type="checkbox"]:checked');
                 
                 checkboxes.forEach(checkbox => {
                     const documentId = checkbox.id;
-                    if (templates[documentId]) {
+                    if (documentMap[documentId]) {
                         documentiSelezionati.push({
                             id: documentId,
-                            nome: checkbox.parentElement.querySelector('.document-name').textContent,
-                            codice: checkbox.parentElement.querySelector('.document-code').textContent
+                            file: documentMap[documentId],
+                            nome: checkbox.parentElement.querySelector('.document-code').textContent
                         });
                     }
                 });
@@ -2380,32 +1115,61 @@
                     throw new Error('Seleziona almeno un documento da generare');
                 }
 
-                // Valida i dati in base ai documenti selezionati
-                validaDati(data, documentiSelezionati);
+                aggiornaProgresso(10);
 
-                for (let i = 0; i < documentiSelezionati.length; i++) {
-                    const doc = documentiSelezionati[i];
-                    aggiornaProgresso((i + 1) / documentiSelezionati.length * 100);
+                // Genera ogni documento
+                let documentiGenerati = 0;
+                const totalDocumenti = documentiSelezionati.length;
 
-                    const templateCompilato = compilaTemplate(templates[doc.id], data);
-                    const nomeFile = `${doc.codice}_${doc.nome.replace(/[^a-zA-Z0-9]/g, '_')}_${data.dataOdierna.replace(/\//g, '-')}.pdf`;
-                    
-                    await generaPDFDaHTML(templateCompilato, nomeFile);
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                for (const doc of documentiSelezionati) {
+                    try {
+                        // Leggi il template HTML
+                        const template = await leggiTemplateHtml(doc.file);
+                        
+                        // Compila il template con i dati
+                        const contenutoCompilato = compilaTemplate(template, data);
+                        
+                        // Genera il nome del file PDF
+                        const nomeFilePDF = `${doc.nome}_${data.paziente.nome.replace(/\s+/g, '_')}_${data.dataOdierna.replace(/\//g, '-')}.pdf`;
+                        
+                        // Genera il PDF
+                        await generaPDF(contenutoCompilato, nomeFilePDF);
+                        
+                        documentiGenerati++;
+                        const progresso = 10 + (documentiGenerati / totalDocumenti) * 80;
+                        aggiornaProgresso(progresso);
+                        
+                        // Piccolo delay per permettere il download
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        
+                    } catch (error) {
+                        console.error(`Errore nella generazione di ${doc.nome}:`, error);
+                        mostraMessaggio(`Errore nella generazione di ${doc.nome}: ${error.message}`, 'error');
+                    }
                 }
 
-                mostraMessaggio(`✅ ${documentiSelezionati.length} documento/i generato/i con successo!`, 'success');
+                aggiornaProgresso(100);
+                
+                if (documentiGenerati > 0) {
+                    mostraMessaggio(`✅ Generati con successo ${documentiGenerati} documenti compilati! Controlla la cartella Download.`, 'success');
+                } else {
+                    mostraMessaggio('❌ Nessun documento è stato generato. Controlla i template HTML nella cartella "templates-html".', 'error');
+                }
 
             } catch (error) {
-                console.error('Errore:', error);
+                console.error('Errore durante la generazione:', error);
                 mostraMessaggio(`❌ Errore: ${error.message}`, 'error');
             } finally {
-                generateBtn.disabled = false;
-                loadingOverlay.style.display = 'none';
-                aggiornaProgresso(0);
+                // Nasconde loading e riabilita pulsante
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                    generateBtn.disabled = false;
+                    aggiornaProgresso(0);
+                }, 1000);
             }
         }
 
+        // Funzione per resettare il form
         function resetForm() {
             if (confirm('Sei sicuro di voler cancellare tutti i dati inseriti?')) {
                 document.querySelectorAll('input, textarea, select').forEach(element => {
@@ -2417,19 +1181,24 @@
                     }
                 });
                 
+                // Riseleziona i documenti di default
                 document.getElementById('doc-privacy').checked = true;
                 document.getElementById('doc-privacy').closest('.document-item').classList.add('selected');
+                document.getElementById('doc-zika').checked = true;
+                document.getElementById('doc-zika').closest('.document-item').classList.add('selected');
                 
                 mostraMessaggio('✅ Form resettato con successo', 'success');
             }
         }
 
-        // Inizializzazione
+        // Inizializzazione quando la pagina è caricata
         document.addEventListener('DOMContentLoaded', function() {
+            // Marca come selezionati i documenti di default
             document.querySelectorAll('.document-item input[type="checkbox"]:checked').forEach(checkbox => {
                 checkbox.closest('.document-item').classList.add('selected');
             });
 
+            // Aggiungi event listener per i checkbox per evitare doppio toggle
             document.querySelectorAll('.document-item input[type="checkbox"]').forEach(checkbox => {
                 checkbox.addEventListener('click', function(event) {
                     event.stopPropagation();
@@ -2442,8 +1211,32 @@
                 });
             });
 
-            console.log('🌐 Sistema Biofertility Web - VERSIONE CORRETTA pronta!');
+            // Controlla se la cartella templates-html è accessibile
+            fetch('templates-html/')
+                .then(response => {
+                    if (!response.ok) {
+                        mostraMessaggio('⚠️ Attenzione: Assicurati che la cartella "templates-html" sia presente nella stessa directory di questo file.', 'error');
+                    }
+                })
+                .catch(() => {
+                    mostraMessaggio('⚠️ Attenzione: Cartella "templates-html" non trovata. Creare la cartella e inserire i file HTML.', 'error');
+                });
+
+            console.log('✅ Sistema Biofertility inizializzato correttamente');
+            console.log('📁 Template directory: ./templates-html/');
+            console.log(`📋 Documenti supportati: ${Object.keys(documentMap).length}/14 template HTML configurati`);
+            console.log('📋 Template disponibili:', Object.values(documentMap));
         });
+
+        // Funzione helper per il debug (rimuovere in produzione)
+        function debug() {
+            console.log('=== DEBUG INFO ===');
+            console.log('Dati raccolti:', raccogliDati());
+            console.log('Documenti selezionati:', 
+                Array.from(document.querySelectorAll('.document-item input[type="checkbox"]:checked'))
+                    .map(cb => cb.id)
+            );
+        }
     </script>
 </body>
 </html>

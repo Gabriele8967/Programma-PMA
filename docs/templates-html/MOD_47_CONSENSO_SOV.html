@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_47 - CONSENSO SOV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.3;
+            margin: 15px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checkbox {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #000;
+            margin-right: 3px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            margin: 0 5px;
+        }
+        p {
+            text-align: justify;
+            margin: 6px 0;
+        }
+        .info-box {
+            border: 1px solid #000;
+            padding: 8px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+        }
+        .warning-box {
+            border: 2px solid #ff6600;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fff5e6;
+        }
+        ul { margin: 8px 0; padding-left: 15px; }
+        li { margin: 3px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 47 - CONSENSO INTEGRATIVO<br>
+        STIMOLAZIONE OVARICA (SOV)
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DELLA PAZIENTE</th>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><strong>COGNOME E NOME</strong></td>
+            <td>[PAZIENTE_NOME]</td>
+        </tr>
+        <tr>
+            <td><strong>LUOGO E DATA DI NASCITA</strong></td>
+            <td>[PAZIENTE_LUOGO_NASCITA], [PAZIENTE_DATA_NASCITA]</td>
+        </tr>
+        <tr>
+            <td><strong>CODICE FISCALE</strong></td>
+            <td>[PAZIENTE_CF]</td>
+        </tr>
+        <tr>
+            <td><strong>ETÀ</strong></td>
+            <td>[PAZIENTE_ETA] anni</td>
+        </tr>
+        <tr>
+            <td><strong>PARTNER</strong></td>
+            <td>[PARTNER_NOME]</td>
+        </tr>
+    </table>
+
+    <div class="section-title">DEFINIZIONE E SCOPO</div>
+
+    <p>
+        La Stimolazione Ovarica (SOV) è un trattamento farmacologico che ha l'obiettivo di 
+        indurre lo sviluppo di uno o più follicoli ovarici per ottimizzare le possibilità 
+        di concepimento naturale o come preparazione a tecniche di procreazione medicalmente assistita.
+    </p>
+
+    <div class="section-title">INDICAZIONI CLINICHE</div>
+
+    <div class="info-box">
+        <p><strong>Indicazioni per la stimolazione ovarica:</strong></p>
+        <ul>
+            <li><strong>Anovulazione:</strong> assenza di ovulazione spontanea</li>
+            <li><strong>Oligoovulazione:</strong> ovulazione irregolare o infrequente</li>
+            <li><strong>Sindrome dell'ovaio policistico (PCOS)</strong></li>
+            <li><strong>Insufficienza luteale</strong></li>
+            <li><strong>Iperstimolazione controllata</strong> per PMA</li>
+            <li><strong>Timing ottimale</strong> per rapporti mirati</li>
+            <li><strong>Preparazione per inseminazione intrauterina</strong></li>
+        </ul>
+    </div>
+
+    <div class="section-title">PROTOCOLLI DI STIMOLAZIONE</div>
+
+    <table>
+        <tr>
+            <th>FARMACO</th>
+            <th>DOSAGGIO</th>
+            <th>DURATA</th>
+            <th>PRESCRITTO</th>
+        </tr>
+        <tr>
+            <td><strong>Clomifene Citrato</strong></td>
+            <td>50-150 mg/die</td>
+            <td>5 giorni (ciclo 3°-7° giorno)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td><strong>Letrozole</strong></td>
+            <td>2.5-7.5 mg/die</td>
+            <td>5 giorni (ciclo 3°-7° giorno)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td><strong>FSH ricombinante</strong></td>
+            <td>75-225 UI/die</td>
+            <td>Variabile (8-12 giorni)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td><strong>HMG</strong></td>
+            <td>75-150 UI/die</td>
+            <td>Variabile (8-12 giorni)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td><strong>hCG (trigger ovulatorio)</strong></td>
+            <td>5000-10000 UI</td>
+            <td>Singola somministrazione</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">MONITORAGGIO DEL TRATTAMENTO</div>
+
+    <p>
+        Durante la stimolazione ovarica è necessario un monitoraggio attento per valutare 
+        la risposta ovarica e prevenire complicanze:
+    </p>
+
+    <ul>
+        <li><strong>Ecografie pelviche:</strong> per valutare il numero e le dimensioni dei follicoli</li>
+        <li><strong>Dosaggi ormonali:</strong> estradiolo, LH, progesterone</li>
+        <li><strong>Visite cliniche:</strong> per valutare i sintomi e gli effetti collaterali</li>
+        <li><strong>Adeguamento del dosaggio:</strong> in base alla risposta individuale</li>
+    </ul>
+
+    <div class="section-title">PERCENTUALI DI SUCCESSO</div>
+
+    <div class="info-box">
+        <p><strong>Tassi di ovulazione:</strong></p>
+        <ul>
+            <li><strong>Clomifene:</strong> 70-80% delle pazienti</li>
+            <li><strong>Letrozole:</strong> 75-85% delle pazienti</li>
+            <li><strong>Gonadotropine:</strong> 85-95% delle pazienti</li>
+        </ul>
+
+        <p><strong>Tassi di gravidanza per ciclo:</strong></p>
+        <ul>
+            <li><strong>Con rapporti mirati:</strong> 10-15%</li>
+            <li><strong>Con IUI:</strong> 15-20%</li>
+            <li><strong>Età &lt; 35 anni:</strong> risultati migliori</li>
+            <li><strong>Età &gt; 40 anni:</strong> risultati significativamente ridotti</li>
+        </ul>
+    </div>
+
+    <div class="section-title">RISCHI E COMPLICANZE</div>
+
+    <div class="warning-box">
+        <p><strong>EFFETTI COLLATERALI COMUNI:</strong></p>
+        <ul>
+            <li><strong>Vampate di calore</strong> (30-40%)</li>
+            <li><strong>Cefalea</strong> (20-30%)</li>
+            <li><strong>Tensione mammaria</strong> (15-25%)</li>
+            <li><strong>Nausea</strong> (10-20%)</li>
+            <li><strong>Irritabilità e alterazioni dell'umore</strong> (15-25%)</li>
+            <li><strong>Distensione addominale</strong> (20-30%)</li>
+            <li><strong>Spotting intermestruale</strong> (10-15%)</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <p><strong>COMPLICANZE POTENZIALMENTE GRAVI:</strong></p>
+        <ul>
+            <li><strong>Sindrome da iperstimolazione ovarica (OHSS):</strong>
+                <ul>
+                    <li>Forme lievi: 10-20%</li>
+                    <li>Forme moderate: 3-6%</li>
+                    <li>Forme severe: 0.5-2%</li>
+                </ul>
+            </li>
+            <li><strong>Gravidanze multiple:</strong>
+                <ul>
+                    <li>Gemellari: 5-8% (vs 1% spontaneo)</li>
+                    <li>Trigemine: 0.3-0.5%</li>
+                </ul>
+            </li>
+            <li><strong>Torsione ovarica:</strong> rara (&lt; 0.1%)</li>
+            <li><strong>Cisti ovariche:</strong> 5-10% (generalmente si risolvono spontaneamente)</li>
+        </ul>
+    </div>
+
+    <div class="section-title">CONTROINDICAZIONI</div>
+
+    <table>
+        <tr>
+            <th>CONTROINDICAZIONE</th>
+            <th style="width: 80px;">PRESENTE</th>
+        </tr>
+        <tr>
+            <td>Gravidanza in corso o sospetta</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Allattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Tumori ormono-dipendenti</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Insufficienza epatica grave</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Sanguinamenti uterini di origine ignota</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Cisti ovariche non funzionali</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+        <tr>
+            <td>Allergie note ai farmaci prescritti</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+    </table>
+
+    <div class="section-title">ISTRUZIONI PER LA PAZIENTE</div>
+
+    <div class="info-box">
+        <p><strong>Durante il trattamento la paziente deve:</strong></p>
+        <ul>
+            <li>Assumere i farmaci secondo le modalità prescritte</li>
+            <li>Presentarsi puntualmente agli appuntamenti di controllo</li>
+            <li>Segnalare immediatamente sintomi gravi (dolore intenso, nausea, vomito, distensione addominale)</li>
+            <li>Evitare sforzi fisici intensi</li>
+            <li>Non assumere altri farmaci senza consultare il medico</li>
+            <li>Utilizzare contraccettivi di barriera se non desidera una gravidanza</li>
+        </ul>
+    </div>
+
+    <div class="section-title">ALTERNATIVE TERAPEUTICHE</div>
+
+    <p>In caso di fallimento o controindicazioni alla stimolazione ovarica:</p>
+    <ul>
+        <li>Modifiche dello stile di vita (dieta, esercizio fisico)</li>
+        <li>Trattamento chirurgico (drilling ovarico in PCOS)</li>
+        <li>Tecniche di PMA più complesse (FIVET/ICSI)</li>
+        <li>Utilizzo di ovociti da donatrice (in casi selezionati)</li>
+        <li>Supporto psicologico e counseling</li>
+    </ul>
+
+    <div class="section-title">CONSENSO INFORMATO</div>
+
+    <table>
+        <tr>
+            <th>DICHIARAZIONI</th>
+            <th style="width: 80px;">PAZIENTE</th>
+        </tr>
+        <tr>
+            <td>Dichiaro di aver compreso le informazioni fornite sulla stimolazione ovarica</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di essere stata informata sui rischi e complicanze</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di essere stata informata sulle alternative terapeutiche</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di non avere controindicazioni note al trattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Acconsento al trattamento di stimolazione ovarica</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Mi impegno a seguire scrupolosamente le indicazioni mediche</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Autorizzo il medico a modificare il dosaggio in base alla risposta ovarica</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 30px;">
+        <table>
+            <tr>
+                <th>FIRME</th>
+                <th style="width: 200px;">PAZIENTE</th>
+                <th style="width: 200px;">PARTNER</th>
+                <th style="width: 200px;">MEDICO</th>
+            </tr>
+            <tr>
+                <td><strong>Nome</strong></td>
+                <td>[PAZIENTE_NOME]</td>
+                <td>[PARTNER_NOME]</td>
+                <td>[MEDICO_NOME]</td>
+            </tr>
+            <tr style="height: 50px;">
+                <td><strong>Firma</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Data</strong></td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 8px; text-align: center;">
+        <p><strong>IMPORTANTE:</strong> La paziente ha il diritto di revocare il consenso in qualsiasi momento.
+        In caso di emergenza contattare immediatamente il centro o recarsi al pronto soccorso.</p>
+        <p><strong>Contatti di emergenza:</strong> Centro Biofertility - Tel: [TELEFONO_CENTRO]</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_34 - INFORMATIVA SCONGELAMENTO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.3;
+            margin: 15px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        p {
+            text-align: justify;
+            margin: 6px 0;
+        }
+        .info-box {
+            border: 1px solid #000;
+            padding: 8px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+        }
+        .warning-box {
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #ffe6e6;
+        }
+        ul { margin: 8px 0; padding-left: 15px; }
+        li { margin: 3px 0; }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 34 - INFORMATIVA<br>
+        SCONGELAMENTO OVOCITARIO E ICSI
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DELLA COPPIA</th>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <strong>PAZIENTE DONNA</strong><br>
+                [PAZIENTE_NOME]<br>
+                nata a [PAZIENTE_LUOGO_NASCITA] il [PAZIENTE_DATA_NASCITA]<br>
+                C.F. [PAZIENTE_CF]
+            </td>
+            <td style="width: 50%;">
+                <strong>PAZIENTE UOMO</strong><br>
+                [PARTNER_NOME]<br>
+                nato a [PARTNER_LUOGO_NASCITA] il [PARTNER_DATA_NASCITA]<br>
+                C.F. [PARTNER_CF]
+            </td>
+        </tr>
+    </table>
+
+    <div class="section-title">DEFINIZIONE E SCOPO</div>
+
+    <p>
+        Il presente documento fornisce informazioni dettagliate sulla procedura di scongelamento degli ovociti 
+        crioconservati e successiva fecondazione mediante tecnica ICSI (Iniezione Intracitoplasmatica dello Spermatozoo).
+    </p>
+
+    <p>
+        Lo scongelamento degli ovociti rappresenta un momento critico che richiede particolare attenzione tecnica 
+        e può comportare la perdita di una percentuale variabile di gameti femminili.
+    </p>
+
+    <div class="section-title">CRIOCONSERVAZIONE E CONSERVAZIONE</div>
+
+    <div class="info-box">
+        <p><strong>Dati della crioconservazione precedente:</strong></p>
+        <table style="margin: 5px 0;">
+            <tr>
+                <td><strong>Data di congelamento:</strong></td>
+                <td>[DATA_CONGELAMENTO]</td>
+            </tr>
+            <tr>
+                <td><strong>Numero ovociti crioconservati:</strong></td>
+                <td>[NUMERO_OVOCITI]</td>
+            </tr>
+            <tr>
+                <td><strong>Stadio di maturità al congelamento:</strong></td>
+                <td>Metafase II (maturi)</td>
+            </tr>
+            <tr>
+                <td><strong>Tecnica di crioconservazione:</strong></td>
+                <td>Vitrificazione</td>
+            </tr>
+            <tr>
+                <td><strong>Periodo di conservazione:</strong></td>
+                <td>[PERIODO_CONSERVAZIONE]</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section-title">PROCEDURA DI SCONGELAMENTO</div>
+
+    <p><strong>1. Processo di scongelamento (Warming):</strong></p>
+    <ul>
+        <li>Rapido riscaldamento degli ovociti da -196°C a temperatura ambiente</li>
+        <li>Rimozione graduale dei crioprotettori</li>
+        <li>Reidratazione degli ovociti in soluzioni specifiche</li>
+        <li>Valutazione morfologica immediata della sopravvivenza</li>
+    </ul>
+
+    <p><strong>2. Selezione degli ovociti:</strong></p>
+    <ul>
+        <li>Identificazione degli ovociti sopravvissuti</li>
+        <li>Valutazione della morfologia ovocitaria</li>
+        <li>Conferma dello stadio di maturità (Metafase II)</li>
+        <li>Esclusione degli ovociti degenerati</li>
+    </ul>
+
+    <div class="section-title">TASSI DI SOPRAVVIVENZA</div>
+
+    <div class="info-box">
+        <p><strong>Percentuali medie di sopravvivenza allo scongelamento:</strong></p>
+        <ul>
+            <li><strong>Ovociti di età &lt; 35 anni:</strong> 85-95%</li>
+            <li><strong>Ovociti di età 35-37 anni:</strong> 80-90%</li>
+            <li><strong>Ovociti di età 38-40 anni:</strong> 75-85%</li>
+            <li><strong>Ovociti di età &gt; 40 anni:</strong> 70-80%</li>
+        </ul>
+
+        <p><strong>Fattori che influenzano la sopravvivenza:</strong></p>
+        <ul>
+            <li>Età della paziente al momento del congelamento</li>
+            <li>Qualità morfologica degli ovociti al congelamento</li>
+            <li>Tecnica di crioconservazione utilizzata</li>
+            <li>Durata della conservazione</li>
+            <li>Protocollo di scongelamento</li>
+        </ul>
+    </div>
+
+    <div class="section-title">PROCEDURA ICSI SU OVOCITI SCONGELATI</div>
+
+    <p>
+        Gli ovociti che sopravvivono al processo di scongelamento vengono sottoposti a fecondazione 
+        mediante tecnica ICSI, che rappresenta la metodica di scelta per gli ovociti crioconservati.
+    </p>
+
+    <p><strong>Vantaggi dell'ICSI su ovociti scongelati:</strong></p>
+    <ul>
+        <li>Massimizzazione delle possibilità di fecondazione</li>
+        <li>Controllo diretto del processo di fertilizzazione</li>
+        <li>Possibilità di utilizzare anche ovociti con alterazioni minori della zona pellucida</li>
+    </ul>
+
+    <div class="section-title">TASSI DI SUCCESSO</div>
+
+    <div class="info-box">
+        <p><strong>Percentuali attese dopo scongelamento e ICSI:</strong></p>
+        <ul>
+            <li><strong>Fertilizzazione normale:</strong> 65-75% degli ovociti sopravvissuti</li>
+            <li><strong>Sviluppo embrionario:</strong> 80-90% degli ovociti fertilizzati</li>
+            <li><strong>Embrioni di buona qualità:</strong> 40-60%</li>
+        </ul>
+
+        <p><strong>Tassi di gravidanza per età (al momento del congelamento):</strong></p>
+        <ul>
+            <li><strong>&lt; 35 anni:</strong> 30-40% per trasferimento</li>
+            <li><strong>35-37 anni:</strong> 25-35% per trasferimento</li>
+            <li><strong>38-40 anni:</strong> 15-25% per trasferimento</li>
+            <li><strong>&gt; 40 anni:</strong> 5-15% per trasferimento</li>
+        </ul>
+    </div>
+
+    <div class="section-title">RISCHI E COMPLICANZE</div>
+
+    <div class="warning-box">
+        <p><strong>Rischi specifici dello scongelamento:</strong></p>
+        <ul>
+            <li><strong>Perdita totale degli ovociti:</strong> possibile ma rara (&lt; 5%)</li>
+            <li><strong>Ridotta sopravvivenza:</strong> possibile perdita di alcuni ovociti</li>
+            <li><strong>Alterazioni morfologiche:</strong> possibili danni alla struttura ovocitaria</li>
+            <li><strong>Ridotta capacità di fertilizzazione:</strong> possibile compromissione funzionale</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <p><strong>Rischi del trattamento ICSI:</strong></p>
+        <ul>
+            <li>Rischi identici a quelli di un ciclo ICSI standard</li>
+            <li>Necessità di preparazione endometriale ormonale</li>
+            <li>Possibili effetti collaterali dei farmaci ormonali</li>
+            <li>Rischi del trasferimento embrionario</li>
+        </ul>
+    </div>
+
+    <div class="section-title">PREPARAZIONE ENDOMETRIALE</div>
+
+    <p>
+        Per il trasferimento degli embrioni ottenuti da ovociti scongelati è necessaria una preparazione 
+        endometriale mediante terapia ormonale sostitutiva:
+    </p>
+
+    <ul>
+        <li><strong>Estradiolo:</strong> per la crescita endometriale (10-15 giorni)</li>
+        <li><strong>Progesterone:</strong> per la preparazione alla gravidanza (a partire dal giorno del transfer)</li>
+        <li><strong>Monitoraggio ecografico:</strong> per valutare lo spessore endometriale</li>
+        <li><strong>Supporto luteinico:</strong> continuazione della terapia ormonale in caso di gravidanza</li>
+    </ul>
+
+    <div class="section-title">ALTERNATIVE TERAPEUTICHE</div>
+
+    <p>In caso di fallimento dello scongelamento o di esito negativo del trattamento:</p>
+    <ul>
+        <li>Nuovo ciclo di stimolazione ovarica e prelievo ovocitario</li>
+        <li>Utilizzo di ovociti da donatrice (se disponibili)</li>
+        <li>Valutazione di altre opzioni terapeutiche</li>
+        <li>Consulenza psicologica di supporto</li>
+    </ul>
+
+    <div class="section-title">ASPETTI ECONOMICI</div>
+
+    <p>
+        I costi del trattamento includono lo scongelamento degli ovociti, la procedura ICSI, 
+        la coltura embrionaria, la preparazione endometriale e il trasferimento embrionario. 
+        I dettagli economici sono specificati nel preventivo dedicato.
+    </p>
+
+    <div style="margin-top: 30px;">
+        <p>
+            <strong>Medico responsabile:</strong> <span class="signature-line">[MEDICO_NOME]</span>
+        </p>
+        
+        <p style="margin-top: 30px;">
+            <strong>Data di consegna dell'informativa:</strong> <span class="signature-line">[DATA_ODIERNA]</span>
+        </p>
+
+        <p style="margin-top: 30px;">
+            Il presente documento informativo è stato letto, compreso e trattenuto dalla coppia 
+            per una riflessione adeguata prima dell'inizio del trattamento.
+        </p>
+    </div>
+</body>
+</html>
