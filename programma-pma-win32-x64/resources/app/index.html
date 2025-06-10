@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Biofertility - Compilazione Documenti PMA</title>
+    <!-- Librerie per generazione PDF e lettura DOCX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .welcome-section {
+            background: #e8f4f8;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        .welcome-section h2 {
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .welcome-section p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section ul {
+            margin-left: 25px;
+            color: #555;
+        }
+
+        .welcome-section li {
+            margin-bottom: 8px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-column {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-column h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-column h3 .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .documents-section {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .documents-section h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+
+        .document-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .document-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .document-item:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .document-item.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .document-item input[type="checkbox"] {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .document-item label {
+            display: block;
+            cursor: pointer;
+            padding-right: 40px;
+        }
+
+        .document-code {
+            font-weight: 700;
+            color: #2196f3;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .document-name {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .optional-tag {
+            display: inline-block;
+            background: #95a5a6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-left: 5px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #bdc3c7;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .message {
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .privacy-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .privacy-notice h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .privacy-notice p {
+            color: #856404;
+            font-size: 0.95em;
+        }
+
+        .select-all-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: #e8f5e8;
+            border: 1px solid #c3e6c3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #155724;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            color: #155724;
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-section, .documents-section, .welcome-section {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏥</div>
+            <h1>Centro Biofertility</h1>
+            <p>Sistema di Compilazione Documenti PMA</p>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Istruzioni per l'uso</h3>
+            <ol>
+                <li><strong>Preparazione:</strong> Assicuratevi che la cartella "templates" con i file DOCX sia nella stessa directory di questo file</li>
+                <li><strong>Compilazione:</strong> Inserite tutti i dati richiesti nei campi sottostanti</li>
+                <li><strong>Selezione:</strong> Scegliete i documenti necessari per la vostra procedura</li>
+                <li><strong>Generazione:</strong> Cliccate su "Genera Documenti" per creare i PDF compilati</li>
+                <li><strong>Download:</strong> I documenti verranno scaricati automaticamente nella cartella Download</li>
+            </ol>
+        </div>
+
+        <div class="welcome-section">
+            <h2>Benvenuti nel sistema di compilazione documenti</h2>
+            <p><strong>Gentili pazienti,</strong></p>
+            <p>Questo sistema vi permetterà di compilare automaticamente tutti i documenti necessari per il vostro percorso di PMA utilizzando i template DOCX originali del centro.</p>
+            <p><strong>Come funziona:</strong></p>
+            <ul>
+                <li>Inserite i vostri dati una sola volta</li>
+                <li>Selezionate i documenti necessari per la vostra procedura</li>
+                <li>Il sistema leggerà i template DOCX dalla cartella "templates"</li>
+                <li>Genererà automaticamente i PDF compilati e li scaricherà</li>
+            </ul>
+            <p><strong>Tempo stimato:</strong> 10-15 minuti</p>
+        </div>
+
+        <div class="form-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Inserimento Dati Personali</h2>
+            
+            <div class="form-grid">
+                <div class="form-column">
+                    <h3><span class="icon">👩</span>Dati della Paziente</h3>
+                    <div class="form-group">
+                        <label>Nome e Cognome <span class="required">*</span></label>
+                        <input type="text" id="paziente-nome" placeholder="Es: Maria Rossi" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Luogo di nascita <span class="required">*</span></label>
+                            <input type="text" id="paziente-luogo-nascita" placeholder="Es: Roma" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Data di nascita <span class="required">*</span></label>
+                            <input type="date" id="paziente-data-nascita" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Professione <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="paziente-professione" placeholder="Es: Impiegata">
+                    </div>
+                    <div class="form-group">
+                        <label>Indirizzo di residenza <span class="required">*</span></label>
+                        <input type="text" id="paziente-residenza" placeholder="Es: Via Roma 1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Città e CAP <span class="required">*</span></label>
+                        <input type="text" id="paziente-citta" placeholder="Es: Roma 00100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Codice Fiscale <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="paziente-cf" placeholder="Es: RSSMRA80A01H501X" maxlength="16" style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Documento d'identità</label>
+                            <input type="text" id="paziente-documento" placeholder="Es: CI123456">
+                        </div>
+                        <div class="form-group">
+                            <label>Scadenza</label>
+                            <input type="date" id="paziente-documento-scadenza">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono <span class="required">*</span></label>
+                        <input type="tel" id="paziente-telefono" placeholder="Es: 333 1234567" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="optional-tag">Opzionale</span></label>
+                        <input type="email" id="paziente-email" placeholder="Es: maria.rossi@email.com">
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <h3><span class="icon">👨</span>Dati del Partner</h3>
+                    <div class="form-group">
+                        <label>Nome e Cognome <span class="required">*</span></label>
+                        <input type="text" id="partner-nome" placeholder="Es: Mario Bianchi" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Luogo di nascita <span class="required">*</span></label>
+                            <input type="text" id="partner-luogo-nascita" placeholder="Es: Milano" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Data di nascita <span class="required">*</span></label>
+                            <input type="date" id="partner-data-nascita" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Professione <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="partner-professione" placeholder="Es: Ingegnere">
+                    </div>
+                    <div class="form-group">
+                        <label>Indirizzo di residenza <span class="required">*</span></label>
+                        <input type="text" id="partner-residenza" placeholder="Es: Via Milano 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Città e CAP <span class="required">*</span></label>
+                        <input type="text" id="partner-citta" placeholder="Es: Roma 00100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Codice Fiscale <span class="optional-tag">Opzionale</span></label>
+                        <input type="text" id="partner-cf" placeholder="Es: BNCMRO80A01F205X" maxlength="16" style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Documento d'identità</label>
+                            <input type="text" id="partner-documento" placeholder="Es: CI789012">
+                        </div>
+                        <div class="form-group">
+                            <label>Scadenza</label>
+                            <input type="date" id="partner-documento-scadenza">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono <span class="optional-tag">Opzionale</span></label>
+                        <input type="tel" id="partner-telefono" placeholder="Es: 333 7654321">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="optional-tag">Opzionale</span></label>
+                        <input type="email" id="partner-email" placeholder="Es: mario.bianchi@email.com">
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin-top: 30px;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">🏥 Informazioni sulla Procedura</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Medico responsabile</label>
+                        <input type="text" id="medico-nome" placeholder="Es: Dott. Rossi">
+                    </div>
+                    <div class="form-group">
+                        <label>Codice coppia <span style="cursor: help;" title="Se non lo conoscete, lasciate vuoto">ℹ️</span></label>
+                        <input type="text" id="codice-coppia" placeholder="Es: CP2024001">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Motivo della procedura/Causa infertilità <span class="optional-tag">Opzionale</span></label>
+                    <textarea id="motivo-fecondazione" rows="2" placeholder="Es: Infertilità primaria"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="documents-section">
+            <h2>📄 Seleziona i Documenti da Compilare</h2>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 25px;">
+                Selezionate solo i documenti richiesti per la vostra procedura
+            </p>
+            
+            <div class="select-all-container">
+                <button class="btn btn-secondary" onclick="toggleAllDocuments()">
+                    Seleziona/Deseleziona Tutti
+                </button>
+            </div>
+
+            <div class="document-list">
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-privacy" checked>
+                    <label for="doc-privacy">
+                        <div class="document-code">MOD_01</div>
+                        <div class="document-name">Consenso Privacy - GDPR</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-zika" checked>
+                    <label for="doc-zika">
+                        <div class="document-code">MOD_03</div>
+                        <div class="document-name">Dichiarazione Virus Zika</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-iui">
+                    <label for="doc-iui">
+                        <div class="document-code">MOD_04</div>
+                        <div class="document-name">Consenso IUI (I Livello)</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-icsi">
+                    <label for="doc-icsi">
+                        <div class="document-code">MOD_05</div>
+                        <div class="document-name">Consenso ICSI (II Livello)</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-scongelamento">
+                    <label for="doc-scongelamento">
+                        <div class="document-code">MOD_06</div>
+                        <div class="document-name">Consenso Scongelamento Ovociti</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-crioconservazione-ls">
+                    <label for="doc-crioconservazione-ls">
+                        <div class="document-code">MOD_07</div>
+                        <div class="document-name">Crioconservazione Liquido Seminale</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-crioconservazione-ovo">
+                    <label for="doc-crioconservazione-ovo">
+                        <div class="document-code">MOD_08</div>
+                        <div class="document-name">Crioconservazione Ovocitaria</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-scheda-bio">
+                    <label for="doc-scheda-bio">
+                        <div class="document-code">MOD_13</div>
+                        <div class="document-name">Scheda Biologica IUI</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-scheda-icsi">
+                    <label for="doc-scheda-icsi">
+                        <div class="document-code">MOD_14</div>
+                        <div class="document-name">Scheda Biologica ICSI</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-accettazione">
+                    <label for="doc-accettazione">
+                        <div class="document-code">MOD_16</div>
+                        <div class="document-name">Accettazione Liquido Seminale</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-info-icsi">
+                    <label for="doc-info-icsi">
+                        <div class="document-code">MOD_26</div>
+                        <div class="document-name">Informativa ICSI</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-info-scongelamento">
+                    <label for="doc-info-scongelamento">
+                        <div class="document-code">MOD_34</div>
+                        <div class="document-name">Informativa Scongelamento</div>
+                    </label>
+                </div>
+
+                <div class="document-item" onclick="toggleDocument(this)">
+                    <input type="checkbox" id="doc-info-iui">
+                    <label for="doc-info-iui">
+                        <div class="document-code">MOD_36</div>
+                        <div class="document-name">Informativa IUI</div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-notice">
+            <h3>🔒 Privacy e Sicurezza</h3>
+            <p>I vostri dati vengono elaborati solo sul vostro computer e non vengono inviati a nessun server esterno.<br>
+            Tutti i documenti generati rimangono sul vostro dispositivo e vengono scaricati automaticamente.</p>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="generateBtn" onclick="generaDocumenti()">
+                📄 GENERA DOCUMENTI PDF
+            </button>
+            <button class="btn btn-secondary" onclick="resetForm()">
+                🔄 CANCELLA TUTTO
+            </button>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <!-- Overlay di caricamento -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Generazione documenti in corso...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p style="margin-top: 20px; color: #7f8c8d;">Attendere prego, non chiudere questa finestra</p>
+        </div>
+    </div>
+
+    <script>
+        // Mappa dei documenti disponibili (tutti i 14 template HTML compilabili)
+        const documentMap = {
+            'doc-privacy': 'MOD_01_PRIVACY.html',
+            'doc-zika': 'MOD_03_ZIKA.html',
+            'doc-iui': 'MOD_04_IUI.html',
+            'doc-icsi': 'MOD_05_ICSI.html',
+            'doc-crioconservazione-ovo': 'MOD_08_CRIOCONSERVAZIONE_OVO.html',
+            'doc-scheda-icsi': 'MOD_14_SCHEDA_ICSI.html',
+            'doc-accettazione': 'MOD_16_ACCETTAZIONE.html',
+            'doc-info-icsi': 'MOD_26_INFO_ICSI.html',
+            'doc-info-scongelamento': 'MOD_34_INFO_SCONGELAMENTO.html',
+            'doc-info-iui': 'MOD_36_INFO_IUI.html',
+            'doc-zika-coppia': 'MOD_43_ZIKA_COPPIA.html',
+            'doc-consenso-integrativo-assenza': 'MOD_44_CONSENSO_ASSENZA.html',
+            'doc-consenso-integrativo-omologa': 'MOD_46_CONSENSO_OMOLOGA.html',
+            'doc-consenso-integrativo-sov': 'MOD_47_CONSENSO_SOV.html'
+        };
+
+        // Funzione per alternare selezione documenti
+        function toggleDocument(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('selected');
+            } else {
+                element.classList.remove('selected');
+            }
+        }
+
+        // Funzione per selezionare/deselezionare tutti i documenti
+        function toggleAllDocuments() {
+            const checkboxes = document.querySelectorAll('.document-item input[type="checkbox"]');
+            const documentItems = document.querySelectorAll('.document-item');
+            
+            // Controlla se tutti sono selezionati
+            const allSelected = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = !allSelected;
+                if (checkbox.checked) {
+                    documentItems[index].classList.add('selected');
+                } else {
+                    documentItems[index].classList.remove('selected');
+                }
+            });
+        }
+
+        // Funzione per raccogliere i dati del form
+        function raccogliDati() {
+            const data = {
+                paziente: {
+                    nome: document.getElementById('paziente-nome').value.trim(),
+                    luogoNascita: document.getElementById('paziente-luogo-nascita').value.trim(),
+                    dataNascita: document.getElementById('paziente-data-nascita').value,
+                    professione: document.getElementById('paziente-professione').value.trim(),
+                    residenza: document.getElementById('paziente-residenza').value.trim(),
+                    citta: document.getElementById('paziente-citta').value.trim(),
+                    codiceFiscale: document.getElementById('paziente-cf').value.trim().toUpperCase(),
+                    documento: document.getElementById('paziente-documento').value.trim(),
+                    documentoScadenza: document.getElementById('paziente-documento-scadenza').value,
+                    telefono: document.getElementById('paziente-telefono').value.trim(),
+                    email: document.getElementById('paziente-email').value.trim()
+                },
+                partner: {
+                    nome: document.getElementById('partner-nome').value.trim(),
+                    luogoNascita: document.getElementById('partner-luogo-nascita').value.trim(),
+                    dataNascita: document.getElementById('partner-data-nascita').value,
+                    professione: document.getElementById('partner-professione').value.trim(),
+                    residenza: document.getElementById('partner-residenza').value.trim(),
+                    citta: document.getElementById('partner-citta').value.trim(),
+                    codiceFiscale: document.getElementById('partner-cf').value.trim().toUpperCase(),
+                    documento: document.getElementById('partner-documento').value.trim(),
+                    documentoScadenza: document.getElementById('partner-documento-scadenza').value,
+                    telefono: document.getElementById('partner-telefono').value.trim(),
+                    email: document.getElementById('partner-email').value.trim()
+                },
+                procedura: {
+                    medico: document.getElementById('medico-nome').value.trim(),
+                    codiceCoppia: document.getElementById('codice-coppia').value.trim(),
+                    motivo: document.getElementById('motivo-fecondazione').value.trim()
+                }
+            };
+
+            // Aggiungi data odierna formattata
+            const oggi = new Date();
+            data.dataOdierna = oggi.toLocaleDateString('it-IT');
+            data.annoOdierno = oggi.getFullYear().toString();
+
+            return data;
+        }
+
+        // Funzione per validare i dati obbligatori
+        function validaDati(data) {
+            const campiObbligatori = [
+                { campo: data.paziente.nome, nome: 'Nome paziente' },
+                { campo: data.paziente.luogoNascita, nome: 'Luogo nascita paziente' },
+                { campo: data.paziente.dataNascita, nome: 'Data nascita paziente' },
+                { campo: data.paziente.residenza, nome: 'Residenza paziente' },
+                { campo: data.paziente.citta, nome: 'Città paziente' },
+                { campo: data.paziente.telefono, nome: 'Telefono paziente' },
+                { campo: data.partner.nome, nome: 'Nome partner' },
+                { campo: data.partner.luogoNascita, nome: 'Luogo nascita partner' },
+                { campo: data.partner.dataNascita, nome: 'Data nascita partner' },
+                { campo: data.partner.residenza, nome: 'Residenza partner' },
+                { campo: data.partner.citta, nome: 'Città partner' }
+            ];
+
+            const campiMancanti = campiObbligatori.filter(item => !item.campo).map(item => item.nome);
+
+            if (campiMancanti.length > 0) {
+                throw new Error(`I seguenti campi sono obbligatori: ${campiMancanti.join(', ')}`);
+            }
+        }
+
+        // Funzione per formattare le date
+        function formattaData(dataString) {
+            if (!dataString) return '';
+            const data = new Date(dataString);
+            return data.toLocaleDateString('it-IT');
+        }
+
+        // Funzione per sostituire i placeholder nel template
+        function compilaTemplate(template, data) {
+            let contenutoCompilato = template;
+
+            // Sostituzioni paziente
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_NOME\]/g, data.paziente.nome);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_LUOGO_NASCITA\]/g, data.paziente.luogoNascita);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DATA_NASCITA\]/g, formattaData(data.paziente.dataNascita));
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_PROFESSIONE\]/g, data.paziente.professione || '');
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_RESIDENZA\]/g, data.paziente.residenza);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_CITTA\]/g, data.paziente.citta);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_CF\]/g, data.paziente.codiceFiscale);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO\]/g, data.paziente.documento);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_DOCUMENTO_SCADENZA\]/g, formattaData(data.paziente.documentoScadenza));
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_TELEFONO\]/g, data.paziente.telefono);
+            contenutoCompilato = contenutoCompilato.replace(/\[PAZIENTE_EMAIL\]/g, data.paziente.email);
+
+            // Sostituzioni partner
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_NOME\]/g, data.partner.nome);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_LUOGO_NASCITA\]/g, data.partner.luogoNascita);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DATA_NASCITA\]/g, formattaData(data.partner.dataNascita));
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_PROFESSIONE\]/g, data.partner.professione || '');
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_RESIDENZA\]/g, data.partner.residenza);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_CITTA\]/g, data.partner.citta);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_CF\]/g, data.partner.codiceFiscale);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DOCUMENTO\]/g, data.partner.documento);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_DOCUMENTO_SCADENZA\]/g, formattaData(data.partner.documentoScadenza));
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_TELEFONO\]/g, data.partner.telefono);
+            contenutoCompilato = contenutoCompilato.replace(/\[PARTNER_EMAIL\]/g, data.partner.email);
+
+            // Sostituzioni procedura
+            contenutoCompilato = contenutoCompilato.replace(/\[MEDICO_NOME\]/g, data.procedura.medico);
+            contenutoCompilato = contenutoCompilato.replace(/\[CODICE_COPPIA\]/g, data.procedura.codiceCoppia);
+            contenutoCompilato = contenutoCompilato.replace(/\[MOTIVO_FECONDAZIONE\]/g, data.procedura.motivo);
+
+            // Sostituzioni data
+            contenutoCompilato = contenutoCompilato.replace(/\[DATA_ODIERNA\]/g, data.dataOdierna);
+            contenutoCompilato = contenutoCompilato.replace(/\[ANNO_ODIERNO\]/g, data.annoOdierno);
+
+            // Sostituzioni aggiuntive per informazioni del centro
+            contenutoCompilato = contenutoCompilato.replace(/\[INDIRIZZO_CENTRO\]/g, 'Via Example 123, Roma');
+            contenutoCompilato = contenutoCompilato.replace(/\[TELEFONO_CENTRO\]/g, '+39 06 123456');
+            contenutoCompilato = contenutoCompilato.replace(/\[EMAIL_CENTRO\]/g, 'info@biofertility.it');
+
+            return contenutoCompilato;
+        }
+
+        // Funzione per leggere file template HTML compilabili
+        async function leggiTemplateHtml(nomeFile) {
+            try {
+                const response = await fetch(`templates-html/${nomeFile}`);
+                if (!response.ok) {
+                    throw new Error(`Template ${nomeFile} non trovato nella cartella templates-html/`);
+                }
+                
+                const htmlContent = await response.text();
+                
+                if (!htmlContent || htmlContent.trim().length === 0) {
+                    throw new Error(`Template ${nomeFile} è vuoto o non valido`);
+                }
+                
+                return htmlContent;
+            } catch (error) {
+                throw new Error(`Errore nel caricamento del template ${nomeFile}: ${error.message}`);
+            }
+        }
+
+        // Funzione per generare PDF da contenuto HTML con formattazione preservata
+        async function generaPDF(contenutoHTML, nomeFile) {
+            try {
+                // Crea un elemento temporaneo per renderizzare l'HTML
+                const contenitoreTemp = document.createElement('div');
+                contenitoreTemp.innerHTML = contenutoHTML;
+                contenitoreTemp.style.cssText = `
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                    width: 794px;
+                    padding: 40px;
+                    font-family: 'Times New Roman', serif;
+                    font-size: 12px;
+                    line-height: 1.4;
+                    color: #000;
+                    background: white;
+                `;
+                
+                // Applica stili per elementi specifici
+                const style = document.createElement('style');
+                style.textContent = `
+                    .temp-pdf-content h1 { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; text-align: center; }
+                    .temp-pdf-content h2 { font-size: 14px; font-weight: bold; margin: 15px 0 8px 0; }
+                    .temp-pdf-content p { margin: 8px 0; text-align: justify; }
+                    .temp-pdf-content strong { font-weight: bold; }
+                    .temp-pdf-content em { font-style: italic; }
+                    .temp-pdf-content ul, .temp-pdf-content ol { margin: 10px 0; padding-left: 20px; }
+                    .temp-pdf-content li { margin: 4px 0; }
+                    .temp-pdf-content table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    .temp-pdf-content td, .temp-pdf-content th { border: 1px solid #000; padding: 5px; text-align: left; }
+                    .temp-pdf-content .signature-line { border-bottom: 1px solid #000; margin: 20px 0; min-height: 40px; }
+                `;
+                
+                contenitoreTemp.className = 'temp-pdf-content';
+                document.head.appendChild(style);
+                document.body.appendChild(contenitoreTemp);
+                
+                // Genera canvas usando html2canvas
+                const canvas = await html2canvas(contenitoreTemp, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    width: 794,
+                    height: contenitoreTemp.scrollHeight
+                });
+                
+                // Pulisci elementi temporanei
+                document.body.removeChild(contenitoreTemp);
+                document.head.removeChild(style);
+                
+                // Crea PDF
+                const { jsPDF } = window.jspdf;
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                let position = 0;
+                
+                // Aggiungi pagine se necessario
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Scarica il PDF
+                pdf.save(nomeFile);
+                
+            } catch (error) {
+                console.error('Errore nella generazione PDF:', error);
+                // Fallback alla generazione testo semplice
+                await generaPDFTesto(contenutoHTML.replace(/<[^>]*>/g, ''), nomeFile);
+            }
+        }
+        
+        // Funzione fallback per generare PDF da testo semplice
+        async function generaPDFTesto(contenuto, nomeFile) {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(11);
+            
+            const margineX = 20;
+            const margineY = 20;
+            const larghezzaPagina = 170;
+            const altezzaPagina = 250;
+            
+            const righe = contenuto.split('\n');
+            let y = margineY;
+            
+            for (let i = 0; i < righe.length; i++) {
+                const riga = righe[i];
+                
+                if (y > altezzaPagina) {
+                    pdf.addPage();
+                    y = margineY;
+                }
+                
+                if (riga.trim() === '') {
+                    y += 5;
+                    continue;
+                }
+                
+                const righeWrapped = pdf.splitTextToSize(riga, larghezzaPagina);
+                
+                for (let j = 0; j < righeWrapped.length; j++) {
+                    if (y > altezzaPagina) {
+                        pdf.addPage();
+                        y = margineY;
+                    }
+                    
+                    pdf.text(righeWrapped[j], margineX, y);
+                    y += 6;
+                }
+            }
+            
+            pdf.save(nomeFile);
+        }
+
+        // Funzione per aggiornare la barra di progresso
+        function aggiornaProgresso(percentuale) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentuale + '%';
+        }
+
+        // Funzione per mostrare messaggio
+        function mostraMessaggio(testo, tipo = 'success') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = `message ${tipo}`;
+            messageDiv.textContent = testo;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Funzione principale per generare i documenti
+        async function generaDocumenti() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const generateBtn = document.getElementById('generateBtn');
+            
+            try {
+                // Disabilita il pulsante e mostra loading
+                generateBtn.disabled = true;
+                loadingOverlay.style.display = 'flex';
+                aggiornaProgresso(0);
+
+                // Raccogli i dati dal form
+                const data = raccogliDati();
+                validaDati(data);
+
+                // Ottieni i documenti selezionati
+                const documentiSelezionati = [];
+                const checkboxes = document.querySelectorAll('.document-item input[type="checkbox"]:checked');
+                
+                checkboxes.forEach(checkbox => {
+                    const documentId = checkbox.id;
+                    if (documentMap[documentId]) {
+                        documentiSelezionati.push({
+                            id: documentId,
+                            file: documentMap[documentId],
+                            nome: checkbox.parentElement.querySelector('.document-code').textContent
+                        });
+                    }
+                });
+
+                if (documentiSelezionati.length === 0) {
+                    throw new Error('Seleziona almeno un documento da generare');
+                }
+
+                aggiornaProgresso(10);
+
+                // Genera ogni documento
+                let documentiGenerati = 0;
+                const totalDocumenti = documentiSelezionati.length;
+
+                for (const doc of documentiSelezionati) {
+                    try {
+                        // Leggi il template HTML
+                        const template = await leggiTemplateHtml(doc.file);
+                        
+                        // Compila il template con i dati
+                        const contenutoCompilato = compilaTemplate(template, data);
+                        
+                        // Genera il nome del file PDF
+                        const nomeFilePDF = `${doc.nome}_${data.paziente.nome.replace(/\s+/g, '_')}_${data.dataOdierna.replace(/\//g, '-')}.pdf`;
+                        
+                        // Genera il PDF
+                        await generaPDF(contenutoCompilato, nomeFilePDF);
+                        
+                        documentiGenerati++;
+                        const progresso = 10 + (documentiGenerati / totalDocumenti) * 80;
+                        aggiornaProgresso(progresso);
+                        
+                        // Piccolo delay per permettere il download
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        
+                    } catch (error) {
+                        console.error(`Errore nella generazione di ${doc.nome}:`, error);
+                        mostraMessaggio(`Errore nella generazione di ${doc.nome}: ${error.message}`, 'error');
+                    }
+                }
+
+                aggiornaProgresso(100);
+                
+                if (documentiGenerati > 0) {
+                    mostraMessaggio(`✅ Generati con successo ${documentiGenerati} documenti compilati! Controlla la cartella Download.`, 'success');
+                } else {
+                    mostraMessaggio('❌ Nessun documento è stato generato. Controlla i template HTML nella cartella "templates-html".', 'error');
+                }
+
+            } catch (error) {
+                console.error('Errore durante la generazione:', error);
+                mostraMessaggio(`❌ Errore: ${error.message}`, 'error');
+            } finally {
+                // Nasconde loading e riabilita pulsante
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                    generateBtn.disabled = false;
+                    aggiornaProgresso(0);
+                }, 1000);
+            }
+        }
+
+        // Funzione per resettare il form
+        function resetForm() {
+            if (confirm('Sei sicuro di voler cancellare tutti i dati inseriti?')) {
+                document.querySelectorAll('input, textarea, select').forEach(element => {
+                    if (element.type === 'checkbox') {
+                        element.checked = false;
+                        element.closest('.document-item')?.classList.remove('selected');
+                    } else {
+                        element.value = '';
+                    }
+                });
+                
+                // Riseleziona i documenti di default
+                document.getElementById('doc-privacy').checked = true;
+                document.getElementById('doc-privacy').closest('.document-item').classList.add('selected');
+                document.getElementById('doc-zika').checked = true;
+                document.getElementById('doc-zika').closest('.document-item').classList.add('selected');
+                
+                mostraMessaggio('✅ Form resettato con successo', 'success');
+            }
+        }
+
+        // Inizializzazione quando la pagina è caricata
+        document.addEventListener('DOMContentLoaded', function() {
+            // Marca come selezionati i documenti di default
+            document.querySelectorAll('.document-item input[type="checkbox"]:checked').forEach(checkbox => {
+                checkbox.closest('.document-item').classList.add('selected');
+            });
+
+            // Aggiungi event listener per i checkbox per evitare doppio toggle
+            document.querySelectorAll('.document-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    
+                    if (this.checked) {
+                        this.closest('.document-item').classList.add('selected');
+                    } else {
+                        this.closest('.document-item').classList.remove('selected');
+                    }
+                });
+            });
+
+            // Controlla se la cartella templates-html è accessibile
+            fetch('templates-html/')
+                .then(response => {
+                    if (!response.ok) {
+                        mostraMessaggio('⚠️ Attenzione: Assicurati che la cartella "templates-html" sia presente nella stessa directory di questo file.', 'error');
+                    }
+                })
+                .catch(() => {
+                    mostraMessaggio('⚠️ Attenzione: Cartella "templates-html" non trovata. Creare la cartella e inserire i file HTML.', 'error');
+                });
+
+            console.log('✅ Sistema Biofertility inizializzato correttamente');
+            console.log('📁 Template directory: ./templates-html/');
+            console.log(`📋 Documenti supportati: ${Object.keys(documentMap).length}/14 template HTML configurati`);
+            console.log('📋 Template disponibili:', Object.values(documentMap));
+        });
+
+        // Funzione helper per il debug (rimuovere in produzione)
+        function debug() {
+            console.log('=== DEBUG INFO ===');
+            console.log('Dati raccolti:', raccogliDati());
+            console.log('Documenti selezionati:', 
+                Array.from(document.querySelectorAll('.document-item input[type="checkbox"]:checked'))
+                    .map(cb => cb.id)
+            );
+        }
+    </script>
+</body>
+</html>

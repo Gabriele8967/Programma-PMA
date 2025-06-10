@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_04 - CONSENSO IUI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.3;
+            margin: 15px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checkbox {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #000;
+            margin-right: 3px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            margin: 0 5px;
+        }
+        .date-field {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 100px;
+        }
+        p {
+            text-align: justify;
+            margin: 6px 0;
+        }
+        .small-text {
+            font-size: 9px;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .info-box {
+            border: 1px solid #000;
+            padding: 8px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+        }
+        ul {
+            margin: 8px 0;
+            padding-left: 15px;
+        }
+        li {
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 04 - CONSENSO INFORMATO<br>
+        INSEMINAZIONE INTRAUTERINA (IUI - I LIVELLO)
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DELLA COPPIA</th>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <strong>PAZIENTE DONNA</strong><br>
+                Sig.ra <span style="border-bottom: 1px solid #000; display: inline-block; width: 200px;">[PAZIENTE_NOME]</span><br>
+                nata a <span style="border-bottom: 1px solid #000; display: inline-block; width: 150px;">[PAZIENTE_LUOGO_NASCITA]</span><br>
+                il <span style="border-bottom: 1px solid #000; display: inline-block; width: 100px;">[PAZIENTE_DATA_NASCITA]</span><br>
+                C.F. <span style="border-bottom: 1px solid #000; display: inline-block; width: 150px;">[PAZIENTE_CF]</span>
+            </td>
+            <td style="width: 50%;">
+                <strong>PAZIENTE UOMO</strong><br>
+                Sig. <span style="border-bottom: 1px solid #000; display: inline-block; width: 200px;">[PARTNER_NOME]</span><br>
+                nato a <span style="border-bottom: 1px solid #000; display: inline-block; width: 150px;">[PARTNER_LUOGO_NASCITA]</span><br>
+                il <span style="border-bottom: 1px solid #000; display: inline-block; width: 100px;">[PARTNER_DATA_NASCITA]</span><br>
+                C.F. <span style="border-bottom: 1px solid #000; display: inline-block; width: 150px;">[PARTNER_CF]</span>
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        Il presente modulo, consegnato dal Prof./Dott. <span class="signature-line">[MEDICO_NOME]</span>
+        in data <span class="date-field">[DATA_ODIERNA]</span>, è finalizzato ad acquisire il consenso informato 
+        della coppia per il trattamento di Inseminazione Intrauterina (IUI).
+    </p>
+
+    <div class="section-title">1. INFORMAZIONI GENERALI SULLA STERILITÀ E INFERTILITÀ</div>
+
+    <p>
+        La sterilità è definita come l'assenza di concepimento dopo 12 mesi di rapporti sessuali 
+        regolari non protetti. L'infertilità indica l'incapacità di portare a termine una gravidanza 
+        con la nascita di un figlio vivo e vitale.
+    </p>
+
+    <p>
+        Le cause di sterilità possono essere:
+    </p>
+    <ul>
+        <li><strong>Fattore femminile (35-40%):</strong> alterazioni tubariche, endometriosi, fattori ovulatori, fattori cervicali</li>
+        <li><strong>Fattore maschile (30-35%):</strong> alterazioni della qualità seminale</li>
+        <li><strong>Fattore misto (15-20%):</strong> presenza contemporanea di fattori femminili e maschili</li>
+        <li><strong>Sterilità idiopatica (10-15%):</strong> causa non identificabile con gli attuali mezzi diagnostici</li>
+    </ul>
+
+    <div class="section-title">2. CENTRI AUTORIZZATI E NORMATIVA</div>
+
+    <p>
+        Le tecniche di Procreazione Medicalmente Assistita (PMA) in Italia sono regolamentate dalla 
+        Legge 40/2004 e successive modificazioni. I trattamenti possono essere eseguiti esclusivamente 
+        presso centri autorizzati dalle Regioni.
+    </p>
+
+    <div class="section-title">3. DESCRIZIONE DELLA TECNICA IUI</div>
+
+    <p>
+        L'Inseminazione Intrauterina (IUI) consiste nell'introduzione di spermatozoi, opportunamente 
+        preparati in laboratorio, direttamente nella cavità uterina attraverso un sottile catetere.
+    </p>
+
+    <p><strong>Fasi del trattamento:</strong></p>
+    <ul>
+        <li><strong>Stimolazione ovarica controllata:</strong> mediante farmaci ormonali per ottenere lo sviluppo di 1-2 follicoli</li>
+        <li><strong>Monitoraggio:</strong> ecografie transvaginali e dosaggi ormonali per controllare la crescita follicolare</li>
+        <li><strong>Induzione dell'ovulazione:</strong> mediante somministrazione di hCG quando i follicoli raggiungono la maturità</li>
+        <li><strong>Preparazione del liquido seminale:</strong> separazione e concentrazione degli spermatozoi mobili</li>
+        <li><strong>Inseminazione:</strong> introduzione degli spermatozoi preparati in cavità uterina</li>
+        <li><strong>Supporto della fase luteale:</strong> eventuale somministrazione di progesterone</li>
+    </ul>
+
+    <div class="section-title">4. INDICAZIONI AL TRATTAMENTO</div>
+
+    <p>La IUI è indicata nei seguenti casi:</p>
+    <ul>
+        <li>Infertilità idiopatica</li>
+        <li>Fattore cervicale</li>
+        <li>Lieve fattore maschile</li>
+        <li>Disturbi dell'ovulazione</li>
+        <li>Endometriosi lieve</li>
+        <li>Fattori sessuali o psicologici</li>
+    </ul>
+
+    <div class="section-title">5. PROBABILITÀ DI SUCCESSO</div>
+
+    <div class="info-box">
+        <p><strong>Percentuali di gravidanza per ciclo di IUI:</strong></p>
+        <ul>
+            <li>Età &lt; 30 anni: 15-20%</li>
+            <li>Età 30-35 anni: 10-15%</li>
+            <li>Età 35-40 anni: 8-12%</li>
+            <li>Età &gt; 40 anni: 5-8%</li>
+        </ul>
+        <p class="small-text">
+            Le percentuali possono variare in base alle caratteristiche individuali della coppia, 
+            alla causa dell'infertilità e al numero di cicli effettuati.
+        </p>
+    </div>
+
+    <div class="section-title">6. RISCHI E COMPLICANZE</div>
+
+    <p><strong>Rischi legati alla stimolazione ormonale:</strong></p>
+    <ul>
+        <li>Sindrome da iperstimolazione ovarica (OHSS): lieve 8-12%, moderata 1-2%, severa &lt;1%</li>
+        <li>Gravidanze multiple: 10-15% (prevalentemente gemellari)</li>
+        <li>Reazioni allergiche ai farmaci (rare)</li>
+    </ul>
+
+    <p><strong>Rischi legati alla procedura:</strong></p>
+    <ul>
+        <li>Crampi uterini lievi (frequenti e transitori)</li>
+        <li>Sanguinamento vaginale lieve (raro)</li>
+        <li>Infezioni pelviche (molto rare, &lt;0.1%)</li>
+    </ul>
+
+    <p><strong>Rischi ostetrici e perinatali:</strong></p>
+    <ul>
+        <li>Aumentato rischio di aborto spontaneo</li>
+        <li>Maggiore incidenza di parto pretermine nelle gravidanze multiple</li>
+        <li>Lieve aumento del rischio di malformazioni congenite</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <div class="section-title">7. ALTERNATIVE TERAPEUTICHE</div>
+
+    <p>In caso di fallimento della IUI, le alternative terapeutiche includono:</p>
+    <ul>
+        <li><strong>Ripetizione dei cicli di IUI:</strong> generalmente consigliati 3-4 cicli</li>
+        <li><strong>Tecniche di II livello:</strong> FIVET (Fecondazione In Vitro ed Embryo Transfer)</li>
+        <li><strong>ICSI:</strong> Iniezione Intracitoplasmatica dello Spermatozoo (in caso di fattore maschile severo)</li>
+        <li><strong>Adozione:</strong> opzione da considerare dopo consulenza psicologica</li>
+    </ul>
+
+    <div class="section-title">8. ASPETTI ECONOMICI</div>
+
+    <p>
+        I costi del trattamento variano in base al centro e alla regione. È possibile l'esenzione 
+        dal ticket per alcune prestazioni. Si consiglia di informarsi presso il proprio centro 
+        sui costi specifici e sulle modalità di rimborso.
+    </p>
+
+    <div class="section-title">9. CONSENSO INFORMATO</div>
+
+    <table>
+        <tr>
+            <th>DICHIARAZIONI E CONSENSI</th>
+            <th style="width: 80px;">DONNA</th>
+            <th style="width: 80px;">UOMO</th>
+        </tr>
+        <tr>
+            <td>Dichiariamo di essere stati informati sulla natura della tecnica IUI</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiariamo di essere stati informati sui rischi e le complicanze</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiariamo di essere stati informati sulle percentuali di successo</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiariamo di essere stati informati sulle alternative terapeutiche</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Consentiamo all'esecuzione della tecnica IUI</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Consentiamo alla crioconservazione degli eventuali embrioni soprannumerari</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Consentiamo all'utilizzo degli embrioni per ricerca scientifica (Legge 40/2004)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 30px;">
+        <table>
+            <tr>
+                <th>FIRME</th>
+                <th style="width: 200px;">PAZIENTE DONNA</th>
+                <th style="width: 200px;">PAZIENTE UOMO</th>
+                <th style="width: 200px;">MEDICO</th>
+            </tr>
+            <tr>
+                <td><strong>Nome e Cognome</strong></td>
+                <td>[PAZIENTE_NOME]</td>
+                <td>[PARTNER_NOME]</td>
+                <td>[MEDICO_NOME]</td>
+            </tr>
+            <tr style="height: 50px;">
+                <td><strong>Firma</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Data</strong></td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <p class="small-text">
+            <strong>Note del medico:</strong><br>
+            <span style="border-bottom: 1px solid #000; display: inline-block; width: 100%; height: 60px;"></span>
+        </p>
+        
+        <p class="small-text" style="margin-top: 20px;">
+            <strong>Timbro e firma del medico:</strong><br>
+            <span style="border: 1px solid #000; display: inline-block; width: 200px; height: 80px;"></span>
+        </p>
+    </div>
+</body>
+</html>

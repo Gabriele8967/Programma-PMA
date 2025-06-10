@@ -1,0 +1,15 @@
+{
+  "name": "documenti-automatici",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . documenti-app --platform=win32,linux,darwin --arch=x64 --out=dist --overwrite"
+  },
+  "dependencies": {
+    "electron": "^26.0.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2"
+  }
+}

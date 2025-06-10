@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_36 - INFORMATIVA IUI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.3;
+            margin: 15px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        p {
+            text-align: justify;
+            margin: 6px 0;
+        }
+        .info-box {
+            border: 1px solid #000;
+            padding: 8px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+        }
+        .warning-box {
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #ffe6e6;
+        }
+        ul { margin: 8px 0; padding-left: 15px; }
+        li { margin: 3px 0; }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 36 - INFORMATIVA IUI<br>
+        INSEMINAZIONE INTRAUTERINA<br>
+        (2019)
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DELLA COPPIA</th>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <strong>PAZIENTE DONNA</strong><br>
+                [PAZIENTE_NOME]<br>
+                nata a [PAZIENTE_LUOGO_NASCITA] il [PAZIENTE_DATA_NASCITA]<br>
+                C.F. [PAZIENTE_CF]
+            </td>
+            <td style="width: 50%;">
+                <strong>PAZIENTE UOMO</strong><br>
+                [PARTNER_NOME]<br>
+                nato a [PARTNER_LUOGO_NASCITA] il [PARTNER_DATA_NASCITA]<br>
+                C.F. [PARTNER_CF]
+            </td>
+        </tr>
+    </table>
+
+    <div class="section-title">DEFINIZIONE E PRINCIPI GENERALI</div>
+
+    <p>
+        L'Inseminazione Intrauterina (IUI) è una tecnica di procreazione medicalmente assistita di primo livello 
+        che consiste nell'introduzione, tramite un sottile catetere, di spermatozoi opportunamente preparati 
+        direttamente nella cavità uterina, in prossimità del momento dell'ovulazione.
+    </p>
+
+    <p>
+        Questa procedura permette di superare alcuni ostacoli che impediscono agli spermatozoi di raggiungere 
+        naturalmente l'ovocita, aumentando le probabilità di fecondazione spontanea.
+    </p>
+
+    <div class="section-title">INDICAZIONI CLINICHE</div>
+
+    <div class="info-box">
+        <p><strong>Indicazioni maschili:</strong></p>
+        <ul>
+            <li><strong>Subfertilità maschile lieve-moderata:</strong>
+                <ul>
+                    <li>Oligospermia lieve (concentrazione 10-20 milioni/ml)</li>
+                    <li>Astenospermia lieve-moderata (motilità progressiva 10-30%)</li>
+                    <li>Teratospermia moderata (forme normali 2-8%)</li>
+                </ul>
+            </li>
+            <li><strong>Disturbi dell'eiaculazione:</strong> eiaculazione retrograda, aneiaculazione</li>
+            <li><strong>Anticorpi antispermatozoo</strong> in concentrazione moderata</li>
+            <li><strong>Impotenza coeundi</strong> o vaginismo grave</li>
+        </ul>
+    </div>
+
+    <div class="info-box">
+        <p><strong>Indicazioni femminili:</strong></p>
+        <ul>
+            <li><strong>Fattore cervicale:</strong>
+                <ul>
+                    <li>Muco cervicale ostile o inadeguato</li>
+                    <li>Stenosi cervicale</li>
+                    <li>Precedenti interventi chirurgici sul collo uterino</li>
+                </ul>
+            </li>
+            <li><strong>Endometriosi lieve</strong> (I-II stadio ASRM)</li>
+            <li><strong>Ovulazione indotta</strong> in pazienti con disturbi ovulatori</li>
+            <li><strong>Infertilità inspiegata</strong> con tube pervie</li>
+        </li>
+    </div>
+
+    <div class="section-title">PREREQUISITI PER IL TRATTAMENTO</div>
+
+    <div class="info-box">
+        <p><strong>Requisiti femminili:</strong></p>
+        <ul>
+            <li>Almeno una tuba pervia documentata (isterosalpingografia o laparoscopia)</li>
+            <li>Cavità uterina normale (isteroscopia o isterosalpingografia)</li>
+            <li>Assenza di aderenze pelviche severe</li>
+            <li>Età preferibilmente &lt; 38 anni</li>
+        </ul>
+
+        <p><strong>Requisiti maschili:</strong></p>
+        <ul>
+            <li>Concentrazione post-capacitazione ≥ 5 milioni/ml</li>
+            <li>Motilità progressiva post-capacitazione ≥ 30%</li>
+            <li>Assenza di infezioni genitali attive</li>
+        </ul>
+    </div>
+
+    <div class="section-title">PROTOCOLLI DI STIMOLAZIONE</div>
+
+    <p><strong>1. Ciclo naturale:</strong></p>
+    <ul>
+        <li>Monitoraggio dell'ovulazione spontanea</li>
+        <li>Trigger ovulatorio con hCG</li>
+        <li>IUI 24-36 ore dopo hCG</li>
+        <li>Indicato in donne con ovulazione regolare</li>
+    </ul>
+
+    <p><strong>2. Stimolazione ovarica controllata lieve:</strong></p>
+    <ul>
+        <li>Clomifene citrato 50-100 mg dal 3° al 7° giorno</li>
+        <li>Gonadotropine a basse dosi (75-150 UI/die)</li>
+        <li>Obiettivo: 1-3 follicoli dominanti</li>
+        <li>Monitoraggio ecografico e ormonale</li>
+    </ul>
+
+    <div class="section-title">PROCEDURA TECNICA</div>
+
+    <p><strong>1. Preparazione del liquido seminale:</strong></p>
+    <ul>
+        <li>Raccolta del campione dopo 2-5 giorni di astinenza</li>
+        <li>Capacitazione mediante swim-up o gradiente di densità</li>
+        <li>Concentrazione e lavaggio degli spermatozoi</li>
+        <li>Risospensione in terreno di coltura</li>
+    </ul>
+
+    <p><strong>2. Inseminazione:</strong></p>
+    <ul>
+        <li>Posizionamento della paziente in posizione ginecologica</li>
+        <li>Inserimento delicato dello speculum</li>
+        <li>Introduzione del catetere attraverso il canale cervicale</li>
+        <li>Deposito degli spermatozoi nel fondo uterino</li>
+        <li>Rimozione del catetere e riposo di 10-15 minuti</li>
+    </ul>
+
+    <div class="section-title">PERCENTUALI DI SUCCESSO</div>
+
+    <div class="info-box">
+        <p><strong>Tassi di gravidanza per ciclo:</strong></p>
+        <ul>
+            <li><strong>Infertilità inspiegata:</strong> 10-15%</li>
+            <li><strong>Fattore maschile lieve:</strong> 8-12%</li>
+            <li><strong>Fattore cervicale:</strong> 12-18%</li>
+            <li><strong>Endometriosi lieve:</strong> 6-10%</li>
+            <li><strong>Disturbi ovulatori:</strong> 15-20%</li>
+        </ul>
+
+        <p><strong>Fattori che influenzano il successo:</strong></p>
+        <ul>
+            <li>Età della donna (&lt; 35 anni: risultati migliori)</li>
+            <li>Durata dell'infertilità (&lt; 3 anni: risultati migliori)</li>
+            <li>Qualità del liquido seminale post-capacitazione</li>
+            <li>Numero di follicoli maturi (1-3 ottimale)</li>
+            <li>Timing dell'inseminazione</li>
+        </ul>
+
+        <p><strong>Tassi cumulativi:</strong></p>
+        <ul>
+            <li>Dopo 3 cicli: 25-35%</li>
+            <li>Dopo 6 cicli: 35-50%</li>
+        </ul>
+    </div>
+
+    <div class="section-title">RISCHI E COMPLICANZE</div>
+
+    <div class="warning-box">
+        <p><strong>Rischi della stimolazione ovarica:</strong></p>
+        <ul>
+            <li><strong>Sindrome da iperstimolazione ovarica:</strong> rara nelle stimolazioni lievi (&lt; 1%)</li>
+            <li><strong>Gravidanze multiple:</strong> 15-20% gemellari, &lt; 1% trigemine</li>
+            <li><strong>Effetti collaterali dei farmaci:</strong> vampate, tensione mammaria, irritabilità</li>
+        </ul>
+
+        <p><strong>Rischi della procedura IUI:</strong></p>
+        <ul>
+            <li><strong>Crampi uterini:</strong> lievi e transitori (comune)</li>
+            <li><strong>Spotting:</strong> possibile nelle 24-48 ore successive</li>
+            <li><strong>Infezioni:</strong> molto rare (&lt; 0.1%)</li>
+            <li><strong>Reazioni vasovagali:</strong> rare, di breve durata</li>
+        </ul>
+
+        <p><strong>Rischi ostetrici:</strong></p>
+        <ul>
+            <li><strong>Aborto spontaneo:</strong> 15-20% (simile alla popolazione generale)</li>
+            <li><strong>Gravidanza ectopica:</strong> 2-5%</li>
+            <li><strong>Complicanze legate alle gravidanze multiple</strong></li>
+        </ul>
+    </div>
+
+    <div class="section-title">MONITORAGGIO POST-INSEMINAZIONE</div>
+
+    <p>
+        <strong>Supporto della fase luteinica:</strong> progesterone vaginale o hCG può essere prescritto 
+        per sostenere l'impianto embrionario.
+    </p>
+
+    <p>
+        <strong>Test di gravidanza:</strong> β-hCG sierico 14-16 giorni dopo l'inseminazione.
+    </p>
+
+    <p>
+        <strong>Ecografia di controllo:</strong> in caso di test positivo, prima ecografia a 6-7 settimane 
+        per confermare la vitalità e il numero di embrioni.
+    </p>
+
+    <div class="section-title">ALTERNATIVE TERAPEUTICHE</div>
+
+    <p>In caso di fallimento di 3-6 cicli IUI:</p>
+    <ul>
+        <li><strong>Tecniche di II livello:</strong> FIVET o ICSI</li>
+        <li><strong>Valutazione diagnostica aggiuntiva:</strong> isteroscopia, laparoscopia</li>
+        <li><strong>Modifica del protocollo:</strong> diversa stimolazione o timing</li>
+        <li><strong>Counseling genetico:</strong> in casi selezionati</li>
+    </ul>
+
+    <div class="section-title">ASPETTI LEGALI E NORMATIVI</div>
+
+    <p>
+        Il trattamento IUI è regolamentato dalla <strong>Legge 40/2004</strong> sulla procreazione 
+        medicalmente assistita. È richiesto consenso informato scritto e può essere eseguito solo 
+        su coppie con problemi di fertilità documentati.
+    </p>
+
+    <div class="section-title">CONSIDERAZIONI ECONOMICHE</div>
+
+    <p>
+        Il costo del trattamento IUI include monitoraggio dell'ovulazione, preparazione del liquido 
+        seminale, procedura di inseminazione e supporto luteinico. In alcuni casi può essere 
+        rimborsato dal Sistema Sanitario Nazionale.
+    </p>
+
+    <div style="margin-top: 30px;">
+        <p>
+            <strong>Medico responsabile:</strong> <span class="signature-line">[MEDICO_NOME]</span>
+        </p>
+        
+        <p style="margin-top: 30px;">
+            <strong>Data di consegna dell'informativa:</strong> <span class="signature-line">[DATA_ODIERNA]</span>
+        </p>
+
+        <p style="margin-top: 30px;">
+            Il presente documento informativo è stato letto, compreso e trattenuto dalla coppia 
+            per una riflessione adeguata prima della firma del consenso informato.
+        </p>
+    </div>
+</body>
+</html>

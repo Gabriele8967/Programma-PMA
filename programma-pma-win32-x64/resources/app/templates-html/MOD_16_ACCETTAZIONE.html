@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_16 - ACCETTAZIONE LIQUIDO SEMINALE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.3;
+            margin: 20px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checkbox {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #000;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 10px;
+        }
+        .signature-section {
+            margin-top: 30px;
+            page-break-inside: avoid;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 200px;
+            margin: 0 10px;
+        }
+        .date-field {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .placeholder {
+            background-color: #ffffcc;
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 200px;
+            padding: 2px;
+        }
+        p {
+            text-align: justify;
+            margin: 8px 0;
+        }
+        .important-box {
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        ul { margin: 8px 0; padding-left: 20px; }
+        li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 16 - ACCETTAZIONE LIQUIDO SEMINALE<br>
+        PER TECNICHE DI PROCREAZIONE MEDICALMENTE ASSISTITA
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DEL PAZIENTE</th>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><strong>COGNOME E NOME</strong></td>
+            <td>[PARTNER_NOME]</td>
+        </tr>
+        <tr>
+            <td><strong>LUOGO E DATA DI NASCITA</strong></td>
+            <td>[PARTNER_LUOGO_NASCITA], [PARTNER_DATA_NASCITA]</td>
+        </tr>
+        <tr>
+            <td><strong>CODICE FISCALE</strong></td>
+            <td>[PARTNER_CF]</td>
+        </tr>
+        <tr>
+            <td><strong>INDIRIZZO DI RESIDENZA</strong></td>
+            <td>[PARTNER_RESIDENZA]</td>
+        </tr>
+        <tr>
+            <td><strong>CITTÀ E CAP</strong></td>
+            <td>[PARTNER_CITTA]</td>
+        </tr>
+        <tr>
+            <td><strong>RECAPITO TELEFONICO</strong></td>
+            <td>[PARTNER_TELEFONO]</td>
+        </tr>
+    </table>
+
+    <div class="section-title">DICHIARAZIONE DEL PAZIENTE</div>
+
+    <p>
+        Il sottoscritto <span class="placeholder">[PARTNER_NOME]</span>, 
+        nato a <span class="placeholder">[PARTNER_LUOGO_NASCITA]</span> 
+        il <span class="placeholder">[PARTNER_DATA_NASCITA]</span>, 
+        consegna presso il Centro Biofertility il proprio campione di liquido seminale 
+        per l'esecuzione di tecniche di Procreazione Medicalmente Assistita.
+    </p>
+
+    <div class="section-title">MODALITÀ DI RACCOLTA</div>
+
+    <table>
+        <tr>
+            <th>MODALITÀ</th>
+            <th style="width: 100px;">SELEZIONE</th>
+        </tr>
+        <tr>
+            <td>Raccolta presso il Centro in apposita stanza</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Raccolta a domicilio con consegna entro 1 ora</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Raccolta con preservativo sterile per rapporto interrotto</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">DATI TECNICI DEL CAMPIONE</div>
+
+    <table>
+        <tr>
+            <td style="width: 30%;"><strong>DATA DI RACCOLTA</strong></td>
+            <td>[DATA_ODIERNA]</td>
+            <td style="width: 30%;"><strong>ORA DI RACCOLTA</strong></td>
+            <td>____:____</td>
+        </tr>
+        <tr>
+            <td><strong>GIORNI DI ASTINENZA</strong></td>
+            <td>_____ giorni</td>
+            <td><strong>ORA DI CONSEGNA</strong></td>
+            <td>____:____</td>
+        </tr>
+        <tr>
+            <td><strong>CAMPIONE COMPLETO</strong></td>
+            <td><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+            <td><strong>EVENTUALI PERDITE</strong></td>
+            <td><span class="checkbox">☐</span> Sì <span class="checkbox">☐</span> No</td>
+        </tr>
+    </table>
+
+    <div class="section-title">CRITERI DI ACCETTABILITÀ</div>
+
+    <div class="important-box">
+        <p><strong>REQUISITI MINIMI PER L'ACCETTAZIONE:</strong></p>
+        <ul>
+            <li>Identificazione corretta del paziente</li>
+            <li>Contenitore sterile e integro</li>
+            <li>Etichettatura completa e leggibile</li>
+            <li>Tempo di consegna rispettato (&lt; 1 ora dalla raccolta)</li>
+            <li>Temperatura di conservazione adeguata (36-37°C)</li>
+            <li>Assenza di contaminazioni evidenti</li>
+        </ul>
+    </div>
+
+    <div class="section-title">DICHIARAZIONI DEL PAZIENTE</div>
+
+    <table>
+        <tr>
+            <th>DICHIARAZIONE</th>
+            <th style="width: 80px;">CONFERMA</th>
+        </tr>
+        <tr>
+            <td>Dichiaro che il campione è stato raccolto secondo le modalità indicate</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di aver rispettato il periodo di astinenza richiesto (2-5 giorni)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di non aver assunto farmaci nelle ultime 72 ore</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di non aver avuto episodi febbrili nelle ultime 2 settimane</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Dichiaro di non aver fatto uso di sostanze alcoliche nelle ultime 48 ore</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Autorizzo l'utilizzo del campione per le tecniche di PMA programmate</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">CONTROLLO QUALITÀ - USO INTERNO</div>
+
+    <table>
+        <tr>
+            <th>PARAMETRO</th>
+            <th>VALUTAZIONE</th>
+            <th>NOTE</th>
+        </tr>
+        <tr>
+            <td><strong>Identificazione campione</strong></td>
+            <td><span class="checkbox">☐</span> Conforme <span class="checkbox">☐</span> Non conforme</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>Integrità contenitore</strong></td>
+            <td><span class="checkbox">☐</span> Conforme <span class="checkbox">☐</span> Non conforme</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>Tempi di consegna</strong></td>
+            <td><span class="checkbox">☐</span> Conforme <span class="checkbox">☐</span> Non conforme</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>Temperatura</strong></td>
+            <td><span class="checkbox">☐</span> Conforme <span class="checkbox">☐</span> Non conforme</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>Aspetto macroscopico</strong></td>
+            <td><span class="checkbox">☐</span> Normale <span class="checkbox">☐</span> Alterato</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td><strong>CAMPIONE ACCETTATO:</strong></td>
+            <td><span class="checkbox">☐</span> SÌ <span class="checkbox">☐</span> NO</td>
+            <td><strong>OPERATORE:</strong></td>
+            <td>[BIOLOGO_NOME]</td>
+        </tr>
+    </table>
+
+    <div class="important-box">
+        <p><strong>NOTE DEL LABORATORIO:</strong></p>
+        <p style="border-bottom: 1px solid #000; height: 20px;"></p>
+        <p style="border-bottom: 1px solid #000; height: 20px;"></p>
+    </div>
+
+    <div class="signature-section">
+        <table>
+            <tr>
+                <th>FIRME</th>
+                <th style="width: 200px;">PAZIENTE</th>
+                <th style="width: 200px;">OPERATORE</th>
+            </tr>
+            <tr>
+                <td><strong>Nome</strong></td>
+                <td>[PARTNER_NOME]</td>
+                <td>[BIOLOGO_NOME]</td>
+            </tr>
+            <tr style="height: 50px;">
+                <td><strong>Firma</strong></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Data e Ora</strong></td>
+                <td>[DATA_ODIERNA] ____:____</td>
+                <td>[DATA_ODIERNA] ____:____</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 9px; text-align: center;">
+        <p><strong>ATTENZIONE:</strong> Il presente modulo deve essere compilato in tutte le sue parti 
+        e firmato dal paziente al momento della consegna del campione.</p>
+    </div>
+</body>
+</html>

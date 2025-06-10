@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>MOD_44 - CONSENSO ASSENZA MARITO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.3;
+            margin: 20px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin: 15px 0 8px 0;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checkbox {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #000;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 10px;
+        }
+        .signature-section {
+            margin-top: 30px;
+            page-break-inside: avoid;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 200px;
+            margin: 0 10px;
+        }
+        .legal-box {
+            border: 2px solid #000;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f0f8ff;
+        }
+        p {
+            text-align: justify;
+            margin: 8px 0;
+        }
+        ul { margin: 8px 0; padding-left: 20px; }
+        li { margin: 5px 0; }
+        .placeholder {
+            background-color: #ffffcc;
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 200px;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        CENTRO BIOFERTILITY<br>
+        MODULO 44 - CONSENSO INTEGRATIVO<br>
+        PER PMA IN ASSENZA DEL MARITO/PARTNER
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DELLA PAZIENTE</th>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><strong>COGNOME E NOME</strong></td>
+            <td>[PAZIENTE_NOME]</td>
+        </tr>
+        <tr>
+            <td><strong>LUOGO E DATA DI NASCITA</strong></td>
+            <td>[PAZIENTE_LUOGO_NASCITA], [PAZIENTE_DATA_NASCITA]</td>
+        </tr>
+        <tr>
+            <td><strong>CODICE FISCALE</strong></td>
+            <td>[PAZIENTE_CF]</td>
+        </tr>
+        <tr>
+            <td><strong>STATO CIVILE</strong></td>
+            <td><span class="checkbox">☐</span> Coniugata <span class="checkbox">☐</span> Convivente <span class="checkbox">☐</span> Single</td>
+        </tr>
+        <tr>
+            <td><strong>INDIRIZZO</strong></td>
+            <td>[PAZIENTE_RESIDENZA], [PAZIENTE_CITTA]</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th colspan="2">DATI IDENTIFICATIVI DEL PARTNER (se presente)</th>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><strong>COGNOME E NOME</strong></td>
+            <td>[PARTNER_NOME]</td>
+        </tr>
+        <tr>
+            <td><strong>LUOGO E DATA DI NASCITA</strong></td>
+            <td>[PARTNER_LUOGO_NASCITA], [PARTNER_DATA_NASCITA]</td>
+        </tr>
+        <tr>
+            <td><strong>CODICE FISCALE</strong></td>
+            <td>[PARTNER_CF]</td>
+        </tr>
+    </table>
+
+    <div class="legal-box">
+        <p><strong>PREMESSE LEGALI</strong></p>
+        <p>
+            La Legge 40/2004 e successive modificazioni stabilisce che l'accesso alle tecniche di 
+            procreazione medicalmente assistita è consentito a coppie di maggiorenni, di sesso diverso, 
+            coniugate o conviventi, in età potenzialmente fertile, entrambi viventi.
+        </p>
+        <p>
+            In caso di impossibilità del partner maschile a essere presente durante alcune fasi 
+            del trattamento, è necessario acquisire il consenso specifico per le procedure che 
+            verranno eseguite in sua assenza.
+        </p>
+    </div>
+
+    <div class="section-title">MOTIVO DELL'ASSENZA</div>
+
+    <table>
+        <tr>
+            <th>MOTIVO DELL'ASSENZA DEL PARTNER</th>
+            <th style="width: 100px;">SELEZIONE</th>
+        </tr>
+        <tr>
+            <td>Impegni lavorativi non rimandabili</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Residenza in altra città/regione/paese</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Problemi di salute che impediscono la presenza</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Servizio militare o civile</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Altri motivi (specificare): _________________________</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">PROCEDURE AUTORIZZATE IN ASSENZA DEL PARTNER</div>
+
+    <table>
+        <tr>
+            <th>PROCEDURA</th>
+            <th style="width: 100px;">AUTORIZZAZIONE</th>
+        </tr>
+        <tr>
+            <td>Visite ginecologiche di controllo e monitoraggio</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Ecografie di monitoraggio follicolare</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Prelievi ematici per dosaggi ormonali</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Somministrazione di farmaci per stimolazione ovarica</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Prelievo ovocitario (pick-up)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Inseminazione intrauterina (IUI)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Trasferimento embrionario (ET)</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Crioconservazione di gameti/embrioni</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Scongelamento e trasferimento di embrioni crioconservati</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">DICHIARAZIONI DELLA PAZIENTE</div>
+
+    <p>
+        La sottoscritta <span class="placeholder">[PAZIENTE_NOME]</span> dichiara:
+    </p>
+
+    <table>
+        <tr>
+            <th>DICHIARAZIONE</th>
+            <th style="width: 80px;">CONFERMA</th>
+        </tr>
+        <tr>
+            <td>Di essere pienamente consapevole delle procedure di PMA a cui verrà sottoposta</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di aver ottenuto il consenso scritto del partner per tutte le procedure autorizzate</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di essere in grado di prendere decisioni autonome riguardo al trattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di impegnarsi a informare tempestivamente il partner di tutti gli sviluppi del trattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di sollevare il centro da ogni responsabilità derivante dall'assenza del partner</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">CONSENSO DEL PARTNER (obbligatorio)</div>
+
+    <p>
+        Il sottoscritto <span class="placeholder">[PARTNER_NOME]</span>, 
+        partner della paziente sopra identificata, dichiara:
+    </p>
+
+    <table>
+        <tr>
+            <th>DICHIARAZIONE DEL PARTNER</th>
+            <th style="width: 80px;">CONFERMA</th>
+        </tr>
+        <tr>
+            <td>Di essere impossibilitato a essere presente durante le procedure indicate</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di autorizzare espressamente l'esecuzione delle procedure in mia assenza</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di delegare alla partner ogni decisione relativa al trattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di essere pienamente consapevole dei rischi e benefici del trattamento</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+        <tr>
+            <td>Di sollevare il centro da ogni responsabilità derivante dalla mia assenza</td>
+            <td style="text-align: center;"><span class="checkbox">☐</span></td>
+        </tr>
+    </table>
+
+    <div class="section-title">DOCUMENTAZIONE AGGIUNTIVA</div>
+
+    <p>
+        <strong>Il partner allega alla presente dichiarazione:</strong>
+    </p>
+
+    <table>
+        <tr>
+            <td><span class="checkbox">☐</span> Copia del documento di identità</td>
+            <td><span class="checkbox">☐</span> Certificazione medica (se applicabile)</td>
+        </tr>
+        <tr>
+            <td><span class="checkbox">☐</span> Dichiarazione del datore di lavoro (se applicabile)</td>
+            <td><span class="checkbox">☐</span> Altro: _________________________</td>
+        </tr>
+    </table>
+
+    <div class="legal-box">
+        <p><strong>VALIDITÀ DEL CONSENSO</strong></p>
+        <p>
+            Il presente consenso è valido per il ciclo di trattamento specificato e deve essere 
+            rinnovato per ogni nuovo ciclo. La paziente può revocare il consenso in qualsiasi 
+            momento comunicandolo per iscritto al centro.
+        </p>
+    </div>
+
+    <div class="signature-section">
+        <table>
+            <tr>
+                <th>FIRME</th>
+                <th style="width: 200px;">PAZIENTE</th>
+                <th style="width: 200px;">PARTNER</th>
+                <th style="width: 200px;">MEDICO</th>
+            </tr>
+            <tr>
+                <td><strong>Nome</strong></td>
+                <td>[PAZIENTE_NOME]</td>
+                <td>[PARTNER_NOME]</td>
+                <td>[MEDICO_NOME]</td>
+            </tr>
+            <tr style="height: 50px;">
+                <td><strong>Firma</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Data</strong></td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+                <td>[DATA_ODIERNA]</td>
+            </tr>
+            <tr>
+                <td><strong>Luogo di firma</strong></td>
+                <td>______________________</td>
+                <td>______________________</td>
+                <td>Centro Biofertility</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 9px; text-align: center;">
+        <p><strong>NOTA:</strong> In caso di urgenze mediche durante il trattamento, il centro è autorizzato a prendere tutte le decisioni necessarie per la salvaguardia della salute della paziente.</p>
+    </div>
+</body>
+</html>
